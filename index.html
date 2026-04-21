@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ==========================================
+         HEAD SECTION STARTING
+         ========================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIRDS High School | Muthyalapadu</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Roboto Slab and Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;800&family=Outfit:wght@800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto Slab', 'serif'],
+                        slab: ['Roboto Slab', 'serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        birds: {
+                            blue: '#0046ad',
+                            dark: '#002d70',
+                            gold: '#facc15',
+                            light: '#f8fafc',
+                            deep: '#000c24'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- ==========================================
+         HEAD SECTION ENDING
+         ========================================== -->
+
+    <!-- ==========================================
+         CSS CODE STARTING
+         ========================================== -->
+    <style>
+        /* Fixed Header with High Visibility */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            min-height: 95px; 
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+        }
+        
+        /* HD 3D Logo Styling */
+        .logo-3d {
+            filter: drop-shadow(0 8px 6px rgba(0, 70, 173, 0.2));
+            width: 65px;
+            height: 65px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Clean Navigation Link Styling (No Boxes) */
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 8px; /* Compact font size */
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            color: #475569;
+            cursor: pointer;
+            background: transparent;
+            padding: 8px 10px;
+            position: relative;
+        }
+
+        @media (min-width: 1280px) {
+            .nav-link { font-size: 9px; padding: 10px 12px; }
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #0046ad;
+            transform: translateY(-2px);
+        }
+
+        /* PNG Icons (Replaces Emojis) */
+        .header-icon-img {
+            width: 18px; /* Decreased icon size */
+            height: 18px;
+            margin-bottom: 3px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        /* Dropdown Menu - PAGE FRONT SIDE Logic */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+            box-shadow: 0 25px 60px rgba(0, 70, 173, 0.2);
+            padding: 0.6rem; 
+            min-width: 190px;
+            z-index: 10001; /* Highest priority to stay on front */
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Dropdown Item with Chevron Arrow only */
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.4rem 0.6rem;
+            font-size: 9px;
+            font-weight: 700;
+            color: #64748b;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            gap: 8px;
+        }
+
+        .dropdown-item:hover {
+            background: #f8fafc;
+            color: #0046ad;
+            transform: translateX(4px);
+        }
+
+        /* Clean Arrow Logic */
+        .dropdown-item i {
+            width: 8px;
+            height: 8px;
+            stroke-width: 4px;
+            color: #0046ad;
+        }
+
+        .scroll-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            flex-grow: 1;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .scroll-wrapper::-webkit-scrollbar { display: none; }
+
+        /* Footer Headline Styles */
+        .footer-headline {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .footer-underline {
+            height: 2px;
+            width: 25px;
+            background: #facc15;
+            margin-bottom: 15px;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 5px;
+            transition: all 0.2s ease;
+            gap: 6px;
+        }
+
+        .footer-link:hover { color: #facc15; transform: translateX(3px); }
+        .footer-link i { width: 9px; height: 9px; stroke-width: 4px; }
+    </style>
+    <!-- ==========================================
+         CSS CODE ENDING
+         ========================================== -->
+</head>
+<body class="font-slab bg-birds-light">
+
+    <!-- ==========================================
+         BODY SECTION STARTING
+         ========================================== -->
+    <header class="glass-nav border-b border-slate-200">
+        <nav class="w-full flex items-center justify-between px-4">
+            
+            <!-- Logo & Branding -->
+            <div class="flex items-center space-x-3 flex-shrink-0">
+                <div class="cursor-pointer" onclick="window.location.reload()">
+                    <img src="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png" alt="BIRDS Logo" class="logo-3d">
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="font-outfit font-extrabold text-xl sm:text-2xl text-birds-blue leading-none tracking-tighter">BIRDS High School</h1>
+                    <p class="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-tight text-slate-500 font-slab mt-1">MUTYALPADU, cHGALAMRRY(M), NANDYAL-AP</p>
+                </div>
+            </div>
+
+            <!-- Header Navigation with Link Icons -->
+            <div class="scroll-wrapper">
+                <div class="flex items-center space-x-1">
+                
+                    <!-- Home -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'h-list', this)">
+                        <img src="https://img.icons8.com/color/48/home.png" class="header-icon-img">Home
+                        <div id="h-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Overview</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Latest Updates</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Announcements</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Highlights</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Testimonials</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Quick Links</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>News & Events</a>
+                        </div>
+                    </div>
+
+                    <!-- About -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'a-list', this)">
+                        <img src="https://img.icons8.com/color/48/info--v1.png" class="header-icon-img">About
+                        <div id="a-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>About Us</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Vision & Mission</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Chairman's Message</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Director's Message</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Our History</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Infrastructure</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Achievements</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Affiliations</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Policies</a>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 's-list', this)">
+                        <img src="https://img.icons8.com/color/48/services.png" class="header-icon-img">Services
+                        <div id="s-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Academic Programs</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Coaching Classes</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Online Learning</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Career Guidance</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Counseling</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Hostel Facility</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Transportation</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Scholarship Support</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Library Services</a>
+                        </div>
+                    </div>
+
+                    <!-- Projects -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'p-list', this)">
+                        <img src="https://img.icons8.com/color/48/opened-folder.png" class="header-icon-img">Projects
+                        <div id="p-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Projects</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Research Projects</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Live Projects</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Internship Programs</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Innovation Lab</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Science Exhibitions</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Competitions</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Project Gallery</a>
+                        </div>
+                    </div>
+
+                    <!-- Students -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'st-list', this)">
+                        <img src="https://img.icons8.com/color/48/student-male--v1.png" class="header-icon-img">Students
+                        <div id="st-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Portal</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Academic Calendar</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Syllabus</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Exam Schedule</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Results</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Attendance</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Clubs & Activities</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Support</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Code of Conduct</a>
+                        </div>
+                    </div>
+
+                    <!-- Rankers -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'r-list', this)">
+                        <img src="https://img.icons8.com/color/48/trophy.png" class="header-icon-img">Rankers
+                        <div id="r-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Top Rankers</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Year-wise Toppers</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>State Rankers</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>District Rankers</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Success Stories</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Alumni Achievements</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Merit List</a>
+                        </div>
+                    </div>
+
+                    <!-- Staff -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'stf-list', this)">
+                        <img src="https://img.icons8.com/color/48/teacher.png" class="header-icon-img">Staff
+                        <div id="stf-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Teaching Staff</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Non-Teaching Staff</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Departments</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Staff Achievements</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Recruitment</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Training Programs</a>
+                        </div>
+                    </div>
+
+                    <!-- Careers -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'c-list', this)">
+                        <img src="https://img.icons8.com/color/48/briefcase.png" class="header-icon-img">Careers
+                        <div id="c-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Job Openings</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Apply Online</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Internship Opportunities</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Work Culture</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Employee Benefits</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>HR Policies</a>
+                        </div>
+                    </div>
+
+                    <!-- Admission -->
+                    <div class="nav-link text-birds-blue font-black" onclick="toggleDropdown(event, 'adm-list', this)">
+                        <img src="https://img.icons8.com/color/48/edit-property.png" class="header-icon-img">Admission
+                        <div id="adm-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Admission Process</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Courses Offered</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Eligibility Criteria</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Fee Structure</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Apply Now</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Download Prospectus</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Important Dates</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>FAQs</a>
+                        </div>
+                    </div>
+
+                    <!-- Gallery -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'g-list', this)">
+                        <img src="https://img.icons8.com/color/48/stack-of-photos.png" class="header-icon-img">Gallery
+                        <div id="g-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Photo Gallery</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Video Gallery</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Events</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Campus Tour</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Achievements Gallery</a>
+                        </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'ct-list', this)">
+                        <img src="https://img.icons8.com/color/48/phone.png" class="header-icon-img">Contact
+                        <div id="ct-list" class="dropdown-menu">
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Contact Us</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Location Map</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Enquiry Form</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Support</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Help Desk</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Feedback</a>
+                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Social Media Links</a>
+                        </div>
+                    </div>
+
+                    <!-- Login -->
+                    <div class="flex-shrink-0 pl-2">
+                        <button class="bg-birds-blue text-white px-5 py-2.5 rounded-lg hover:bg-birds-dark transition-all text-[10px] font-extrabold uppercase shadow-[0_4px_10px_rgba(0,70,173,0.3)]">
+                            <img src="https://img.icons8.com/color/48/lock-landscape.png" class="inline-block w-4 h-4 mr-1"> LOGIN
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="h-screen flex items-center justify-center pt-24 bg-birds-light">
+        <div class="text-center px-6">
+            <h2 class="text-birds-blue font-outfit text-5xl uppercase tracking-tighter mb-4">Icons Fixed</h2>
+            <div class="space-y-2">
+                <p class="text-slate-500 font-slab font-bold uppercase tracking-widest text-sm">PNG Icon Links Implemented • Front Side Dropdowns Active</p>
+                <p class="text-slate-400 font-slab uppercase tracking-[0.2em] animate-pulse text-[11px]">
+                    Menu overlays the front of the page without shifting content
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6 Column Comprehensive Footer -->
+    <footer class="bg-birds-deep text-white pt-20 pb-0">
+        <div class="w-full px-6 lg:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 mb-20">
+            
+            <!-- Column 1 -->
+            <div>
+                <h4 class="footer-headline">School Profile</h4>
+                <div class="footer-underline"></div>
+                <div class="flex flex-col">
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>About Us</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Vision & Mission</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Chairman's Message</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Director's Message</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Our History</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Infrastructure</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Achievements</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Affiliations</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Policies</a>
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div>
+                <h4 class="footer-headline">Academic Core</h4>
+                <div class="footer-underline"></div>
+                <div class="flex flex-col">
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Academic Programs</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Coaching Classes</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Online Learning</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Career Guidance</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Counseling</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Hostel Facility</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Transportation</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Scholarships</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Library Services</a>
+                </div>
+            </div>
+
+            <!-- Column 3 -->
+            <div>
+                <h4 class="footer-headline">Student Zone</h4>
+                <div class="footer-underline"></div>
+                <div class="flex flex-col">
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Student Portal</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Academic Calendar</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Syllabus & Notes</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Exam Schedule</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Results & Grading</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Attendance</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Clubs & Activities</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Support</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Code of Conduct</a>
+                </div>
+            </div>
+
+            <!-- Column 4 -->
+            <div>
+                <h4 class="footer-headline">Admissions</h4>
+                <div class="footer-underline"></div>
+                <div class="flex flex-col">
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Process</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Courses Offered</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Eligibility</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Fee Structure</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Apply Now</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Download Prospectus</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Important Dates</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>FAQs</a>
+                </div>
+            </div>
+
+            <!-- Column 5 -->
+            <div>
+                <h4 class="footer-headline">Staff & Careers</h4>
+                <div class="footer-underline"></div>
+                <div class="flex flex-col">
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Teaching Staff</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Non-Teaching</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Departments</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Job Openings</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Work Culture</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Benefits</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>HR Policies</a>
+                </div>
+            </div>
+
+            <!-- Column 6 -->
+            <div>
+                <h4 class="footer-headline">Media & Help</h4>
+                <div class="footer-underline"></div>
+                <div class="flex flex-col">
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Photo Gallery</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Video Gallery</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Campus Tour</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Contact Us</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Location Map</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Enquiry Form</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Social Links</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright Bar -->
+        <div class="bg-black/40 border-t border-white/5 py-8">
+            <div class="w-full px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center space-x-4">
+                    <img src="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png" class="w-10 h-10 object-contain">
+                    <div class="text-left">
+                        <span class="block font-outfit font-black text-sm uppercase tracking-widest leading-none">BIRDS High School</span>
+                        <span class="block text-[9px] font-bold text-birds-gold uppercase tracking-tighter mt-1">Muthyalapadu, AP, India</span>
+                    </div>
+                </div>
+                
+                <p class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-slate-500 text-center">
+                    © 2010 - 2026 BIRDS High School. ALL RIGHTS RESERVED.
+                </p>
+
+                <div class="flex items-center space-x-6">
+                    <i data-lucide="facebook" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
+                    <i data-lucide="instagram" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
+                    <i data-lucide="youtube" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ==========================================
+         BODY SECTION ENDING
+         ========================================== -->
+
+    <!-- ==========================================
+         SCRIPT CODE STARTING
+         ========================================== -->
+    <script>
+        lucide.createIcons();
+
+        function toggleDropdown(e, menuId, element) {
+            e.stopPropagation();
+            const allMenus = document.querySelectorAll('.dropdown-menu');
+            const allLinks = document.querySelectorAll('.nav-link');
+            const targetMenu = document.getElementById(menuId);
+            const isShowing = targetMenu.classList.contains('show');
+            
+            // Clear others
+            allMenus.forEach(menu => menu.classList.remove('show'));
+            allLinks.forEach(link => link.classList.remove('active'));
+            
+            // Show selected
+            if (!isShowing) {
+                targetMenu.classList.add('show');
+                element.classList.add('active');
+            }
+        }
+
+        // Close on outside click
+        window.onclick = function(event) {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+        }
+    </script>
+    <!-- ==========================================
+         SCRIPT CODE ENDING
+         ========================================== -->
+</body>
+</html>

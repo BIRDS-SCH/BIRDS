@@ -1,397 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ==========================================
-         HEAD SECTION STARTING
-         ========================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIRDS High School | Muthyalapadu</title>
-    
-    <!-- Favicon -->
+    <title>BIRDS</title>
     <link rel="icon" type="image/png" href="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Roboto Slab and Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;800&family=Outfit:wght@800&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;800&family=Outfit:wght@800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Roboto Slab', 'serif'],
-                        slab: ['Roboto Slab', 'serif'],
+                    fontFamily: { 
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'], 
+                        slab: ['Roboto Slab', 'serif'], 
                         outfit: ['Outfit', 'sans-serif'],
+                        merri: ['Merriweather', 'serif']
                     },
-                    colors: {
-                        birds: {
-                            blue: '#0046ad',
-                            dark: '#002d70',
-                            gold: '#facc15',
-                            light: '#f8fafc',
-                            deep: '#000c24'
-                        }
+                    colors: { 
+                        birds: { blue: '#0046ad', dark: '#002d70', gold: '#facc15', light: '#f8fafc', deep: '#000c24' } 
                     }
                 }
             }
         }
     </script>
-    <!-- ==========================================
-         HEAD SECTION ENDING
-         ========================================== -->
 
-    <!-- ==========================================
-         CSS CODE STARTING
-         ========================================== -->
     <style>
-        /* Fixed Header with High Visibility */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            min-height: 95px; 
-            display: flex;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10000;
-        }
+        body { -webkit-font-smoothing: antialiased; }
         
-        /* HD 3D Logo Styling */
-        .logo-3d {
-            filter: drop-shadow(0 8px 6px rgba(0, 70, 173, 0.2));
-            width: 65px;
-            height: 65px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Clean Navigation Link Styling (No Boxes) */
-        .nav-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 8px; /* Compact font size */
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.01em;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            color: #475569;
-            cursor: pointer;
-            background: transparent;
-            padding: 8px 10px;
-            position: relative;
-        }
-
-        @media (min-width: 1280px) {
-            .nav-link { font-size: 9px; padding: 10px 12px; }
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: #0046ad;
-            transform: translateY(-2px);
-        }
-
-        /* PNG Icons (Replaces Emojis) */
-        .header-icon-img {
-            width: 18px; /* Decreased icon size */
-            height: 18px;
-            margin-bottom: 3px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-
-        /* Dropdown Menu - PAGE FRONT SIDE Logic */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: #ffffff;
-            border: 1px solid #f1f5f9;
-            border-radius: 1rem;
-            box-shadow: 0 25px 60px rgba(0, 70, 173, 0.2);
-            padding: 0.6rem; 
-            min-width: 190px;
-            z-index: 10001; /* Highest priority to stay on front */
-            display: none;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .dropdown-menu.show {
-            display: block;
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-            pointer-events: auto;
-        }
-
-        /* Dropdown Item with Chevron Arrow only */
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            padding: 0.4rem 0.6rem;
-            font-size: 9px;
-            font-weight: 700;
-            color: #64748b;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            gap: 8px;
-        }
-
-        .dropdown-item:hover {
-            background: #f8fafc;
-            color: #0046ad;
-            transform: translateX(4px);
-        }
-
-        /* Clean Arrow Logic */
-        .dropdown-item i {
-            width: 8px;
-            height: 8px;
-            stroke-width: 4px;
-            color: #0046ad;
-        }
-
-        .scroll-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            flex-grow: 1;
-            overflow-x: auto;
+        /* Hide scrollbar but allow scrolling */
+        html {
+            -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .glass-nav { 
+            background: rgba(255, 255, 255, 0.98); 
+            backdrop-filter: blur(25px); 
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); 
+            min-height: 95px; 
+            display: flex; 
+            align-items: center; 
+            position: relative; /* Changed from sticky to relative to scroll with page */
+            z-index: 10000; 
+        }
+        .logo-3d { filter: drop-shadow(0 8px 6px rgba(0, 70, 173, 0.2)); width: 65px; height: 65px; transition: transform 0.3s ease; }
+        .logo-3d:hover { transform: scale(1.05); }
+        .nav-link { display: flex; flex-direction: column; align-items: center; font-size: 8.2px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; transition: all 0.2s ease; white-space: nowrap; color: #475569; cursor: pointer; padding: 8px 10px; background: transparent; position: relative; }
+        @media (min-width: 1280px) { .nav-link { font-size: 9.2px; padding: 10px 12px; } }
+        .nav-link:hover, .nav-link.active { color: #0046ad; transform: translateY(-2px); }
+        .header-icon-img { width: 18px; height: 18px; margin-bottom: 3px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 30px 60px rgba(0, 70, 173, 0.25); padding: 0.6rem; min-width: 200px; z-index: 99999; display: none; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .dropdown-menu.show { display: block; opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+        .dropdown-item { display: flex; align-items: center; padding: 0.4rem 0.6rem; font-size: 9px; font-weight: 700; color: #64748b; border-radius: 0.5rem; transition: all 0.2s ease; white-space: nowrap; gap: 8px; }
+        .dropdown-item:hover { background: #f8fafc; color: #0046ad; transform: translateX(4px); }
+        .dropdown-item i { width: 8px; height: 8px; stroke-width: 4px; color: #0046ad; }
+        .scroll-wrapper { display: flex; justify-content: flex-end; flex-grow: 1; overflow-x: auto; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
-
-        /* Footer Headline Styles */
-        .footer-headline {
-            font-family: 'Roboto Slab', serif;
-            font-weight: 800;
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #ffffff;
-            margin-bottom: 6px;
-        }
-
-        .footer-underline {
-            height: 2px;
-            width: 25px;
-            background: #facc15;
-            margin-bottom: 15px;
-        }
-
-        .footer-link {
-            display: flex;
-            align-items: center;
-            font-size: 9px;
-            font-weight: 600;
-            color: #94a3b8;
-            margin-bottom: 5px;
-            transition: all 0.2s ease;
-            gap: 6px;
-        }
-
+        .footer-headline { font-family: 'Roboto Slab', serif; font-weight: 800; font-size: 11.5px; text-transform: uppercase; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .footer-headline i { width: 14px; height: 14px; color: #facc15; }
+        .footer-underline { height: 2.5px; width: 30px; background: #facc15; margin-bottom: 15px; border-radius: 2px; }
+        .footer-link { display: flex; align-items: center; font-size: 9.5px; font-weight: 600; color: #94a3b8; margin-bottom: 6px; transition: all 0.2s ease; gap: 6px; cursor: pointer; }
         .footer-link:hover { color: #facc15; transform: translateX(3px); }
         .footer-link i { width: 9px; height: 9px; stroke-width: 4px; }
+        .leader-card { transition: transform 0.3s ease; }
+        .profile-img { width: 125px; height: 155px; object-fit: cover; border-radius: 1rem; border: 3px solid #ffffff; object-position: top; transition: all 0.3s ease; }
+        .sir-img { box-shadow: 0 0 0 2px #dbeafe, 0 15px 30px -10px rgba(59, 130, 246, 0.3); }
+        .madam-img { box-shadow: 0 0 0 2px #f3e8ff, 0 15px 30px -10px rgba(168, 85, 247, 0.3); }
+        .message-box { position: relative; }
+        .message-box::before { content: '"'; position: absolute; top: -12px; left: -6px; font-size: 50px; color: #f1f5f9; font-family: serif; z-index: -1; }
+        .banner-image { width: 100%; height: 80px; object-fit: fill; display: block; }
+        .icon-3d { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); transition: transform 0.3s ease; }
+        .icon-3d:hover { transform: translateY(-5px) scale(1.1); }
+        .stylish-text { background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
-    <!-- ==========================================
-         CSS CODE ENDING
-         ========================================== -->
 </head>
-<body class="font-slab bg-birds-light">
+<body class="bg-white">
 
-    <!-- ==========================================
-         BODY SECTION STARTING
-         ========================================== -->
+    <!-- STICKY NAVIGATION (Now scrolls with page) -->
     <header class="glass-nav border-b border-slate-200">
         <nav class="w-full flex items-center justify-between px-4">
-            
-            <!-- Logo & Branding -->
             <div class="flex items-center space-x-3 flex-shrink-0">
                 <div class="cursor-pointer" onclick="window.location.reload()">
                     <img src="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png" alt="BIRDS Logo" class="logo-3d">
                 </div>
-                <div class="hidden md:block">
+                <div class="hidden md:block text-left">
                     <h1 class="font-outfit font-extrabold text-xl sm:text-2xl text-birds-blue leading-none tracking-tighter">BIRDS High School</h1>
-                    <p class="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-tight text-slate-500 font-slab mt-1">MUTYALPADU, cHGALAMRRY(M), NANDYAL-AP</p>
+                    <p class="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-tight text-slate-500 font-slab mt-1">MUTYALPADU, CHGALAMRRY(M), NANDYAL-AP</p>
                 </div>
             </div>
-
-            <!-- Header Navigation with Link Icons -->
             <div class="scroll-wrapper">
                 <div class="flex items-center space-x-1">
-                
-                    <!-- Home -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'h-list', this)">
-                        <img src="https://img.icons8.com/color/48/home.png" class="header-icon-img">Home
-                        <div id="h-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Overview</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Latest Updates</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Announcements</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Highlights</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Testimonials</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Quick Links</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>News & Events</a>
-                        </div>
-                    </div>
-
-                    <!-- About -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'a-list', this)">
-                        <img src="https://img.icons8.com/color/48/info--v1.png" class="header-icon-img">About
-                        <div id="a-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>About Us</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Vision & Mission</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Chairman's Message</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Director's Message</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Our History</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Infrastructure</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Achievements</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Affiliations</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Policies</a>
-                        </div>
-                    </div>
-
-                    <!-- Services -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 's-list', this)">
-                        <img src="https://img.icons8.com/color/48/services.png" class="header-icon-img">Services
-                        <div id="s-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Academic Programs</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Coaching Classes</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Online Learning</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Career Guidance</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Counseling</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Hostel Facility</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Transportation</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Scholarship Support</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Library Services</a>
-                        </div>
-                    </div>
-
-                    <!-- Projects -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'p-list', this)">
-                        <img src="https://img.icons8.com/color/48/opened-folder.png" class="header-icon-img">Projects
-                        <div id="p-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Projects</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Research Projects</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Live Projects</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Internship Programs</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Innovation Lab</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Science Exhibitions</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Competitions</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Project Gallery</a>
-                        </div>
-                    </div>
-
-                    <!-- Students -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'st-list', this)">
-                        <img src="https://img.icons8.com/color/48/student-male--v1.png" class="header-icon-img">Students
-                        <div id="st-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Portal</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Academic Calendar</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Syllabus</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Exam Schedule</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Results</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Attendance</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Clubs & Activities</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Support</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Code of Conduct</a>
-                        </div>
-                    </div>
-
-                    <!-- Rankers -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'r-list', this)">
-                        <img src="https://img.icons8.com/color/48/trophy.png" class="header-icon-img">Rankers
-                        <div id="r-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Top Rankers</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Year-wise Toppers</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>State Rankers</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>District Rankers</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Success Stories</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Alumni Achievements</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Merit List</a>
-                        </div>
-                    </div>
-
-                    <!-- Staff -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'stf-list', this)">
-                        <img src="https://img.icons8.com/color/48/teacher.png" class="header-icon-img">Staff
-                        <div id="stf-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Teaching Staff</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Non-Teaching Staff</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Departments</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Staff Achievements</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Recruitment</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Training Programs</a>
-                        </div>
-                    </div>
-
-                    <!-- Careers -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'c-list', this)">
-                        <img src="https://img.icons8.com/color/48/briefcase.png" class="header-icon-img">Careers
-                        <div id="c-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Job Openings</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Apply Online</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Internship Opportunities</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Work Culture</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Employee Benefits</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>HR Policies</a>
-                        </div>
-                    </div>
-
-                    <!-- Admission -->
-                    <div class="nav-link text-birds-blue font-black" onclick="toggleDropdown(event, 'adm-list', this)">
-                        <img src="https://img.icons8.com/color/48/edit-property.png" class="header-icon-img">Admission
-                        <div id="adm-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Admission Process</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Courses Offered</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Eligibility Criteria</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Fee Structure</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Apply Now</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Download Prospectus</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Important Dates</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>FAQs</a>
-                        </div>
-                    </div>
-
-                    <!-- Gallery -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'g-list', this)">
-                        <img src="https://img.icons8.com/color/48/stack-of-photos.png" class="header-icon-img">Gallery
-                        <div id="g-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Photo Gallery</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Video Gallery</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Events</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Campus Tour</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Achievements Gallery</a>
-                        </div>
-                    </div>
-
-                    <!-- Contact -->
-                    <div class="nav-link" onclick="toggleDropdown(event, 'ct-list', this)">
-                        <img src="https://img.icons8.com/color/48/phone.png" class="header-icon-img">Contact
-                        <div id="ct-list" class="dropdown-menu">
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Contact Us</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Location Map</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Enquiry Form</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Support</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Help Desk</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Feedback</a>
-                            <a class="dropdown-item"><i data-lucide="chevron-right"></i>Social Media Links</a>
-                        </div>
-                    </div>
-
-                    <!-- Login -->
+                    <div class="nav-link" onclick="toggleDropdown(event, 'h-drop', this)"><img src="https://img.icons8.com/color/48/home.png" class="header-icon-img">Home<div id="h-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Overview</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Highlights</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'a-drop', this)"><img src="https://img.icons8.com/color/48/info--v1.png" class="header-icon-img">About<div id="a-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>About Us</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Vision & Mission</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Chairman Message</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Our History</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 's-drop', this)"><img src="https://img.icons8.com/color/48/services.png" class="header-icon-img">Services<div id="s-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Academic Programs</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'p-drop', this)"><img src="https://img.icons8.com/color/48/opened-folder.png" class="header-icon-img">Projects<div id="p-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Projects</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'st-drop', this)"><img src="https://img.icons8.com/color/48/student-male--v1.png" class="header-icon-img">Students<div id="st-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Portal</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'rk-drop', this)"><img src="https://img.icons8.com/color/48/trophy.png" class="header-icon-img">Rankers<div id="rk-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Toppers</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'stf-drop', this)"><img src="https://img.icons8.com/color/48/teacher.png" class="header-icon-img">Staff<div id="stf-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Profiles</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'cr-drop', this)"><img src="https://img.icons8.com/color/48/briefcase.png" class="header-icon-img">Careers<div id="cr-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Job Openings</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'adm-drop', this)"><img src="https://img.icons8.com/color/48/edit-property.png" class="header-icon-img">Admission<div id="adm-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Process</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'gl-drop', this)"><img src="https://img.icons8.com/color/48/stack-of-photos.png" class="header-icon-img">Gallery<div id="gl-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Photos</a></div></div>
+                    <div class="nav-link" onclick="toggleDropdown(event, 'ct-drop', this)"><img src="https://img.icons8.com/color/48/phone.png" class="header-icon-img">Contact<div id="ct-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Location</a></div></div>
                     <div class="flex-shrink-0 pl-2">
-                        <button class="bg-birds-blue text-white px-5 py-2.5 rounded-lg hover:bg-birds-dark transition-all text-[10px] font-extrabold uppercase shadow-[0_4px_10px_rgba(0,70,173,0.3)]">
-                            <img src="https://img.icons8.com/color/48/lock-landscape.png" class="inline-block w-4 h-4 mr-1"> LOGIN
+                        <button class="bg-birds-blue text-white px-5 py-2.5 rounded-lg text-[10px] font-extrabold uppercase shadow-lg flex items-center">
+                            <img src="https://img.icons8.com/color/48/lock-landscape.png" class="w-4 h-4 mr-1"> LOGIN
                         </button>
                     </div>
                 </div>
@@ -399,137 +117,223 @@
         </nav>
     </header>
 
-    <!-- Main Content Area -->
-    <div class="h-screen flex items-center justify-center pt-24 bg-birds-light">
-        <div class="text-center px-6">
-            <h2 class="text-birds-blue font-outfit text-5xl uppercase tracking-tighter mb-4">Icons Fixed</h2>
-            <div class="space-y-2">
-                <p class="text-slate-500 font-slab font-bold uppercase tracking-widest text-sm">PNG Icon Links Implemented • Front Side Dropdowns Active</p>
-                <p class="text-slate-400 font-slab uppercase tracking-[0.2em] animate-pulse text-[11px]">
-                    Menu overlays the front of the page without shifting content
-                </p>
-            </div>
-        </div>
+    <!-- BANNER IMAGE (AFTER HEADER) -->
+    <div class="w-full overflow-hidden leading-[0]">
+        <img src="https://birds-sch.github.io/BIRDSIMG/HEADER_LINE_BG_IMAGE.png" alt="Header Line" class="banner-image">
     </div>
 
-    <!-- 6 Column Comprehensive Footer -->
-    <footer class="bg-birds-deep text-white pt-20 pb-0">
-        <div class="w-full px-6 lg:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 mb-20">
+    <main class="w-full px-6 py-8">
+        
+        <!-- SIDE-BY-SIDE HISTORY & MISSION/VISION -->
+        <div class="flex flex-col lg:flex-row lg:gap-0 border-b border-slate-100 pb-10 mb-8">
+            <div class="lg:w-3/5 lg:pr-12">
+                <div class="mb-4 border-l-4 border-blue-600 pl-4">
+                    <span class="block text-[8px] font-bold text-blue-600 uppercase tracking-widest mb-0.5">Established 2010</span>
+                    <h1 class="text-2xl md:text-4xl font-extrabold leading-none mb-0.5 stylish-text uppercase text-left">BIRDS High School</h1>
+                    <p class="text-[9px] text-gray-400 font-medium tracking-[0.3em] uppercase text-left">MUTHYALALAPADU</p>
+                </div>
+                <div class="text-[13px] text-gray-600 leading-relaxed text-justify">
+                    <p>
+                        BIRDS High School was founded in 2010 with an extraordinary vision and unwavering determination. What makes our beginning truly remarkable is the bold decision to prepare for 6 months and then launch with an ambitious 210 classes right from the start. This wasn't just optimism it was a testament to our founders' confidence in their educational philosophy and their commitment to serving the community. This extensive preparation period allowed us to build a solid foundation, recruit exceptional faculty, and create an environment where students could truly thrive. Today, over a decade later, that bold beginning has blossomed into a thriving educational institution that continues to set new standards in academic excellence and character development. Our journey from those initial 210 classes to becoming a cornerstone of education in Muthyalalapadu reflects our unwavering commitment to our students and community as we continue to nurture the leaders of tomorrow.
+                    </p>
+                </div>
+            </div>
+
+            <div class="hidden lg:block w-px bg-gray-200 self-stretch my-6"></div>
+
+            <!-- RIGHT SIDE MISSION/VISION WITH DECORATIVE LINES -->
+            <div class="lg:w-2/5 flex flex-col gap-6 lg:pl-12 py-4">
+                <div>
+                    <div class="flex items-center mb-1.5">
+                        <div class="w-5 h-5 bg-blue-600 rounded-sm flex items-center justify-center mr-2 text-white flex-shrink-0">
+                            <i data-lucide="target" class="w-3 h-3"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-blue-900 uppercase tracking-wide flex-shrink-0">Our Mission</h3>
+                        <!-- Decorative Line extending to border -->
+                        <div class="flex-grow h-px bg-slate-200 ml-4"></div>
+                    </div>
+                    <p class="text-gray-700 text-[15px] leading-relaxed pl-7">To provide quality education that nurtures intellectual curiosity, builds strong character, and prepares students to become responsible global citizens who contribute positively to society.</p>
+                </div>
+                <div>
+                    <div class="flex items-center mb-1.5">
+                        <div class="w-5 h-5 bg-emerald-600 rounded-sm flex items-center justify-center mr-2 text-white flex-shrink-0">
+                            <i data-lucide="eye" class="w-3 h-3"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wide flex-shrink-0">Our Vision</h3>
+                        <!-- Decorative Line extending to border -->
+                        <div class="flex-grow h-px bg-slate-200 ml-4"></div>
+                    </div>
+                    <p class="text-gray-700 text-[15px] leading-relaxed pl-7">To be a leading educational institution that sets benchmarks in academic excellence, character development, and holistic growth, creating future leaders who make a difference.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS SECTION ROW -->
+        <div class="flex flex-wrap justify-between items-start gap-4 mb-10 px-2">
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10 mb-2 icon-3d" alt="Students">
+                <span class="block text-xl font-bold text-blue-900 leading-none">900+</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Students</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Nurturing a diverse community of learners from various backgrounds.</p>
+            </div>
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/3429/3429433.png" class="w-10 h-10 mb-2 icon-3d" alt="Teachers">
+                <span class="block text-xl font-bold text-blue-900 leading-none">25+</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Teachers</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Exceptional faculty dedicated to academic and personal growth.</p>
+            </div>
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135679.png" class="w-10 h-10 mb-2 icon-3d" alt="Years">
+                <span class="block text-xl font-bold text-blue-900 leading-none">15+</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Years Exp.</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Over a decade of setting benchmarks in holistic education.</p>
+            </div>
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/4151/4151729.png" class="w-10 h-10 mb-2 icon-3d" alt="Happy">
+                <span class="block text-xl font-bold text-blue-900 leading-none">10,000+</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Happy Students</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Empowering thousands of alumni who contribute to society.</p>
+            </div>
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="w-10 h-10 mb-2 icon-3d" alt="Awards">
+                <span class="block text-xl font-bold text-blue-900 leading-none">50+</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Awards</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Recognizing our unwavering commitment to excellence.</p>
+            </div>
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/2602/2602414.png" class="w-10 h-10 mb-2 icon-3d" alt="Classrooms">
+                <span class="block text-xl font-bold text-blue-900">30+</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Classrooms</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Modern learning spaces designed to spark daily curiosity.</p>
+            </div>
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" class="w-10 h-10 mb-2 icon-3d" alt="Success">
+                <span class="block text-xl font-bold text-blue-900 leading-none">100%</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Success</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Consistent record of brilliance and student achievements.</p>
+            </div>
+            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+                <img src="https://cdn-icons-png.flaticon.com/512/2950/2950137.png" class="w-10 h-10 mb-2 icon-3d" alt="Activities">
+                <span class="block text-xl font-bold text-blue-900 leading-none">20+</span>
+                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Activities</span>
+                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Building future leaders through sports, arts, and clubs.</p>
+            </div>
+        </div>
+
+        <!-- LEADERSHIP SECTION -->
+        <div class="space-y-4 mb-16">
+            <section class="leader-card flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-10">
+                <div class="shrink-0 flex flex-col items-center text-center w-full lg:w-40">
+                    <img src="https://birds-sch.github.io/BIRDSIMG/BIRDS_PAUL_SIR.png" alt="Paul" class="profile-img sir-img mb-2">
+                    <h2 class="text-[11px] font-extrabold text-slate-900 tracking-tight leading-tight mt-1 uppercase">Respected Paul Raja Rao Valaperla Sir</h2>
+                    <p class="text-[8px] font-bold text-blue-600 uppercase tracking-widest mt-1">Chairman</p>
+                </div>
+                <div class="flex-1 message-box pt-2">
+                    <div class="border-l-4 border-blue-50 pl-6">
+                        <div class="text-slate-600 text-xs lg:text-[13px] leading-relaxed">
+                            <p class="font-medium text-slate-700">Since 2010, BIRDS High School has been dedicated to educational excellence and the holistic development of every student under our care. Our vision is to create a transformative environment that goes beyond textbooks to shape character and nurture the leaders of tomorrow. We believe every child possesses unique potential that we guide through innovative teaching and personalized mentorship. Our curriculum is carefully balanced to ensure academic rigor while fostering emotional, social, and spiritual growth. Signature initiatives like the 'Ojas' program celebrate individual achievements and build community pride within the BIRDS family. Beyond academic success, we instill a global perspective, encouraging students to become innovative thinkers and problem-solvers in an ever-evolving world. As we look forward, we remain steadfast in our values of integrity, excellence, and service, equipping students with the confidence to make a positive impact on the world. Together, we ensure our students have the foundations they need to soar to new heights of success and responsibility, carrying the school's legacy forward into a bright and promising future.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
-            <!-- Column 1 -->
+            <div class="h-px bg-slate-100 w-full opacity-40"></div>
+
+            <section class="leader-card flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-10">
+                <div class="flex-1 message-box order-2 lg:order-1 text-right pt-2">
+                    <div class="border-r-4 border-purple-50 pr-6">
+                        <div class="text-slate-600 text-xs lg:text-[13px] leading-relaxed">
+                            <p class="font-medium text-slate-700">As the Headmistress of BIRDS Schools, I am honored to lead an institution that prioritizes the transformation of young minds into responsible, compassionate citizens. Since 2014, my educational philosophy has been rooted in the belief that true learning extends far beyond the textbooks; it is about cultivating a deep sense of character, discipline, and social responsibility. At BIRDS, we are dedicated to fostering a nurturing environment where honesty, faith, and a profound love for lifelong learning are the cornerstones of every student's journey. Our holistic approach ensures that each child develops not only academically but also emotionally, socially, and spiritually, providing them with a secure space to explore their curiosity and build a strong foundation for their future. We actively encourage a strong partnership between parents and educators, recognizing that a unified support system is essential for a child's overall wellbeing and growth. Together with our dedicated team of educators, we work tirelessly to ensure that BIRDS remains a place where dreams take flight and every student's unique potential is identified and guided in the right direction, preparing them to face the challenges of the modern era with wisdom and grace.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="shrink-0 flex flex-col items-center text-center w-full lg:w-40 order-1 lg:order-2">
+                    <img src="https://birds-sch.github.io/BIRDSIMG/BIRDS_HM_SINDHURA_MEDAM.png" alt="Sindhura" class="profile-img madam-img mb-2">
+                    <h2 class="text-[11px] font-extrabold text-slate-900 tracking-tight leading-tight mt-1 uppercase">Respected V S S Sindhura Madam</h2>
+                    <p class="text-[8px] font-bold text-purple-600 uppercase tracking-wider mt-1">Headmistress</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="bg-birds-deep text-white pt-16">
+        <div class="w-full px-6 lg:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12 text-left">
             <div>
-                <h4 class="footer-headline">School Profile</h4>
+                <h4 class="footer-headline"><i data-lucide="school"></i>About School</h4>
                 <div class="footer-underline"></div>
                 <div class="flex flex-col">
                     <a class="footer-link"><i data-lucide="chevron-right"></i>About Us</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Vision & Mission</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Chairman's Message</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Director's Message</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Chairman Message</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Our History</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Infrastructure</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Achievements</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Affiliations</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Policies</a>
                 </div>
             </div>
-
-            <!-- Column 2 -->
             <div>
-                <h4 class="footer-headline">Academic Core</h4>
+                <h4 class="footer-headline"><i data-lucide="book-open"></i>Academic Core</h4>
                 <div class="footer-underline"></div>
                 <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Academic Programs</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Programs</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Coaching Classes</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Online Learning</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Career Guidance</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Counseling</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Hostel Facility</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Transportation</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Scholarships</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Library Services</a>
                 </div>
             </div>
-
-            <!-- Column 3 -->
             <div>
-                <h4 class="footer-headline">Student Zone</h4>
+                <h4 class="footer-headline"><i data-lucide="users"></i>Student Zone</h4>
                 <div class="footer-underline"></div>
                 <div class="flex flex-col">
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Student Portal</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Academic Calendar</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Syllabus & Notes</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Exam Schedule</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Results & Grading</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Attendance</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Clubs & Activities</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Support</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Code of Conduct</a>
                 </div>
             </div>
-
-            <!-- Column 4 -->
             <div>
-                <h4 class="footer-headline">Admissions</h4>
+                <h4 class="footer-headline"><i data-lucide="file-text"></i>Admissions</h4>
                 <div class="footer-underline"></div>
                 <div class="flex flex-col">
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Process</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Courses Offered</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Eligibility</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Fee Structure</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Apply Now</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Download Prospectus</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Important Dates</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>FAQs</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Apply Online</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Prospectus</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Eligibility</a>
                 </div>
             </div>
-
-            <!-- Column 5 -->
             <div>
-                <h4 class="footer-headline">Staff & Careers</h4>
+                <h4 class="footer-headline"><i data-lucide="briefcase"></i>Staff & Jobs</h4>
                 <div class="footer-underline"></div>
                 <div class="flex flex-col">
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Teaching Staff</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Non-Teaching</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Departments</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Job Openings</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Work Culture</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Benefits</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>HR Policies</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Benefits</a>
                 </div>
             </div>
-
-            <!-- Column 6 -->
             <div>
-                <h4 class="footer-headline">Media & Help</h4>
+                <h4 class="footer-headline"><i data-lucide="headphones"></i>Support</h4>
                 <div class="footer-underline"></div>
                 <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Photo Gallery</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Video Gallery</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Campus Tour</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Contact Us</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Location Map</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Enquiry Form</a>
+                    <a class="footer-link"><i data-lucide="chevron-right"></i>Feedback</a>
                     <a class="footer-link"><i data-lucide="chevron-right"></i>Social Links</a>
                 </div>
             </div>
         </div>
-
-        <!-- Copyright Bar -->
+        
         <div class="bg-black/40 border-t border-white/5 py-8">
             <div class="w-full px-10 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center space-x-4">
-                    <img src="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png" class="w-10 h-10 object-contain">
-                    <div class="text-left">
-                        <span class="block font-outfit font-black text-sm uppercase tracking-widest leading-none">BIRDS High School</span>
-                        <span class="block text-[9px] font-bold text-birds-gold uppercase tracking-tighter mt-1">Muthyalapadu, AP, India</span>
-                    </div>
+                    <img src="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png" class="w-10 h-10">
+                    <div class="text-left"><span class="block font-outfit font-black text-sm uppercase leading-none">BIRDS High School</span><span class="block text-[9px] font-bold text-birds-gold mt-1 uppercase tracking-tighter">Muthyalapadu, AP, India</span></div>
                 </div>
-                
-                <p class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-slate-500 text-center">
-                    © 2010 - 2026 BIRDS High School. ALL RIGHTS RESERVED.
-                </p>
-
+                <p class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-slate-500">© 2010 - 2026 BIRDS High School. ALL RIGHTS RESERVED.</p>
                 <div class="flex items-center space-x-6">
                     <i data-lucide="facebook" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
                     <i data-lucide="instagram" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
@@ -538,46 +342,23 @@
             </div>
         </div>
     </footer>
-    <!-- ==========================================
-         BODY SECTION ENDING
-         ========================================== -->
 
-    <!-- ==========================================
-         SCRIPT CODE STARTING
-         ========================================== -->
     <script>
         lucide.createIcons();
-
         function toggleDropdown(e, menuId, element) {
             e.stopPropagation();
             const allMenus = document.querySelectorAll('.dropdown-menu');
             const allLinks = document.querySelectorAll('.nav-link');
             const targetMenu = document.getElementById(menuId);
             const isShowing = targetMenu.classList.contains('show');
-            
-            // Clear others
             allMenus.forEach(menu => menu.classList.remove('show'));
             allLinks.forEach(link => link.classList.remove('active'));
-            
-            // Show selected
-            if (!isShowing) {
-                targetMenu.classList.add('show');
-                element.classList.add('active');
-            }
+            if (!isShowing) { targetMenu.classList.add('show'); element.classList.add('active'); }
         }
-
-        // Close on outside click
         window.onclick = function(event) {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('show');
-            });
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
+            document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
         }
     </script>
-    <!-- ==========================================
-         SCRIPT CODE ENDING
-         ========================================== -->
 </body>
 </html>

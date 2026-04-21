@@ -28,6 +28,161 @@
     </script>
 
     <style>
+	
+	
+        body {
+		            font-family: 'Roboto Slab', serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+        }
+        .rank-card {
+            transition: all 0.2s ease;
+        }
+        .rank-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+        }
+        .img-box {
+            border: 1px solid #e2e8f0;
+            aspect-ratio: 3 / 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+        .header-divider {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            width: 100%;
+        }
+        .header-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid;
+            opacity: 0.15;
+            margin-left: 0.5rem;
+        }
+
+        /* Updates List Style with Bell Icon */
+        .updates-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .updates-list li {
+            display: flex;
+            align-items: flex-start;
+            background: #ffffff;
+            padding: 5px 10px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1e293b;
+            border: 1px solid #f1f5f9;
+        }
+        .bell-icon {
+            color: #ef4444;
+            margin-right: 8px;
+            flex-shrink: 0;
+            animation: ring 2s ease infinite;
+            font-style: normal;
+			width: 12px; 
+    height: 12px;
+        }
+        @keyframes ring {
+            0% { transform: rotate(0); }
+            10% { transform: rotate(15deg); }
+            20% { transform: rotate(-15deg); }
+            30% { transform: rotate(10deg); }
+            40% { transform: rotate(-10deg); }
+            50% { transform: rotate(0); }
+            100% { transform: rotate(0); }
+        }
+
+        /* Slideshow Gallery Styles - Height Match Logic */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%; 
+            min-height: 0; 
+            overflow: hidden;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transform: scale(1.05);
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: #1e293b;
+            padding: 6px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .nav-btn:hover {
+            background: #ffffff;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .prev-btn { left: 8px; }
+        .next-btn { right: 8px; }
+
+        .info-card {
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .info-card:hover {
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            transform: translateY(-3px);
+        }
+        .icon-container {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            margin: 0 auto 8px auto;
+        }
+        .feature-list li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .feature-list li::before {
+            content: '?';
+            position: absolute;
+            left: 0;
+            font-weight: 900;
+            font-size: 0.75rem;
+        }
+	
+	
+	
         body { -webkit-font-smoothing: antialiased; }
         
         /* Hide scrollbar but allow scrolling */
@@ -255,6 +410,377 @@
             </section>
         </div>
     </main>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<body class="p-0">
+
+    <script>
+        // Global variables for images
+        const studentImg = "https://birds-sch.github.io/BIRDSIMG/EXAMPLE_STUDENT_IMAGE.png";
+        const slideImg = "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png";
+		        const bellIconLink = "https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png";
+
+		
+    </script>
+
+    <!-- UPDATES & GALLERY SECTION -->
+    <div class="w-full bg-white border-b border-slate-200">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-10 items-stretch">
+            
+            <!-- LEFT SIDE: NEW UPDATES (60%) -->
+            <div id="updatesContainer" class="md:col-span-6 p-3 bg-slate-50/50 flex flex-col">
+                <div class="mb-2">
+                    <h2 class="inline-block bg-blue-900 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">
+                        School News & New Updates
+                    </h2>
+                </div>
+                <ul class="updates-list">
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Admissions Open for the Academic Year 2026-27 (Nursery to Class 10).</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Final SSC Board Examination schedule has been released for Class 10.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Congratulations to our Sports Team for winning the Inter-School Championship.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> New Advanced Science Laboratory inaugurated for High School students.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Parent-Teacher Meeting (PTM) scheduled for this Friday at 4:00 PM.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Digital Library access is now available for all students via the school portal.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Special 'Green Earth' plantation drive to be held on coming Monday.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Robotics Workshop registrations are now open for Middle & High School.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Scholarship applications for merit students must be submitted by April 30th.</li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Summer Vacation will commence from June 1st, 2026.</li>
+                </ul>
+            </div>
+
+            <!-- RIGHT SIDE: SLIDESHOW GALLERY (40%) -->
+            <div class="md:col-span-4 p-3 border-l border-slate-100 flex flex-col bg-white overflow-hidden">
+                <div class="mb-2">
+                    <h2 class="inline-block bg-slate-800 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">
+                        Recent Programs Gallery
+                    </h2>
+                </div>
+                <!-- This container will exactly fill the space provided by the grid -->
+                <div class="flex-1 relative min-h-[200px]">
+                    <div id="slideshow" class="slideshow-container bg-slate-100">
+                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide active object-cover" alt="Event 1">
+                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(45deg); brightness: 1.1;" alt="Event 2">
+                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(90deg); contrast: 1.1;" alt="Event 3">
+                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(135deg); brightness: 0.9;" alt="Event 4">
+                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(180deg); sepia: 0.2;" alt="Event 5">
+                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(225deg);" alt="Event 6">
+
+                        <!-- Navigation Buttons -->
+                        <button id="prevBtn" class="nav-btn prev-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <button id="nextBtn" class="nav-btn next-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <p class="text-[9px] text-center text-slate-400 font-bold uppercase mt-2 tracking-widest">3s Interval • Manual Controls</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- TOPPER SECTION -->
+<div class="w-full px-4 md:px-8 space-y-6 mt-6">
+    
+    <section class="bg-blue-50/40 p-6 rounded-xl border border-blue-100 shadow-sm">
+        <div class="mb-6">
+            <h2 class="header-divider text-lg md:text-2xl font-black uppercase tracking-[0.15em] text-blue-900">
+                2026 YEAR - 10TH CLASS SCHOOL TOPPERS
+            </h2>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            <script>
+                const c10Toppers = [
+                    { name: "John Doe Smith", pct: "99.6%" },
+                    { name: "Sarah Johnson", pct: "99.0%" },
+                    { name: "Michael Brown", pct: "98.4%" },
+                    { name: "Emily Davis", pct: "97.8%" },
+                    { name: "Chris Wilson", pct: "97.2%" },
+                    { name: "Jessica Taylor", pct: "96.6%" },
+                    { name: "Daniel Martinez", pct: "96.0%" },
+                    { name: "Olivia Garcia", pct: "95.4%" }
+                ];
+                
+                document.write(c10Toppers.map((s, i) => `
+                    <div class="bg-white p-3 border border-blue-50 rounded-lg rank-card shadow-md hover:shadow-xl transition-all duration-300">
+                        <div class="img-box w-full mb-3 rounded-md overflow-hidden">
+                            <img src="${studentImg}" alt="${s.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] font-black text-blue-600 uppercase tracking-tighter">Rank #${i+1}</p>
+                            <h4 class="font-bold text-[11px] md:text-xs truncate leading-tight text-slate-800">${s.name}</h4>
+                            <p class="text-[8px] text-slate-300 font-mono mb-1">SSC10-00${i+1}</p>
+                            <p class="text-sm md:text-base font-black text-slate-900">${s.pct}</p>
+                        </div>
+                    </div>
+                `).join(''));
+            </script>
+        </div>
+    </section>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <script>
+            const otherClasses = [
+                { name: "9TH", color: "indigo", students: [{n:"Alex J.", p:"99.0%"}, {n:"Mia W.", p:"97.8%"}, {n:"Ethan H.", p:"96.6%"}, {n:"Sophia L.", p:"95.4%"}] },
+                { name: "8TH", color: "emerald", students: [{n:"Ryan C.", p:"99.0%"}, {n:"Grace M.", p:"97.8%"}, {n:"Noah W.", p:"96.6%"}, {n:"Lily C.", p:"95.4%"}] },
+                { name: "7TH", color: "orange", students: [{n:"Lucas S.", p:"99.0%"}, {n:"Ava R.", p:"97.8%"}, {n:"Oliver T.", p:"96.6%"}, {n:"Emma S.", p:"95.4%"}] },
+                { name: "6TH", color: "purple", students: [{n:"Ben B.", p:"99.0%"}, {n:"Chloe L.", p:"97.8%"}, {n:"Dan C.", p:"96.6%"}, {n:"Fiona A.", p:"95.4%"}] }
+            ];
+
+            document.write(otherClasses.map(c => `
+                <div class="bg-${c.color}-50/30 p-5 rounded-xl border border-${c.color}-100 shadow-sm">
+                    <div class="mb-4">
+                        <h3 class="header-divider text-sm md:text-lg font-black uppercase tracking-wider text-${c.color}-900">
+                            2026 YEAR - ${c.name} CLASS TOPPERS
+                        </h3>
+                    </div>
+                    <div class="grid grid-cols-4 gap-3">
+                        ${c.students.map((s, i) => `
+                            <div class="bg-white p-2 border border-${c.color}-50 rounded-lg rank-card text-center shadow-sm">
+                                <div class="img-box w-full mb-2 rounded shadow-inner">
+                                    <img src="${studentImg}" class="w-full h-full object-cover">
+                                </div>
+                                <p class="text-[9px] font-black text-${c.color}-600 uppercase">Rank #${i+1}</p>
+                                <p class="font-bold text-[10px] truncate text-slate-700">${s.n}</p>
+                                <p class="text-xs font-black text-slate-900 mt-1">${s.p}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join(''));
+        </script>
+    </div>
+</div>
+        </div>
+    </div>
+
+    <!-- WHY WE ARE SPECIAL (FULL WIDTH) -->
+    <section class="w-full mt-4 bg-slate-50 py-8 px-4 md:px-8 border-y border-slate-100">
+        <div class="w-full">
+            <div class="mb-6">
+                <h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Why We Are Special</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
+                    <div class="icon-container bg-blue-50 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    </div>
+                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Quality Education</h3>
+                    <p class="text-[11px] text-slate-500 leading-tight">Comprehensive curriculum designed to foster academic excellence and critical thinking.</p>
+                </div>
+                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
+                    <div class="icon-container bg-purple-50 text-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Experienced Faculty</h3>
+                    <p class="text-[11px] text-slate-500 leading-tight">Dedicated teachers with years of experience in nurturing young minds with care.</p>
+                </div>
+                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
+                    <div class="icon-container bg-emerald-50 text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Govt Recognition</h3>
+                    <p class="text-[11px] text-slate-500 leading-tight">Fully recognized by the Department of Education with proper national accreditation.</p>
+                </div>
+                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
+                    <div class="icon-container bg-orange-50 text-orange-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Dual Medium</h3>
+                    <p class="text-[11px] text-slate-500 leading-tight">Education offered in both English and Telugu to cater to diverse student needs.</p>
+                </div>
+                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
+                    <div class="icon-container bg-rose-50 text-rose-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Character Building</h3>
+                    <p class="text-[11px] text-slate-500 leading-tight">Focus on moral values and character development alongside standard academics.</p>
+                </div>
+                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
+                    <div class="icon-container bg-cyan-50 text-cyan-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 20.44l7.43-7.43.77-.78a5.4 5.4 0 0 0 0-7.65z"/></svg>
+                    </div>
+                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Holistic Dev</h3>
+                    <p class="text-[11px] text-slate-500 leading-tight">Balanced approach to intellectual, physical, emotional, and social development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACADEMIC JOURNEY (FULL WIDTH) -->
+    <section class="w-full bg-white py-8 px-4 md:px-8">
+        <div class="w-full">
+            <div class="mb-6">
+                <h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Academic Journey</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pre-Primary -->
+                <div class="p-6 bg-rose-50 border border-rose-100 rounded-lg">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 flex items-center justify-center bg-rose-200 text-rose-700 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><path d="M17 21v-2a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v2"/><path d="M12 11V7"/><path d="M7 3h10v4H7z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-black text-rose-900">Pre-Primary</h3>
+                            <p class="text-[10px] font-bold text-rose-600 uppercase tracking-widest">3-5 Years</p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-rose-800/80 mb-4 leading-relaxed font-semibold">Foundation years focusing on play-based learning and skills.</p>
+                    <ul class="feature-list text-[10px] font-bold text-rose-900/90 space-y-1">
+                        <li>Play-based Learning</li>
+                        <li>Creative Activities</li>
+                        <li>Basic Literacy & Numeracy</li>
+                        <li>Social Skills</li>
+                        <li>Art & Craft</li>
+                        <li>Story Telling</li>
+                    </ul>
+                </div>
+                <!-- Primary -->
+                <div class="p-6 bg-amber-50 border border-amber-100 rounded-lg">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 flex items-center justify-center bg-amber-200 text-amber-700 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-black text-amber-900">Primary</h3>
+                            <p class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">6-10 Years</p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-amber-800/80 mb-4 leading-relaxed font-semibold">Building academic foundations and core character values.</p>
+                    <ul class="feature-list text-[10px] font-bold text-amber-900/90 space-y-1">
+                        <li>Core Subject Mastery</li>
+                        <li>Value-based Education</li>
+                        <li>Co-curricular Activities</li>
+                        <li>Sports & Games</li>
+                        <li>Environmental Awareness</li>
+                        <li>Computer Basics</li>
+                    </ul>
+                </div>
+                <!-- Middle -->
+                <div class="p-6 bg-teal-50 border border-teal-100 rounded-lg">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 flex items-center justify-center bg-teal-200 text-teal-700 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-black text-teal-900">Middle School</h3>
+                            <p class="text-[10px] font-bold text-teal-600 uppercase tracking-widest">11-13 Years</p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-teal-800/80 mb-4 leading-relaxed font-semibold">Advanced learning and specialized subject knowledge.</p>
+                    <ul class="feature-list text-[10px] font-bold text-teal-900/90 space-y-1">
+                        <li>Advanced Curriculum</li>
+                        <li>Science Laboratory</li>
+                        <li>Language Development</li>
+                        <li>Leadership Training</li>
+                        <li>Project-based Learning</li>
+                        <li>Career Guidance</li>
+                    </ul>
+                </div>
+                <!-- High School -->
+                <div class="p-6 bg-indigo-50 border border-indigo-100 rounded-lg">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><rect x="2" y="9" width="4" height="12"/><rect x="18" y="9" width="4" height="12"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-black text-indigo-900">High School</h3>
+                            <p class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">14-15 Years</p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-indigo-800/80 mb-4 leading-relaxed font-semibold">Board exam preparation and career-oriented guidance.</p>
+                    <ul class="feature-list text-[10px] font-bold text-indigo-900/90 space-y-1">
+                        <li>Board Exam Prep</li>
+                        <li>Stream Selection Guidance</li>
+                        <li>Competitive Exam Training</li>
+                        <li>Skill Development</li>
+                        <li>Career Counseling</li>
+                        <li>Personality Development</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIAL PROGRAMS (FULL WIDTH) -->
+    <section class="w-full bg-slate-50 py-8 px-4 md:px-8 border-t border-slate-100">
+        <div class="w-full">
+            <div class="mb-6">
+                <h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Special Programs</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
+                    <div class="icon-container bg-blue-50 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Remedial Classes</h4>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Additional support for students who need extra help in specific subjects.</p>
+                </div>
+                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
+                    <div class="icon-container bg-emerald-50 text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 7-5-5-5 5"/><path d="M17 17l-5 5-5-5"/></svg>
+                    </div>
+                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Advanced Learning</h4>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Enrichment programs designed for academically gifted students.</p>
+                </div>
+                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
+                    <div class="icon-container bg-orange-50 text-orange-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.5a6.5 6.5 0 1 0-6.5-6.5 6.5 6.5 0 0 0 6.5 6.5z"/><path d="M12 12s-1.5 1-1.5 2.5a1.5 1.5 0 0 0 3 0c0-1.5-1.5-2.5-1.5-2.5z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Life Skills Education</h4>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Practical skills and values for holistic personality development.</p>
+                </div>
+                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
+                    <div class="icon-container bg-purple-50 text-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Activity-based Learning</h4>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Hands-on learning experiences through projects and activities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     <!-- FOOTER SECTION -->
     <footer class="bg-birds-deep text-white pt-16">
@@ -359,6 +885,51 @@
             document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
         }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides.forEach(s => s.classList.remove('active'));
+                if (index >= slides.length) currentSlide = 0;
+                else if (index < 0) currentSlide = slides.length - 1;
+                else currentSlide = index;
+                slides[currentSlide].classList.add('active');
+            }
+
+            function startAutoPlay() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(() => {
+                    showSlide(currentSlide + 1);
+                }, 3000);
+            }
+
+            if (nextBtn) nextBtn.addEventListener('click', () => { showSlide(currentSlide + 1); startAutoPlay(); });
+            if (prevBtn) prevBtn.addEventListener('click', () => { showSlide(currentSlide - 1); startAutoPlay(); });
+
+            startAutoPlay();
+        });
+		
+		
+		
+		
+		
+		
+		
+		
     </script>
 </body>
 </html>

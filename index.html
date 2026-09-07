@@ -1,935 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIRDS</title>
-    <link rel="icon" type="image/png" href="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;800&family=Outfit:wght@800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 
-                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'], 
-                        slab: ['Roboto Slab', 'serif'], 
-                        outfit: ['Outfit', 'sans-serif'],
-                        merri: ['Merriweather', 'serif']
-                    },
-                    colors: { 
-                        birds: { blue: '#0046ad', dark: '#002d70', gold: '#facc15', light: '#f8fafc', deep: '#000c24' } 
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIRDS</title>
+<link rel="icon" type="image/png" id="favIconLink">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;800&family=Outfit:wght@800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 
-    <style>
-	
-	
-        body {
-		            font-family: 'Roboto Slab', serif;
-            background-color: #f8fafc;
-            margin: 0;
-            padding: 0;
-        }
-        .rank-card {
-            transition: all 0.2s ease;
-        }
-        .rank-card:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-        }
-        .img-box {
-            border: 1px solid #e2e8f0;
-            aspect-ratio: 3 / 4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #ffffff;
-            overflow: hidden;
-        }
-        .header-divider {
-            display: flex;
-            align-items: center;
-            text-align: left;
-            width: 100%;
-        }
-        .header-divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid;
-            opacity: 0.15;
-            margin-left: 0.5rem;
-        }
+<!-- CM001 - Tailwind Setup -->
+<script>
+tailwind.config = { theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'], slab: ['Roboto Slab', 'serif'], outfit: ['Outfit', 'sans-serif'], merri: ['Merriweather', 'serif'] }, colors: { birds: { blue: '#0046ad', dark: '#002d70', gold: '#facc15', light: '#f8fafc', deep: '#000c24' } } } } }
+</script>
 
-        /* Updates List Style with Bell Icon */
-        .updates-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .updates-list li {
-            display: flex;
-            align-items: flex-start;
-            background: #ffffff;
-            padding: 5px 10px;
-            margin-bottom: 4px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #1e293b;
-            border: 1px solid #f1f5f9;
-        }
-        .bell-icon {
-            color: #ef4444;
-            margin-right: 8px;
-            flex-shrink: 0;
-            animation: ring 2s ease infinite;
-            font-style: normal;
-			width: 12px; 
-    height: 12px;
-        }
-        @keyframes ring {
-            0% { transform: rotate(0); }
-            10% { transform: rotate(15deg); }
-            20% { transform: rotate(-15deg); }
-            30% { transform: rotate(10deg); }
-            40% { transform: rotate(-10deg); }
-            50% { transform: rotate(0); }
-            100% { transform: rotate(0); }
-        }
+<style>
+/* CM002 - Global Body Styles */
+body { font-family: 'Roboto Slab', serif; background-color: #f8fafc; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 
-        /* Slideshow Gallery Styles - Height Match Logic */
-        .slideshow-container {
-            position: relative;
-            width: 100%;
-            height: 100%; 
-            min-height: 0; 
-            overflow: hidden;
-            border-radius: 6px;
-            border: 1px solid #e2e8f0;
-        }
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            transform: scale(1.05);
-        }
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            color: #1e293b;
-            padding: 6px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-        .nav-btn:hover {
-            background: #ffffff;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .prev-btn { left: 8px; }
-        .next-btn { right: 8px; }
+/* CM003 - Scrollbar Hiding */
+html { -ms-overflow-style: none; scrollbar-width: none; }
+::-webkit-scrollbar { display: none; }
 
-        .info-card {
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        .info-card:hover {
-            background-color: #ffffff;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            transform: translateY(-3px);
-        }
-        .icon-container {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            margin: 0 auto 8px auto;
-        }
-        .feature-list li {
-            position: relative;
-            padding-left: 1.25rem;
-            margin-bottom: 0.25rem;
-        }
-        .feature-list li::before {
-            content: '?';
-            position: absolute;
-            left: 0;
-            font-weight: 900;
-            font-size: 0.75rem;
-        }
-	
-	
-	
-        body { -webkit-font-smoothing: antialiased; }
-        
-        /* Hide scrollbar but allow scrolling */
-        html {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        ::-webkit-scrollbar {
-            display: none;
-        }
+/* CM004 - Rank Card & Toppers Image Fix */
+.rank-card { transition: all 0.2s ease; }
+.rank-card:hover { transform: translateY(-1px); box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.04); }
+.img-box { border: 1px solid #e2e8f0; aspect-ratio: 3 / 4; display: flex; align-items: center; justify-content: center; background-color: #ffffff; overflow: hidden; padding: 4px; }
+.img-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        .glass-nav { 
-            background: rgba(255, 255, 255, 0.98); 
-            backdrop-filter: blur(25px); 
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); 
-            min-height: 95px; 
-            display: flex; 
-            align-items: center; 
-            position: relative; /* Changed from sticky to relative to scroll with page */
-            z-index: 10000; 
-        }
-        .logo-3d { filter: drop-shadow(0 8px 6px rgba(0, 70, 173, 0.2)); width: 65px; height: 65px; transition: transform 0.3s ease; }
-        .logo-3d:hover { transform: scale(1.05); }
-        .nav-link { display: flex; flex-direction: column; align-items: center; font-size: 8.2px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; transition: all 0.2s ease; white-space: nowrap; color: #475569; cursor: pointer; padding: 8px 10px; background: transparent; position: relative; }
-        @media (min-width: 1280px) { .nav-link { font-size: 9.2px; padding: 10px 12px; } }
-        .nav-link:hover, .nav-link.active { color: #0046ad; transform: translateY(-2px); }
-        .header-icon-img { width: 18px; height: 18px; margin-bottom: 3px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
-        .dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 30px 60px rgba(0, 70, 173, 0.25); padding: 0.6rem; min-width: 200px; z-index: 99999; display: none; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .dropdown-menu.show { display: block; opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
-        .dropdown-item { display: flex; align-items: center; padding: 0.4rem 0.6rem; font-size: 9px; font-weight: 700; color: #64748b; border-radius: 0.5rem; transition: all 0.2s ease; white-space: nowrap; gap: 8px; }
-        .dropdown-item:hover { background: #f8fafc; color: #0046ad; transform: translateX(4px); }
-        .dropdown-item i { width: 8px; height: 8px; stroke-width: 4px; color: #0046ad; }
-        .scroll-wrapper { display: flex; justify-content: flex-end; flex-grow: 1; overflow-x: auto; scrollbar-width: none; }
-        .scroll-wrapper::-webkit-scrollbar { display: none; }
-        .footer-headline { font-family: 'Roboto Slab', serif; font-weight: 800; font-size: 11.5px; text-transform: uppercase; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-        .footer-headline i { width: 14px; height: 14px; color: #facc15; }
-        .footer-underline { height: 2.5px; width: 30px; background: #facc15; margin-bottom: 15px; border-radius: 2px; }
-        .footer-link { display: flex; align-items: center; font-size: 9.5px; font-weight: 600; color: #94a3b8; margin-bottom: 6px; transition: all 0.2s ease; gap: 6px; cursor: pointer; }
-        .footer-link:hover { color: #facc15; transform: translateX(3px); }
-        .footer-link i { width: 9px; height: 9px; stroke-width: 4px; }
-        .leader-card { transition: transform 0.3s ease; }
-        .profile-img { width: 125px; height: 155px; object-fit: cover; border-radius: 1rem; border: 3px solid #ffffff; object-position: top; transition: all 0.3s ease; }
-        .sir-img { box-shadow: 0 0 0 2px #dbeafe, 0 15px 30px -10px rgba(59, 130, 246, 0.3); }
-        .madam-img { box-shadow: 0 0 0 2px #f3e8ff, 0 15px 30px -10px rgba(168, 85, 247, 0.3); }
-        .message-box { position: relative; }
-        .message-box::before { content: '"'; position: absolute; top: -12px; left: -6px; font-size: 50px; color: #f1f5f9; font-family: serif; z-index: -1; }
-        .banner-image { width: 100%; height: 80px; object-fit: fill; display: block; }
-        .icon-3d { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); transition: transform 0.3s ease; }
-        .icon-3d:hover { transform: translateY(-5px) scale(1.1); }
-        .stylish-text { background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    </style>
+/* CM005 - Utilities */
+.header-divider { display: flex; align-items: center; text-align: left; width: 100%; }
+.header-divider::after { content: ''; flex: 1; border-bottom: 1px solid; opacity: 0.15; margin-left: 0.5rem; }
+
+/* CM006 - Updates List */
+.updates-list { list-style: none; padding: 0; margin: 0; }
+.updates-list li { display: flex; align-items: flex-start; background: #ffffff; padding: 5px 10px; margin-bottom: 4px; border-radius: 4px; font-size: 11px; font-weight: 600; color: #1e293b; border: 1px solid #f1f5f9; }
+.bell-icon { color: #ef4444; margin-right: 8px; flex-shrink: 0; animation: ring 2s ease infinite; font-style: normal; width: 12px; height: 12px; }
+@keyframes ring { 0% { transform: rotate(0); } 10% { transform: rotate(15deg); } 20% { transform: rotate(-15deg); } 30% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 50% { transform: rotate(0); } 100% { transform: rotate(0); } }
+
+/* CM007 - Slideshow Gallery */
+.slideshow-container { position: relative; width: 100%; height: 100%; min-height: 0; overflow: hidden; border-radius: 6px; border: 1px solid #e2e8f0; }
+.slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; transform: scale(1.05); }
+.slide.active { opacity: 1; transform: scale(1); }
+.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.8); color: #1e293b; padding: 6px; border-radius: 50%; cursor: pointer; z-index: 10; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+.nav-btn:hover { background: #ffffff; transform: translateY(-50%) scale(1.1); }
+.prev-btn { left: 8px; }
+.next-btn { right: 8px; }
+
+/* CM008 - Info Cards & Journey Features */
+.info-card { transition: all 0.3s ease; text-align: center; }
+.info-card:hover { background-color: #ffffff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); transform: translateY(-3px); }
+.icon-container { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 6px; margin: 0 auto 8px auto; }
+.feature-list li { position: relative; padding-left: 1.15rem; margin-bottom: 0.25rem; }
+.feature-list li::before { content: '»'; position: absolute; left: 0; font-weight: 900; font-size: 1rem; line-height: 1; margin-top: -1px; }
+
+/* CM009 - Navigation & Glass Effect */
+.glass-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); min-height: 95px; display: flex; align-items: center; position: relative; z-index: 1000; }
+.logo-3d { filter: drop-shadow(0 8px 6px rgba(0, 70, 173, 0.2)); width: 65px; height: 65px; transition: transform 0.3s ease; }
+.logo-3d:hover { transform: scale(1.05); }
+.nav-link { display: flex; flex-direction: column; align-items: center; font-size: 8.2px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; transition: all 0.2s ease; white-space: nowrap; color: #475569; cursor: pointer; padding: 8px 10px; background: transparent; position: relative; }
+@media (min-width: 1280px) { .nav-link { font-size: 9.2px; padding: 10px 12px; } }
+.nav-link:hover, .nav-link.active { color: #0046ad; transform: translateY(-2px); }
+.header-icon-img { width: 18px; height: 18px; margin-bottom: 3px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+.scroll-wrapper { display: flex; justify-content: flex-end; flex-grow: 1; overflow-x: auto; scrollbar-width: none; }
+.scroll-wrapper::-webkit-scrollbar { display: none; }
+
+/* CM010 - Dropdown Menu Styles Fixed & Floating */
+.dropdown-menu { position: fixed; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 2px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); min-width: 180px; z-index: 999999; display: none; opacity: 0; transition: opacity 0.2s ease; max-height: 350px; overflow-y: auto; padding: 0; margin: 0; }
+.dropdown-menu.show { display: block; opacity: 1; }
+.dropdown-item { display: block; width: 100%; padding: 8px 14px; font-size: 9.5px; font-weight: 700; color: #1e293b; border-bottom: 1px solid #f1f5f9; text-align: left; margin: 0; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.dropdown-item:last-child { border-bottom: none; }
+.dropdown-item:hover { background: #0046ad; color: #ffffff; }
+
+/* CM011 - Footer & Misc */
+.footer-headline { font-family: 'Roboto Slab', serif; font-weight: 800; font-size: 11.5px; text-transform: uppercase; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.footer-headline i { width: 14px; height: 14px; color: #facc15; }
+.footer-underline { height: 2.5px; width: 30px; background: #facc15; margin-bottom: 15px; border-radius: 2px; }
+.footer-link { display: flex; align-items: center; font-size: 9.5px; font-weight: 600; color: #94a3b8; margin-bottom: 6px; transition: all 0.2s ease; gap: 6px; cursor: pointer; }
+.footer-link:hover { color: #facc15; transform: translateX(3px); }
+.footer-link i { width: 9px; height: 9px; stroke-width: 4px; }
+.leader-card { transition: transform 0.3s ease; }
+.profile-img { width: 125px; height: 155px; object-fit: cover; border-radius: 1rem; border: 3px solid #ffffff; object-position: top; transition: all 0.3s ease; }
+.sir-img { box-shadow: 0 0 0 2px #dbeafe, 0 15px 30px -10px rgba(59, 130, 246, 0.3); }
+.madam-img { box-shadow: 0 0 0 2px #f3e8ff, 0 15px 30px -10px rgba(168, 85, 247, 0.3); }
+.message-box { position: relative; }
+.message-box::before { content: '"'; position: absolute; top: -12px; left: -6px; font-size: 50px; color: #e2e8f0; font-family: serif; z-index: -1; }
+.banner-image { width: 100%; height: 80px; object-fit: fill; display: block; }
+.icon-3d { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); transition: transform 0.3s ease; }
+.icon-3d:hover { transform: translateY(-5px) scale(1.1); }
+.stylish-text { background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+</style>
 </head>
-<body class="bg-white">
+<body class="p-0 bg-slate-50">
 
-    <!-- STICKY NAVIGATION (Now scrolls with page) -->
-    <header class="glass-nav border-b border-slate-200">
-        <nav class="w-full flex items-center justify-between px-4">
-            <div class="flex items-center space-x-3 flex-shrink-0">
-                <div class="cursor-pointer" onclick="window.location.reload()">
-                    <img src="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png" alt="BIRDS Logo" class="logo-3d">
-                </div>
-                <div class="hidden md:block text-left">
-                    <h1 class="font-outfit font-extrabold text-xl sm:text-2xl text-birds-blue leading-none tracking-tighter">BIRDS High School</h1>
-                    <p class="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-tight text-slate-500 font-slab mt-1">MUTYALPADU, CHGALAMRRY(M), NANDYAL-AP</p>
-                </div>
-            </div>
-            <div class="scroll-wrapper">
-                <div class="flex items-center space-x-1">
-                    <div class="nav-link" onclick="toggleDropdown(event, 'h-drop', this)"><img src="https://img.icons8.com/color/48/home.png" class="header-icon-img">Home<div id="h-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Overview</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Highlights</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'a-drop', this)"><img src="https://img.icons8.com/color/48/info--v1.png" class="header-icon-img">About<div id="a-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>About Us</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Vision & Mission</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Chairman Message</a><a class="dropdown-item"><i data-lucide="chevron-right"></i>Our History</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 's-drop', this)"><img src="https://img.icons8.com/color/48/services.png" class="header-icon-img">Services<div id="s-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Academic Programs</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'p-drop', this)"><img src="https://img.icons8.com/color/48/opened-folder.png" class="header-icon-img">Projects<div id="p-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Student Projects</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'st-drop', this)"><img src="https://img.icons8.com/color/48/student-male--v1.png" class="header-icon-img">Students<div id="st-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Portal</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'rk-drop', this)"><img src="https://img.icons8.com/color/48/trophy.png" class="header-icon-img">Rankers<div id="rk-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Toppers</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'stf-drop', this)"><img src="https://img.icons8.com/color/48/teacher.png" class="header-icon-img">Staff<div id="stf-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Profiles</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'cr-drop', this)"><img src="https://img.icons8.com/color/48/briefcase.png" class="header-icon-img">Careers<div id="cr-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Job Openings</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'adm-drop', this)"><img src="https://img.icons8.com/color/48/edit-property.png" class="header-icon-img">Admission<div id="adm-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Process</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'gl-drop', this)"><img src="https://img.icons8.com/color/48/stack-of-photos.png" class="header-icon-img">Gallery<div id="gl-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Photos</a></div></div>
-                    <div class="nav-link" onclick="toggleDropdown(event, 'ct-drop', this)"><img src="https://img.icons8.com/color/48/phone.png" class="header-icon-img">Contact<div id="ct-drop" class="dropdown-menu"><a class="dropdown-item"><i data-lucide="chevron-right"></i>Location</a></div></div>
-                    <div class="flex-shrink-0 pl-2">
-                        <button class="bg-birds-blue text-white px-5 py-2.5 rounded-lg text-[10px] font-extrabold uppercase shadow-lg flex items-center">
-                            <img src="https://img.icons8.com/color/48/lock-landscape.png" class="w-4 h-4 mr-1"> LOGIN
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+<!-- CM012 - Global Links Config -->
+<script>
+const G_LINKS = {
+logo: "https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png",
+banner: "https://birds-sch.github.io/BIRDSIMG/HEADER_LINE_BG_IMAGE.png",
+paul: "https://birds-sch.github.io/BIRDSIMG/BIRDS_PAUL_SIR.png",
+sindhura: "https://birds-sch.github.io/BIRDSIMG/BIRDS_HM_SINDHURA_MEDAM.png",
+slide: "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png",
+home: "https://img.icons8.com/color/48/home.png",
+proj: "https://img.icons8.com/color/48/opened-folder.png",
+rank: "https://img.icons8.com/color/48/trophy.png",
+career: "https://img.icons8.com/color/48/briefcase.png",
+admin: "https://img.icons8.com/color/48/edit-property.png",
+phone: "https://img.icons8.com/color/48/phone.png",
+lock: "https://img.icons8.com/color/48/lock-landscape.png",
+bell: "https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png",
+st1: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+st2: "https://cdn-icons-png.flaticon.com/512/3429/3429433.png",
+st3: "https://cdn-icons-png.flaticon.com/512/3135/3135679.png",
+st4: "https://cdn-icons-png.flaticon.com/512/4151/4151729.png",
+st5: "https://cdn-icons-png.flaticon.com/512/3112/3112946.png",
+st6: "https://cdn-icons-png.flaticon.com/512/2602/2602414.png",
+st7: "https://cdn-icons-png.flaticon.com/512/190/190411.png",
+st8: "https://cdn-icons-png.flaticon.com/512/2950/2950137.png"
+};
+</script>
 
-    <!-- BANNER IMAGE (AFTER HEADER) -->
-    <div class="w-full overflow-hidden leading-[0]">
-        <img src="https://birds-sch.github.io/BIRDSIMG/HEADER_LINE_BG_IMAGE.png" alt="Header Line" class="banner-image">
-    </div>
-
-    <main class="w-full px-6 py-8">
-        
-        <!-- SIDE-BY-SIDE HISTORY & MISSION/VISION -->
-        <div class="flex flex-col lg:flex-row lg:gap-0 border-b border-slate-100 pb-10 mb-8">
-            <div class="lg:w-3/5 lg:pr-12">
-                <div class="mb-4 border-l-4 border-blue-600 pl-4">
-                    <span class="block text-[8px] font-bold text-blue-600 uppercase tracking-widest mb-0.5">Established 2010</span>
-                    <h1 class="text-2xl md:text-4xl font-extrabold leading-none mb-0.5 stylish-text uppercase text-left">BIRDS High School</h1>
-                    <p class="text-[9px] text-gray-400 font-medium tracking-[0.3em] uppercase text-left">MUTHYALALAPADU</p>
-                </div>
-                <div class="text-[13px] text-gray-600 leading-relaxed text-justify">
-                    <p>
-                        BIRDS High School was founded in 2010 with an extraordinary vision and unwavering determination. What makes our beginning truly remarkable is the bold decision to prepare for 6 months and then launch with an ambitious 210 classes right from the start. This wasn't just optimism it was a testament to our founders' confidence in their educational philosophy and their commitment to serving the community. This extensive preparation period allowed us to build a solid foundation, recruit exceptional faculty, and create an environment where students could truly thrive. Today, over a decade later, that bold beginning has blossomed into a thriving educational institution that continues to set new standards in academic excellence and character development. Our journey from those initial 210 classes to becoming a cornerstone of education in Muthyalalapadu reflects our unwavering commitment to our students and community as we continue to nurture the leaders of tomorrow.
-                    </p>
-                </div>
-            </div>
-
-            <div class="hidden lg:block w-px bg-gray-200 self-stretch my-6"></div>
-
-            <!-- RIGHT SIDE MISSION/VISION WITH DECORATIVE LINES -->
-            <div class="lg:w-2/5 flex flex-col gap-6 lg:pl-12 py-4">
-                <div>
-                    <div class="flex items-center mb-1.5">
-                        <div class="w-5 h-5 bg-blue-600 rounded-sm flex items-center justify-center mr-2 text-white flex-shrink-0">
-                            <i data-lucide="target" class="w-3 h-3"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-blue-900 uppercase tracking-wide flex-shrink-0">Our Mission</h3>
-                        <!-- Decorative Line extending to border -->
-                        <div class="flex-grow h-px bg-slate-200 ml-4"></div>
-                    </div>
-                    <p class="text-gray-700 text-[15px] leading-relaxed pl-7">To provide quality education that nurtures intellectual curiosity, builds strong character, and prepares students to become responsible global citizens who contribute positively to society.</p>
-                </div>
-                <div>
-                    <div class="flex items-center mb-1.5">
-                        <div class="w-5 h-5 bg-emerald-600 rounded-sm flex items-center justify-center mr-2 text-white flex-shrink-0">
-                            <i data-lucide="eye" class="w-3 h-3"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wide flex-shrink-0">Our Vision</h3>
-                        <!-- Decorative Line extending to border -->
-                        <div class="flex-grow h-px bg-slate-200 ml-4"></div>
-                    </div>
-                    <p class="text-gray-700 text-[15px] leading-relaxed pl-7">To be a leading educational institution that sets benchmarks in academic excellence, character development, and holistic growth, creating future leaders who make a difference.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- STATS SECTION ROW -->
-        <div class="flex flex-wrap justify-between items-start gap-4 mb-10 px-2">
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10 mb-2 icon-3d" alt="Students">
-                <span class="block text-xl font-bold text-blue-900 leading-none">900+</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Students</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Nurturing a diverse community of learners from various backgrounds.</p>
-            </div>
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/3429/3429433.png" class="w-10 h-10 mb-2 icon-3d" alt="Teachers">
-                <span class="block text-xl font-bold text-blue-900 leading-none">25+</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Teachers</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Exceptional faculty dedicated to academic and personal growth.</p>
-            </div>
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135679.png" class="w-10 h-10 mb-2 icon-3d" alt="Years">
-                <span class="block text-xl font-bold text-blue-900 leading-none">15+</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Years Exp.</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Over a decade of setting benchmarks in holistic education.</p>
-            </div>
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/4151/4151729.png" class="w-10 h-10 mb-2 icon-3d" alt="Happy">
-                <span class="block text-xl font-bold text-blue-900 leading-none">10,000+</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Happy Students</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Empowering thousands of alumni who contribute to society.</p>
-            </div>
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="w-10 h-10 mb-2 icon-3d" alt="Awards">
-                <span class="block text-xl font-bold text-blue-900 leading-none">50+</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Awards</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Recognizing our unwavering commitment to excellence.</p>
-            </div>
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/2602/2602414.png" class="w-10 h-10 mb-2 icon-3d" alt="Classrooms">
-                <span class="block text-xl font-bold text-blue-900">30+</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Classrooms</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Modern learning spaces designed to spark daily curiosity.</p>
-            </div>
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" class="w-10 h-10 mb-2 icon-3d" alt="Success">
-                <span class="block text-xl font-bold text-blue-900 leading-none">100%</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Success</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Consistent record of brilliance and student achievements.</p>
-            </div>
-            <div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
-                <img src="https://cdn-icons-png.flaticon.com/512/2950/2950137.png" class="w-10 h-10 mb-2 icon-3d" alt="Activities">
-                <span class="block text-xl font-bold text-blue-900 leading-none">20+</span>
-                <span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Activities</span>
-                <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Building future leaders through sports, arts, and clubs.</p>
-            </div>
-        </div>
-
-        <!-- LEADERSHIP SECTION -->
-        <div class="space-y-4 mb-16">
-            <section class="leader-card flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-10">
-                <div class="shrink-0 flex flex-col items-center text-center w-full lg:w-40">
-                    <img src="https://birds-sch.github.io/BIRDSIMG/BIRDS_PAUL_SIR.png" alt="Paul" class="profile-img sir-img mb-2">
-                    <h2 class="text-[11px] font-extrabold text-slate-900 tracking-tight leading-tight mt-1 uppercase">Respected Paul Raja Rao Valaperla Sir</h2>
-                    <p class="text-[8px] font-bold text-blue-600 uppercase tracking-widest mt-1">Chairman</p>
-                </div>
-                <div class="flex-1 message-box pt-2">
-                    <div class="border-l-4 border-blue-50 pl-6">
-                        <div class="text-slate-600 text-xs lg:text-[13px] leading-relaxed">
-                            <p class="font-medium text-slate-700">Since 2010, BIRDS High School has been dedicated to educational excellence and the holistic development of every student under our care. Our vision is to create a transformative environment that goes beyond textbooks to shape character and nurture the leaders of tomorrow. We believe every child possesses unique potential that we guide through innovative teaching and personalized mentorship. Our curriculum is carefully balanced to ensure academic rigor while fostering emotional, social, and spiritual growth. Signature initiatives like the 'Ojas' program celebrate individual achievements and build community pride within the BIRDS family. Beyond academic success, we instill a global perspective, encouraging students to become innovative thinkers and problem-solvers in an ever-evolving world. As we look forward, we remain steadfast in our values of integrity, excellence, and service, equipping students with the confidence to make a positive impact on the world. Together, we ensure our students have the foundations they need to soar to new heights of success and responsibility, carrying the school's legacy forward into a bright and promising future.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <div class="h-px bg-slate-100 w-full opacity-40"></div>
-
-            <section class="leader-card flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-10">
-                <div class="flex-1 message-box order-2 lg:order-1 text-right pt-2">
-                    <div class="border-r-4 border-purple-50 pr-6">
-                        <div class="text-slate-600 text-xs lg:text-[13px] leading-relaxed">
-                            <p class="font-medium text-slate-700">As the Headmistress of BIRDS Schools, I am honored to lead an institution that prioritizes the transformation of young minds into responsible, compassionate citizens. Since 2014, my educational philosophy has been rooted in the belief that true learning extends far beyond the textbooks; it is about cultivating a deep sense of character, discipline, and social responsibility. At BIRDS, we are dedicated to fostering a nurturing environment where honesty, faith, and a profound love for lifelong learning are the cornerstones of every student's journey. Our holistic approach ensures that each child develops not only academically but also emotionally, socially, and spiritually, providing them with a secure space to explore their curiosity and build a strong foundation for their future. We actively encourage a strong partnership between parents and educators, recognizing that a unified support system is essential for a child's overall wellbeing and growth. Together with our dedicated team of educators, we work tirelessly to ensure that BIRDS remains a place where dreams take flight and every student's unique potential is identified and guided in the right direction, preparing them to face the challenges of the modern era with wisdom and grace.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="shrink-0 flex flex-col items-center text-center w-full lg:w-40 order-1 lg:order-2">
-                    <img src="https://birds-sch.github.io/BIRDSIMG/BIRDS_HM_SINDHURA_MEDAM.png" alt="Sindhura" class="profile-img madam-img mb-2">
-                    <h2 class="text-[11px] font-extrabold text-slate-900 tracking-tight leading-tight mt-1 uppercase">Respected V S S Sindhura Madam</h2>
-                    <p class="text-[8px] font-bold text-purple-600 uppercase tracking-wider mt-1">Headmistress</p>
-                </div>
-            </section>
-        </div>
-    </main>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<body class="p-0">
-
-    <script>
-        // Global variables for images
-        const studentImg = "https://birds-sch.github.io/BIRDSIMG/EXAMPLE_STUDENT_IMAG.png";
-        const slideImg = "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png";
-		        const bellIconLink = "https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png";
-
-		
-    </script>
-
-    <!-- UPDATES & GALLERY SECTION -->
-    <div class="w-full bg-white border-b border-slate-200">
-        <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-10 items-stretch">
-            
-            <!-- LEFT SIDE: NEW UPDATES (60%) -->
-            <div id="updatesContainer" class="md:col-span-6 p-3 bg-slate-50/50 flex flex-col">
-                <div class="mb-2">
-                    <h2 class="inline-block bg-blue-900 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">
-                        School News & New Updates
-                    </h2>
-                </div>
-                <ul class="updates-list">
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Admissions Open for the Academic Year 2026-27 (Nursery to Class 10).</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Final SSC Board Examination schedule has been released for Class 10.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Congratulations to our Sports Team for winning the Inter-School Championship.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> New Advanced Science Laboratory inaugurated for High School students.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Parent-Teacher Meeting (PTM) scheduled for this Friday at 4:00 PM.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Digital Library access is now available for all students via the school portal.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Special 'Green Earth' plantation drive to be held on coming Monday.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Robotics Workshop registrations are now open for Middle & High School.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Scholarship applications for merit students must be submitted by April 30th.</li>
-                    <li><img src="https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png" class="bell-icon" alt="icon"> Summer Vacation will commence from June 1st, 2026.</li>
-                </ul>
-            </div>
-
-            <!-- RIGHT SIDE: SLIDESHOW GALLERY (40%) -->
-            <div class="md:col-span-4 p-3 border-l border-slate-100 flex flex-col bg-white overflow-hidden">
-                <div class="mb-2">
-                    <h2 class="inline-block bg-slate-800 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">
-                        Recent Programs Gallery
-                    </h2>
-                </div>
-                <!-- This container will exactly fill the space provided by the grid -->
-                <div class="flex-1 relative min-h-[200px]">
-                    <div id="slideshow" class="slideshow-container bg-slate-100">
-                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide active object-cover" alt="Event 1">
-                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(45deg); brightness: 1.1;" alt="Event 2">
-                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(90deg); contrast: 1.1;" alt="Event 3">
-                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(135deg); brightness: 0.9;" alt="Event 4">
-                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(180deg); sepia: 0.2;" alt="Event 5">
-                        <img src="https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png" class="slide object-cover" style="filter: hue-rotate(225deg);" alt="Event 6">
-
-                        <!-- Navigation Buttons -->
-                        <button id="prevBtn" class="nav-btn prev-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                        </button>
-                        <button id="nextBtn" class="nav-btn next-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                        </button>
-                    </div>
-                </div>
-                <p class="text-[9px] text-center text-slate-400 font-bold uppercase mt-2 tracking-widest">3s Interval • Manual Controls</p>
-            </div>
-            
-        </div>
-    </div>
-
-    <!-- TOPPER SECTION -->
-<div class="w-full px-4 md:px-8 space-y-6 mt-6">
-    
-    <section class="bg-blue-50/40 p-6 rounded-xl border border-blue-100 shadow-sm">
-        <div class="mb-6">
-            <h2 class="header-divider text-lg md:text-2xl font-black uppercase tracking-[0.15em] text-blue-900">
-                2026 YEAR - 10TH CLASS SCHOOL TOPPERS
-            </h2>
-        </div>
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            <script>
-                const c10Toppers = [
-                    { name: "John Doe Smith", pct: "99.6%" },
-                    { name: "Sarah Johnson", pct: "99.0%" },
-                    { name: "Michael Brown", pct: "98.4%" },
-                    { name: "Emily Davis", pct: "97.8%" },
-                    { name: "Chris Wilson", pct: "97.2%" },
-                    { name: "Jessica Taylor", pct: "96.6%" },
-                    { name: "Daniel Martinez", pct: "96.0%" },
-                    { name: "Olivia Garcia", pct: "95.4%" }
-                ];
-                
-                document.write(c10Toppers.map((s, i) => `
-                    <div class="bg-white p-3 border border-blue-50 rounded-lg rank-card shadow-md hover:shadow-xl transition-all duration-300">
-                        <div class="img-box w-full mb-3 rounded-md overflow-hidden">
-                            <img src="${studentImg}" alt="${s.name}" class="w-full h-full object-cover">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-[10px] font-black text-blue-600 uppercase tracking-tighter">Rank #${i+1}</p>
-                            <h4 class="font-bold text-[11px] md:text-xs truncate leading-tight text-slate-800">${s.name}</h4>
-                            <p class="text-[8px] text-slate-300 font-mono mb-1">SSC10-00${i+1}</p>
-                            <p class="text-sm md:text-base font-black text-slate-900">${s.pct}</p>
-                        </div>
-                    </div>
-                `).join(''));
-            </script>
-        </div>
-    </section>
-
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <script>
-            const otherClasses = [
-                { name: "9TH", color: "indigo", students: [{n:"Alex J.", p:"99.0%"}, {n:"Mia W.", p:"97.8%"}, {n:"Ethan H.", p:"96.6%"}, {n:"Sophia L.", p:"95.4%"}] },
-                { name: "8TH", color: "emerald", students: [{n:"Ryan C.", p:"99.0%"}, {n:"Grace M.", p:"97.8%"}, {n:"Noah W.", p:"96.6%"}, {n:"Lily C.", p:"95.4%"}] },
-                { name: "7TH", color: "orange", students: [{n:"Lucas S.", p:"99.0%"}, {n:"Ava R.", p:"97.8%"}, {n:"Oliver T.", p:"96.6%"}, {n:"Emma S.", p:"95.4%"}] },
-                { name: "6TH", color: "purple", students: [{n:"Ben B.", p:"99.0%"}, {n:"Chloe L.", p:"97.8%"}, {n:"Dan C.", p:"96.6%"}, {n:"Fiona A.", p:"95.4%"}] }
-            ];
-
-            document.write(otherClasses.map(c => `
-                <div class="bg-${c.color}-50/30 p-5 rounded-xl border border-${c.color}-100 shadow-sm">
-                    <div class="mb-4">
-                        <h3 class="header-divider text-sm md:text-lg font-black uppercase tracking-wider text-${c.color}-900">
-                            2026 YEAR - ${c.name} CLASS TOPPERS
-                        </h3>
-                    </div>
-                    <div class="grid grid-cols-4 gap-3">
-                        ${c.students.map((s, i) => `
-                            <div class="bg-white p-2 border border-${c.color}-50 rounded-lg rank-card text-center shadow-sm">
-                                <div class="img-box w-full mb-2 rounded shadow-inner">
-                                    <img src="${studentImg}" class="w-full h-full object-cover">
-                                </div>
-                                <p class="text-[9px] font-black text-${c.color}-600 uppercase">Rank #${i+1}</p>
-                                <p class="font-bold text-[10px] truncate text-slate-700">${s.n}</p>
-                                <p class="text-xs font-black text-slate-900 mt-1">${s.p}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join(''));
-        </script>
-    </div>
+<!-- CM013 - Header Navigation -->
+<header class="glass-nav border-b border-slate-200">
+<nav class="w-full flex items-center justify-between px-4">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<div class="cursor-pointer" onclick="window.location.reload()">
+<img data-src="logo" alt="BIRDS Logo" class="logo-3d">
 </div>
-        </div>
-    </div>
+<div class="hidden md:block text-left">
+<h1 class="font-outfit font-extrabold text-xl sm:text-2xl text-birds-blue leading-none tracking-tighter">BIRDS High School</h1>
+<p class="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-tight text-slate-500 font-slab mt-1">MUTYALPADU, CHGALAMRRY(M), NANDYAL-AP</p>
+</div>
+</div>
+<div class="scroll-wrapper">
+<div class="flex items-center space-x-1">
+<div class="nav-link cursor-pointer" onclick="window.location.reload()"><img data-src="home" class="header-icon-img">HOME</div>
+<div class="nav-link" onclick="toggleDropdown(event, 'p-drop', this)"><img data-src="proj" class="header-icon-img">PROJECTS<div id="p-drop" class="dropdown-menu"><a class="dropdown-item">&gt; Pre Primary Projects</a><a class="dropdown-item">&gt; Primary Projects</a><a class="dropdown-item">&gt; Secondary Projects</a><a class="dropdown-item">&gt; High School Projects</a><a class="dropdown-item">&gt; School Sciencewear</a><a class="dropdown-item">&gt; School Special Projects</a></div></div>
+<div class="nav-link" onclick="toggleDropdown(event, 'rk-drop', this)"><img data-src="rank" class="header-icon-img">RANKERS<div id="rk-drop" class="dropdown-menu"><a class="dropdown-item">&gt; Ssc Rankers</a><a class="dropdown-item">&gt; 9th Rankers</a><a class="dropdown-item">&gt; 8th Rankers</a><a class="dropdown-item">&gt; Achievers</a></div></div>
+<div class="nav-link" onclick="toggleDropdown(event, 'cr-drop', this)"><img data-src="career" class="header-icon-img">CAREERS<div id="cr-drop" class="dropdown-menu"><a class="dropdown-item">&gt; Teaching</a><a class="dropdown-item">&gt; Non Teaching</a><a class="dropdown-item">&gt; Admin</a></div></div>
+<div class="nav-link" onclick="toggleDropdown(event, 'adm-drop', this)"><img data-src="admin" class="header-icon-img">ADMISSION<div id="adm-drop" class="dropdown-menu"><a class="dropdown-item">&gt; New Admission</a><a class="dropdown-item">&gt; Existing Student</a></div></div>
+<div class="nav-link cursor-pointer"><img data-src="phone" class="header-icon-img">CONTACT</div>
+<div class="flex-shrink-0 pl-2 relative">
+<button class="bg-birds-blue text-white px-5 py-2.5 rounded-lg text-[10px] font-extrabold uppercase shadow-lg flex items-center" onclick="toggleDropdown(event, 'log-drop', this)">
+<img data-src="lock" class="w-4 h-4 mr-1"> LOGIN
+</button>
+<div id="log-drop" class="dropdown-menu">
+<a class="dropdown-item">&gt; Student Login</a>
+<a class="dropdown-item">&gt; Non Teaching Staff</a>
+<a class="dropdown-item">&gt; Teachers Login</a>
+<a class="dropdown-item">&gt; Admin Login</a>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
 
-    <!-- WHY WE ARE SPECIAL (FULL WIDTH) -->
-    <section class="w-full mt-4 bg-slate-50 py-8 px-4 md:px-8 border-y border-slate-100">
-        <div class="w-full">
-            <div class="mb-6">
-                <h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Why We Are Special</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
-                    <div class="icon-container bg-blue-50 text-blue-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                    </div>
-                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Quality Education</h3>
-                    <p class="text-[11px] text-slate-500 leading-tight">Comprehensive curriculum designed to foster academic excellence and critical thinking.</p>
-                </div>
-                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
-                    <div class="icon-container bg-purple-50 text-purple-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Experienced Faculty</h3>
-                    <p class="text-[11px] text-slate-500 leading-tight">Dedicated teachers with years of experience in nurturing young minds with care.</p>
-                </div>
-                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
-                    <div class="icon-container bg-emerald-50 text-emerald-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    </div>
-                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Govt Recognition</h3>
-                    <p class="text-[11px] text-slate-500 leading-tight">Fully recognized by the Department of Education with proper national accreditation.</p>
-                </div>
-                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
-                    <div class="icon-container bg-orange-50 text-orange-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                    </div>
-                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Dual Medium</h3>
-                    <p class="text-[11px] text-slate-500 leading-tight">Education offered in both English and Telugu to cater to diverse student needs.</p>
-                </div>
-                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
-                    <div class="icon-container bg-rose-50 text-rose-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Character Building</h3>
-                    <p class="text-[11px] text-slate-500 leading-tight">Focus on moral values and character development alongside standard academics.</p>
-                </div>
-                <div class="info-card p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
-                    <div class="icon-container bg-cyan-50 text-cyan-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 20.44l7.43-7.43.77-.78a5.4 5.4 0 0 0 0-7.65z"/></svg>
-                    </div>
-                    <h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Holistic Dev</h3>
-                    <p class="text-[11px] text-slate-500 leading-tight">Balanced approach to intellectual, physical, emotional, and social development.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CM014 - Banner Section -->
+<div class="w-full overflow-hidden leading-[0]">
+<img data-src="banner" alt="Header Line" class="banner-image">
+</div>
 
-    <!-- ACADEMIC JOURNEY (FULL WIDTH) -->
-    <section class="w-full bg-white py-8 px-4 md:px-8">
-        <div class="w-full">
-            <div class="mb-6">
-                <h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Academic Journey</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Pre-Primary -->
-                <div class="p-6 bg-rose-50 border border-rose-100 rounded-lg">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 flex items-center justify-center bg-rose-200 text-rose-700 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><path d="M17 21v-2a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v2"/><path d="M12 11V7"/><path d="M7 3h10v4H7z"/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-base font-black text-rose-900">Pre-Primary</h3>
-                            <p class="text-[10px] font-bold text-rose-600 uppercase tracking-widest">3-5 Years</p>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-rose-800/80 mb-4 leading-relaxed font-semibold">Foundation years focusing on play-based learning and skills.</p>
-                    <ul class="feature-list text-[10px] font-bold text-rose-900/90 space-y-1">
-                        <li>Play-based Learning</li>
-                        <li>Creative Activities</li>
-                        <li>Basic Literacy & Numeracy</li>
-                        <li>Social Skills</li>
-                        <li>Art & Craft</li>
-                        <li>Story Telling</li>
-                    </ul>
-                </div>
-                <!-- Primary -->
-                <div class="p-6 bg-amber-50 border border-amber-100 rounded-lg">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 flex items-center justify-center bg-amber-200 text-amber-700 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-base font-black text-amber-900">Primary</h3>
-                            <p class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">6-10 Years</p>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-amber-800/80 mb-4 leading-relaxed font-semibold">Building academic foundations and core character values.</p>
-                    <ul class="feature-list text-[10px] font-bold text-amber-900/90 space-y-1">
-                        <li>Core Subject Mastery</li>
-                        <li>Value-based Education</li>
-                        <li>Co-curricular Activities</li>
-                        <li>Sports & Games</li>
-                        <li>Environmental Awareness</li>
-                        <li>Computer Basics</li>
-                    </ul>
-                </div>
-                <!-- Middle -->
-                <div class="p-6 bg-teal-50 border border-teal-100 rounded-lg">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 flex items-center justify-center bg-teal-200 text-teal-700 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-base font-black text-teal-900">Middle School</h3>
-                            <p class="text-[10px] font-bold text-teal-600 uppercase tracking-widest">11-13 Years</p>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-teal-800/80 mb-4 leading-relaxed font-semibold">Advanced learning and specialized subject knowledge.</p>
-                    <ul class="feature-list text-[10px] font-bold text-teal-900/90 space-y-1">
-                        <li>Advanced Curriculum</li>
-                        <li>Science Laboratory</li>
-                        <li>Language Development</li>
-                        <li>Leadership Training</li>
-                        <li>Project-based Learning</li>
-                        <li>Career Guidance</li>
-                    </ul>
-                </div>
-                <!-- High School -->
-                <div class="p-6 bg-indigo-50 border border-indigo-100 rounded-lg">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><rect x="2" y="9" width="4" height="12"/><rect x="18" y="9" width="4" height="12"/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-base font-black text-indigo-900">High School</h3>
-                            <p class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">14-15 Years</p>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-indigo-800/80 mb-4 leading-relaxed font-semibold">Board exam preparation and career-oriented guidance.</p>
-                    <ul class="feature-list text-[10px] font-bold text-indigo-900/90 space-y-1">
-                        <li>Board Exam Prep</li>
-                        <li>Stream Selection Guidance</li>
-                        <li>Competitive Exam Training</li>
-                        <li>Skill Development</li>
-                        <li>Career Counseling</li>
-                        <li>Personality Development</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CM015 - About & Leadership Section -->
+<main class="w-full px-6 py-8 bg-blue-50/20">
+<div class="flex flex-col lg:flex-row lg:gap-0 border-b border-blue-100 pb-10 mb-8">
+<div class="lg:w-3/5 lg:pr-12">
+<div class="mb-4 border-l-4 border-blue-600 pl-4">
+<span class="block text-[8px] font-bold text-blue-600 uppercase tracking-widest mb-0.5">Established 2010</span>
+<h1 class="text-2xl md:text-4xl font-extrabold leading-none mb-0.5 stylish-text uppercase text-left">BIRDS High School</h1>
+<p class="text-[9px] text-gray-400 font-medium tracking-[0.3em] uppercase text-left">MUTHYALALAPADU</p>
+</div>
+<div class="text-[13px] text-gray-600 leading-relaxed text-justify">
+<p>BIRDS High School was founded in 2010 with an extraordinary vision and unwavering determination. What makes our beginning truly remarkable is the bold decision to prepare for 6 months and then launch with an ambitious 210 classes right from the start. This wasn't just optimism it was a testament to our founders' confidence in their educational philosophy and their commitment to serving the community. This extensive preparation period allowed us to build a solid foundation, recruit exceptional faculty, and create an environment where students could truly thrive. Today, over a decade later, that bold beginning has blossomed into a thriving educational institution that continues to set new standards in academic excellence and character development. Our journey from those initial 210 classes to becoming a cornerstone of education in Muthyalalapadu reflects our unwavering commitment to our students and community as we continue to nurture the leaders of tomorrow.</p>
+</div>
+</div>
+<div class="hidden lg:block w-px bg-blue-100 self-stretch my-6"></div>
+<div class="lg:w-2/5 flex flex-col gap-6 lg:pl-12 py-4">
+<div>
+<div class="flex items-center mb-1.5">
+<div class="w-5 h-5 bg-blue-600 rounded-sm flex items-center justify-center mr-2 text-white flex-shrink-0">
+<i data-lucide="target" class="w-3 h-3"></i>
+</div>
+<h3 class="text-sm font-bold text-blue-900 uppercase tracking-wide flex-shrink-0">Our Mission</h3>
+<div class="flex-grow h-px bg-blue-100 ml-4"></div>
+</div>
+<p class="text-gray-700 text-[15px] leading-relaxed pl-7">To provide quality education that nurtures intellectual curiosity, builds strong character, and prepares students to become responsible global citizens who contribute positively to society.</p>
+</div>
+<div>
+<div class="flex items-center mb-1.5">
+<div class="w-5 h-5 bg-emerald-600 rounded-sm flex items-center justify-center mr-2 text-white flex-shrink-0">
+<i data-lucide="eye" class="w-3 h-3"></i>
+</div>
+<h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wide flex-shrink-0">Our Vision</h3>
+<div class="flex-grow h-px bg-blue-100 ml-4"></div>
+</div>
+<p class="text-gray-700 text-[15px] leading-relaxed pl-7">To be a leading educational institution that sets benchmarks in academic excellence, character development, and holistic growth, creating future leaders who make a difference.</p>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap justify-between items-start gap-4 mb-10 px-2">
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st1" class="w-10 h-10 mb-2 icon-3d" alt="Students">
+<span class="block text-xl font-bold text-blue-900 leading-none">900+</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Students</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Nurturing a diverse community of learners from various backgrounds.</p>
+</div>
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st2" class="w-10 h-10 mb-2 icon-3d" alt="Teachers">
+<span class="block text-xl font-bold text-blue-900 leading-none">25+</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Teachers</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Exceptional faculty dedicated to academic and personal growth.</p>
+</div>
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st3" class="w-10 h-10 mb-2 icon-3d" alt="Years">
+<span class="block text-xl font-bold text-blue-900 leading-none">15+</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Years Exp.</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Over a decade of setting benchmarks in holistic education.</p>
+</div>
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st4" class="w-10 h-10 mb-2 icon-3d" alt="Happy">
+<span class="block text-xl font-bold text-blue-900 leading-none">10,000+</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Happy Students</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Empowering thousands of alumni who contribute to society.</p>
+</div>
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st5" class="w-10 h-10 mb-2 icon-3d" alt="Awards">
+<span class="block text-xl font-bold text-blue-900 leading-none">50+</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Awards</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Recognizing our unwavering commitment to excellence.</p>
+</div>
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st6" class="w-10 h-10 mb-2 icon-3d" alt="Classrooms">
+<span class="block text-xl font-bold text-blue-900">30+</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Classrooms</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Modern learning spaces designed to spark daily curiosity.</p>
+</div>
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st7" class="w-10 h-10 mb-2 icon-3d" alt="Success">
+<span class="block text-xl font-bold text-blue-900 leading-none">100%</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Success</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Consistent record of brilliance and student achievements.</p>
+</div>
+<div class="flex flex-col items-center text-center flex-1 min-w-[110px]">
+<img data-src="st8" class="w-10 h-10 mb-2 icon-3d" alt="Activities">
+<span class="block text-xl font-bold text-blue-900 leading-none">20+</span>
+<span class="text-[9px] font-bold uppercase text-gray-800 mt-1">Activities</span>
+<p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Building future leaders through sports, arts, and clubs.</p>
+</div>
+</div>
+<div class="space-y-4">
+<section class="leader-card flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-10">
+<div class="shrink-0 flex flex-col items-center text-center w-full lg:w-40">
+<img data-src="paul" alt="Paul" class="profile-img sir-img mb-2">
+<h2 class="text-[11px] font-extrabold text-slate-900 tracking-tight leading-tight mt-1 uppercase">Respected Paul Raja Rao Valaperla Sir</h2>
+<p class="text-[8px] font-bold text-blue-600 uppercase tracking-widest mt-1">Chairman</p>
+</div>
+<div class="flex-1 message-box pt-2">
+<div class="border-l-4 border-blue-100 pl-6">
+<div class="text-slate-600 text-xs lg:text-[13px] leading-relaxed">
+<p class="font-medium text-slate-700">Since 2010, BIRDS High School has been dedicated to educational excellence and the holistic development of every student under our care. Our vision is to create a transformative environment that goes beyond textbooks to shape character and nurture the leaders of tomorrow. We believe every child possesses unique potential that we guide through innovative teaching and personalized mentorship. Our curriculum is carefully balanced to ensure academic rigor while fostering emotional, social, and spiritual growth. Signature initiatives like the 'Ojas' program celebrate individual achievements and build community pride within the BIRDS family. Beyond academic success, we instill a global perspective, encouraging students to become innovative thinkers and problem-solvers in an ever-evolving world. As we look forward, we remain steadfast in our values of integrity, excellence, and service, equipping students with the confidence to make a positive impact on the world. Together, we ensure our students have the foundations they need to soar to new heights of success and responsibility, carrying the school's legacy forward into a bright and promising future.</p>
+</div>
+</div>
+</div>
+</section>
+<div class="h-px bg-blue-100 w-full opacity-60 my-6"></div>
+<section class="leader-card flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-10">
+<div class="flex-1 message-box order-2 lg:order-1 text-right pt-2">
+<div class="border-r-4 border-purple-100 pr-6">
+<div class="text-slate-600 text-xs lg:text-[13px] leading-relaxed">
+<p class="font-medium text-slate-700">As the Headmistress of BIRDS Schools, I am honored to lead an institution that prioritizes the transformation of young minds into responsible, compassionate citizens. Since 2014, my educational philosophy has been rooted in the belief that true learning extends far beyond the textbooks; it is about cultivating a deep sense of character, discipline, and social responsibility. At BIRDS, we are dedicated to fostering a nurturing environment where honesty, faith, and a profound love for lifelong learning are the cornerstones of every student's journey. Our holistic approach ensures that each child develops not only academically but also emotionally, socially, and spiritually, providing them with a secure space to explore their curiosity and build a strong foundation for their future. We actively encourage a strong partnership between parents and educators, recognizing that a unified support system is essential for a child's overall wellbeing and growth. Together with our dedicated team of educators, we work tirelessly to ensure that BIRDS remains a place where dreams take flight and every student's unique potential is identified and guided in the right direction, preparing them to face the challenges of the modern era with wisdom and grace.</p>
+</div>
+</div>
+</div>
+<div class="shrink-0 flex flex-col items-center text-center w-full lg:w-40 order-1 lg:order-2">
+<img data-src="sindhura" alt="Sindhura" class="profile-img madam-img mb-2">
+<h2 class="text-[11px] font-extrabold text-slate-900 tracking-tight leading-tight mt-1 uppercase">Respected V S S Sindhura Madam</h2>
+<p class="text-[8px] font-bold text-purple-600 uppercase tracking-wider mt-1">Headmistress</p>
+</div>
+</section>
+</div>
+</main>
 
-    <!-- SPECIAL PROGRAMS (FULL WIDTH) -->
-    <section class="w-full bg-slate-50 py-8 px-4 md:px-8 border-t border-slate-100">
-        <div class="w-full">
-            <div class="mb-6">
-                <h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Special Programs</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
-                    <div class="icon-container bg-blue-50 text-blue-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                    </div>
-                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Remedial Classes</h4>
-                    <p class="text-[10px] text-slate-500 leading-relaxed">Additional support for students who need extra help in specific subjects.</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
-                    <div class="icon-container bg-emerald-50 text-emerald-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 7-5-5-5 5"/><path d="M17 17l-5 5-5-5"/></svg>
-                    </div>
-                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Advanced Learning</h4>
-                    <p class="text-[10px] text-slate-500 leading-relaxed">Enrichment programs designed for academically gifted students.</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
-                    <div class="icon-container bg-orange-50 text-orange-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.5a6.5 6.5 0 1 0-6.5-6.5 6.5 6.5 0 0 0 6.5 6.5z"/><path d="M12 12s-1.5 1-1.5 2.5a1.5 1.5 0 0 0 3 0c0-1.5-1.5-2.5-1.5-2.5z"/></svg>
-                    </div>
-                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Life Skills Education</h4>
-                    <p class="text-[10px] text-slate-500 leading-relaxed">Practical skills and values for holistic personality development.</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow-sm border border-slate-100 text-center">
-                    <div class="icon-container bg-purple-50 text-purple-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    </div>
-                    <h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Activity-based Learning</h4>
-                    <p class="text-[10px] text-slate-500 leading-relaxed">Hands-on learning experiences through projects and activities.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CM016 - Updates & Gallery Section -->
+<div class="w-full bg-indigo-50/30 border-y border-indigo-100">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-10 items-stretch">
+<div id="updatesContainer" class="md:col-span-6 p-3 flex flex-col">
+<div class="mb-2">
+<h2 class="inline-block bg-indigo-900 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">School News & New Updates</h2>
+</div>
+<ul class="updates-list">
+<li><img data-src="bell" class="bell-icon" alt="icon"> Admissions Open for the Academic Year 2026-27 (Nursery to Class 10).</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Final SSC Board Examination schedule has been released for Class 10.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Congratulations to our Sports Team for winning the Inter-School Championship.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> New Advanced Science Laboratory inaugurated for High School students.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Parent-Teacher Meeting (PTM) scheduled for this Friday at 4:00 PM.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Digital Library access is now available for all students via the school portal.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Special 'Green Earth' plantation drive to be held on coming Monday.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Robotics Workshop registrations are now open for Middle & High School.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Scholarship applications for merit students must be submitted by April 30th.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Summer Vacation will commence from June 1st, 2026.</li>
+</ul>
+</div>
+<div class="md:col-span-4 p-3 border-l border-indigo-100 flex flex-col overflow-hidden">
+<div class="mb-2">
+<h2 class="inline-block bg-slate-800 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">Recent Programs Gallery</h2>
+</div>
+<div class="flex-1 relative min-h-[200px]">
+<div id="slideshow" class="slideshow-container bg-slate-100">
+<img data-src="slide" class="slide active object-cover" alt="Event 1">
+<img data-src="slide" class="slide object-cover" style="filter: hue-rotate(45deg); brightness: 1.1;" alt="Event 2">
+<img data-src="slide" class="slide object-cover" style="filter: hue-rotate(90deg); contrast: 1.1;" alt="Event 3">
+<img data-src="slide" class="slide object-cover" style="filter: hue-rotate(135deg); brightness: 0.9;" alt="Event 4">
+<img data-src="slide" class="slide object-cover" style="filter: hue-rotate(180deg); sepia: 0.2;" alt="Event 5">
+<img data-src="slide" class="slide object-cover" style="filter: hue-rotate(225deg);" alt="Event 6">
+<button id="prevBtn" class="nav-btn prev-btn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+<button id="nextBtn" class="nav-btn next-btn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+</div>
+</div>
+<p class="text-[9px] text-center text-slate-500 font-bold uppercase mt-2 tracking-widest">3s Interval • Manual Controls</p>
+</div>
+</div>
+</div>
 
+<!-- CM017 - Toppers Section -->
+<div class="w-full px-2 md:px-8 py-8 space-y-6 bg-sky-50/30">
+<section class="bg-blue-50/50 p-3 sm:p-6 rounded-xl border border-blue-200 shadow-sm">
+<div class="mb-4 sm:mb-6">
+<h2 class="header-divider text-sm sm:text-lg md:text-2xl font-black uppercase tracking-[0.15em] text-blue-900">2026 YEAR - 10TH CLASS SCHOOL TOPPERS</h2>
+</div>
+<div class="grid grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-4">
+<script>
+const c10Toppers = [ { name: "John Doe Smith", pct: "99.6%" }, { name: "Sarah Johnson", pct: "99.0%" }, { name: "Michael Brown", pct: "98.4%" }, { name: "Emily Davis", pct: "97.8%" }, { name: "Chris Wilson", pct: "97.2%" }, { name: "Jessica Taylor", pct: "96.6%" }, { name: "Daniel Martinez", pct: "96.0%" }, { name: "Olivia Garcia", pct: "95.4%" } ];
+document.write(c10Toppers.map((s, i) => `<div class="bg-white p-1 sm:p-3 border border-blue-100 rounded-lg rank-card shadow-md hover:shadow-xl transition-all duration-300"><div class="img-box w-full mb-1 sm:mb-3 rounded-md overflow-hidden p-1 sm:p-2"><img data-src="logo" class="w-full h-full object-cover"></div><div class="text-center"><p class="text-[6px] sm:text-[10px] font-black text-blue-600 uppercase tracking-tighter leading-tight">Rank #${i+1}</p><h4 class="font-bold text-[7px] sm:text-xs truncate leading-tight text-slate-800 mt-0.5 sm:mt-1">${s.name}</h4><p class="text-[5px] sm:text-[8px] text-slate-400 font-mono mb-0.5 sm:mb-1 leading-none mt-0.5">SSC10-00${i+1}</p><p class="text-[9px] sm:text-sm md:text-base font-black text-slate-900 leading-tight">${s.pct}</p></div></div>`).join(''));
+</script>
+</div>
+</section>
+<div class="grid grid-cols-2 gap-2 sm:gap-6">
+<script>
+const otherClasses = [ { name: "9TH", color: "indigo", students: [{n:"Alex J.", p:"99.0%"}, {n:"Mia W.", p:"97.8%"}, {n:"Ethan H.", p:"96.6%"}, {n:"Sophia L.", p:"95.4%"}] }, { name: "8TH", color: "emerald", students: [{n:"Ryan C.", p:"99.0%"}, {n:"Grace M.", p:"97.8%"}, {n:"Noah W.", p:"96.6%"}, {n:"Lily C.", p:"95.4%"}] } ];
+document.write(otherClasses.map(c => `<div class="bg-${c.color}-50/40 p-2 sm:p-5 rounded-xl border border-${c.color}-200 shadow-sm"><div class="mb-2 sm:mb-4"><h3 class="header-divider text-[7px] sm:text-sm md:text-lg font-black uppercase tracking-wider text-${c.color}-900">2026 YEAR - ${c.name} CLASS TOPPERS</h3></div><div class="grid grid-cols-4 gap-1 sm:gap-3">${c.students.map((s, i) => `<div class="bg-white p-1 sm:p-2 border border-${c.color}-100 rounded-lg rank-card text-center shadow-sm flex flex-col justify-between"><div class="img-box w-full mb-1 sm:mb-2 rounded shadow-inner p-1 max-w-[70px] mx-auto"><img data-src="logo" class="w-full h-full object-cover"></div><div><p class="text-[5px] sm:text-[9px] font-black text-${c.color}-600 uppercase leading-none">Rank #${i+1}</p><p class="font-bold text-[6px] sm:text-[10px] truncate text-slate-700 leading-tight mt-0.5 sm:mt-1">${s.n}</p><p class="text-[7px] sm:text-xs font-black text-slate-900 mt-0.5 leading-tight">${s.p}</p></div></div>`).join('')}</div></div>`).join(''));
+</script>
+</div>
+</div>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+<!-- CM018 - Why We Are Special -->
+<section class="w-full bg-emerald-50/30 py-8 px-4 md:px-8 border-y border-emerald-100">
+<div class="w-full">
+<div class="mb-6">
+<h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Why We Are Special</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="info-card p-6 border border-emerald-100 bg-white shadow-sm rounded-xl">
+<div class="icon-container bg-blue-50 text-blue-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+</div>
+<h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Quality Education</h3>
+<p class="text-[11px] text-slate-500 leading-tight">Comprehensive curriculum designed to foster academic excellence and critical thinking.</p>
+</div>
+<div class="info-card p-6 border border-emerald-100 bg-white shadow-sm rounded-xl">
+<div class="icon-container bg-purple-50 text-purple-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+</div>
+<h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Experienced Faculty</h3>
+<p class="text-[11px] text-slate-500 leading-tight">Dedicated teachers with years of experience in nurturing young minds with care.</p>
+</div>
+<div class="info-card p-6 border border-emerald-100 bg-white shadow-sm rounded-xl">
+<div class="icon-container bg-emerald-50 text-emerald-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+</div>
+<h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Govt Recognition</h3>
+<p class="text-[11px] text-slate-500 leading-tight">Fully recognized by the Department of Education with proper national accreditation.</p>
+</div>
+<div class="info-card p-6 border border-emerald-100 bg-white shadow-sm rounded-xl">
+<div class="icon-container bg-orange-50 text-orange-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+</div>
+<h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Dual Medium</h3>
+<p class="text-[11px] text-slate-500 leading-tight">Education offered in both English and Telugu to cater to diverse student needs.</p>
+</div>
+<div class="info-card p-6 border border-emerald-100 bg-white shadow-sm rounded-xl">
+<div class="icon-container bg-rose-50 text-rose-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+</div>
+<h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Character Building</h3>
+<p class="text-[11px] text-slate-500 leading-tight">Focus on moral values and character development alongside standard academics.</p>
+</div>
+<div class="info-card p-6 border border-emerald-100 bg-white shadow-sm rounded-xl">
+<div class="icon-container bg-cyan-50 text-cyan-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 20.44l7.43-7.43.77-.78a5.4 5.4 0 0 0 0-7.65z"/></svg>
+</div>
+<h3 class="text-sm font-black mb-2 uppercase tracking-wider text-slate-900">Holistic Dev</h3>
+<p class="text-[11px] text-slate-500 leading-tight">Balanced approach to intellectual, physical, emotional, and social development.</p>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- FOOTER SECTION -->
-    <footer class="bg-birds-deep text-white pt-16">
-        <div class="w-full px-6 lg:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12 text-left">
-            <div>
-                <h4 class="footer-headline"><i data-lucide="school"></i>About School</h4>
-                <div class="footer-underline"></div>
-                <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>About Us</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Vision & Mission</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Chairman Message</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Our History</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Infrastructure</a>
-                </div>
-            </div>
-            <div>
-                <h4 class="footer-headline"><i data-lucide="book-open"></i>Academic Core</h4>
-                <div class="footer-underline"></div>
-                <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Programs</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Coaching Classes</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Online Learning</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Career Guidance</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Library Services</a>
-                </div>
-            </div>
-            <div>
-                <h4 class="footer-headline"><i data-lucide="users"></i>Student Zone</h4>
-                <div class="footer-underline"></div>
-                <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Student Portal</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Academic Calendar</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Syllabus & Notes</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Exam Schedule</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Attendance</a>
-                </div>
-            </div>
-            <div>
-                <h4 class="footer-headline"><i data-lucide="file-text"></i>Admissions</h4>
-                <div class="footer-underline"></div>
-                <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Process</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Fee Structure</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Apply Online</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Prospectus</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Eligibility</a>
-                </div>
-            </div>
-            <div>
-                <h4 class="footer-headline"><i data-lucide="briefcase"></i>Staff & Jobs</h4>
-                <div class="footer-underline"></div>
-                <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Teaching Staff</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Job Openings</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>HR Policies</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Benefits</a>
-                </div>
-            </div>
-            <div>
-                <h4 class="footer-headline"><i data-lucide="headphones"></i>Support</h4>
-                <div class="footer-underline"></div>
-                <div class="flex flex-col">
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Contact Us</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Location Map</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Enquiry Form</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Feedback</a>
-                    <a class="footer-link"><i data-lucide="chevron-right"></i>Social Links</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-black/40 border-t border-white/5 py-8">
-            <div class="w-full px-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center space-x-4">
-                    <img src="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png" class="w-10 h-10">
-                    <div class="text-left"><span class="block font-outfit font-black text-sm uppercase leading-none">BIRDS High School</span><span class="block text-[9px] font-bold text-birds-gold mt-1 uppercase tracking-tighter">Muthyalapadu, AP, India</span></div>
-                </div>
-                <p class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-slate-500">© 2010 - 2026 BIRDS High School. ALL RIGHTS RESERVED.</p>
-                <div class="flex items-center space-x-6">
-                    <i data-lucide="facebook" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
-                    <i data-lucide="instagram" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
-                    <i data-lucide="youtube" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
-                </div>
-            </div>
-        </div>
-    </footer>
+<!-- CM019 - Academic Journey -->
+<section class="w-full bg-amber-50/30 py-8 px-4 md:px-8 border-b border-amber-100">
+<div class="w-full">
+<div class="mb-6">
+<h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Academic Journey</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-6 bg-white border border-rose-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-rose-100 text-rose-600 rounded-full shadow-inner">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+</div>
+<div>
+<h3 class="text-lg font-black text-rose-900 tracking-tight drop-shadow-sm uppercase">Pre-Primary</h3>
+<p class="text-[10px] font-bold text-rose-600 uppercase tracking-widest mt-1">3-5 Years</p>
+</div>
+</div>
+<p class="text-xs text-rose-800/90 mb-5 leading-relaxed font-semibold">Foundation years focusing on play-based learning and cognitive skills development.</p>
+<ul class="feature-list text-xs font-bold text-rose-900/90 space-y-2">
+<li class="text-rose-700">Play-based Learning</li>
+<li class="text-rose-700">Creative Activities</li>
+<li class="text-rose-700">Basic Literacy & Numeracy</li>
+<li class="text-rose-700">Social Skills Focus</li>
+</ul>
+</div>
+<div class="p-6 bg-white border border-amber-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-amber-100 text-amber-600 rounded-full shadow-inner">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+</div>
+<div>
+<h3 class="text-lg font-black text-amber-900 tracking-tight drop-shadow-sm uppercase">Primary</h3>
+<p class="text-[10px] font-bold text-amber-600 uppercase tracking-widest mt-1">6-10 Years</p>
+</div>
+</div>
+<p class="text-xs text-amber-800/90 mb-5 leading-relaxed font-semibold">Building academic foundations and core character values with utmost dedication.</p>
+<ul class="feature-list text-xs font-bold text-amber-900/90 space-y-2">
+<li class="text-amber-700">Core Subject Mastery</li>
+<li class="text-amber-700">Value-based Education</li>
+<li class="text-amber-700">Co-curricular Activities</li>
+<li class="text-amber-700">Sports & Games Integration</li>
+</ul>
+</div>
+<div class="p-6 bg-white border border-indigo-100 rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full shadow-inner">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/><path d="m17 18 6-6-6-6"/><path d="M1 12h8"/></svg>
+</div>
+<div>
+<h3 class="text-lg font-black text-indigo-900 tracking-tight drop-shadow-sm uppercase">High School</h3>
+<p class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mt-1">11-15 Years</p>
+</div>
+</div>
+<p class="text-xs text-indigo-800/90 mb-5 leading-relaxed font-semibold">Board exam preparation, career-oriented guidance and specialized knowledge.</p>
+<ul class="feature-list text-xs font-bold text-indigo-900/90 space-y-2">
+<li class="text-indigo-700">Board Exam Prep</li>
+<li class="text-indigo-700">Advanced Science Laboratory</li>
+<li class="text-indigo-700">Leadership Training</li>
+<li class="text-indigo-700">Career Counseling Focus</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 
-    <script>
-        lucide.createIcons();
-        function toggleDropdown(e, menuId, element) {
-            e.stopPropagation();
-            const allMenus = document.querySelectorAll('.dropdown-menu');
-            const allLinks = document.querySelectorAll('.nav-link');
-            const targetMenu = document.getElementById(menuId);
-            const isShowing = targetMenu.classList.contains('show');
-            allMenus.forEach(menu => menu.classList.remove('show'));
-            allLinks.forEach(link => link.classList.remove('active'));
-            if (!isShowing) { targetMenu.classList.add('show'); element.classList.add('active'); }
-        }
-        window.onclick = function(event) {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-        }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-        document.addEventListener('DOMContentLoaded', function() {
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            let currentSlide = 0;
-            let slideInterval;
+<!-- CM020 - Special Programs -->
+<section class="w-full bg-purple-50/20 py-8 px-4 md:px-8 border-b border-purple-100">
+<div class="w-full">
+<div class="mb-6">
+<h2 class="header-divider text-lg md:text-xl font-black uppercase tracking-[0.2em] text-slate-800">Special Programs</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white p-6 rounded-xl shadow-sm border border-purple-100 text-center">
+<div class="icon-container bg-blue-50 text-blue-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+</div>
+<h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Remedial Classes</h4>
+<p class="text-[10px] text-slate-500 leading-relaxed">Additional support for students who need extra help in specific subjects.</p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-purple-100 text-center">
+<div class="icon-container bg-emerald-50 text-emerald-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 7-5-5-5 5"/><path d="M17 17l-5 5-5-5"/></svg>
+</div>
+<h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Advanced Learning</h4>
+<p class="text-[10px] text-slate-500 leading-relaxed">Enrichment programs designed for academically gifted students.</p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-purple-100 text-center">
+<div class="icon-container bg-orange-50 text-orange-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.5a6.5 6.5 0 1 0-6.5-6.5 6.5 6.5 0 0 0 6.5 6.5z"/><path d="M12 12s-1.5 1-1.5 2.5a1.5 1.5 0 0 0 3 0c0-1.5-1.5-2.5-1.5-2.5z"/></svg>
+</div>
+<h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Life Skills Education</h4>
+<p class="text-[10px] text-slate-500 leading-relaxed">Practical skills and values for holistic personality development.</p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-purple-100 text-center">
+<div class="icon-container bg-purple-50 text-purple-600">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+</div>
+<h4 class="font-bold text-[11px] text-slate-900 uppercase mb-2">Activity-based Learning</h4>
+<p class="text-[10px] text-slate-500 leading-relaxed">Hands-on learning experiences through projects and activities.</p>
+</div>
+</div>
+</div>
+</section>
 
-            function showSlide(index) {
-                slides.forEach(s => s.classList.remove('active'));
-                if (index >= slides.length) currentSlide = 0;
-                else if (index < 0) currentSlide = slides.length - 1;
-                else currentSlide = index;
-                slides[currentSlide].classList.add('active');
-            }
+<!-- CM021 - Footer Section -->
+<footer class="bg-birds-deep text-white pt-16">
+<div class="w-full px-6 lg:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12 text-left">
+<div>
+<h4 class="footer-headline"><i data-lucide="school"></i>About School</h4>
+<div class="footer-underline"></div>
+<div class="flex flex-col">
+<a class="footer-link"><i data-lucide="chevron-right"></i>About Us</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Vision & Mission</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Chairman Message</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Our History</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Infrastructure</a>
+</div>
+</div>
+<div>
+<h4 class="footer-headline"><i data-lucide="book-open"></i>Academic Core</h4>
+<div class="footer-underline"></div>
+<div class="flex flex-col">
+<a class="footer-link"><i data-lucide="chevron-right"></i>Programs</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Coaching Classes</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Online Learning</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Career Guidance</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Library Services</a>
+</div>
+</div>
+<div>
+<h4 class="footer-headline"><i data-lucide="users"></i>Student Zone</h4>
+<div class="footer-underline"></div>
+<div class="flex flex-col">
+<a class="footer-link"><i data-lucide="chevron-right"></i>Student Portal</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Academic Calendar</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Syllabus & Notes</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Exam Schedule</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Attendance</a>
+</div>
+</div>
+<div>
+<h4 class="footer-headline"><i data-lucide="file-text"></i>Admissions</h4>
+<div class="footer-underline"></div>
+<div class="flex flex-col">
+<a class="footer-link"><i data-lucide="chevron-right"></i>Process</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Fee Structure</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Apply Online</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Prospectus</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Eligibility</a>
+</div>
+</div>
+<div>
+<h4 class="footer-headline"><i data-lucide="briefcase"></i>Staff & Jobs</h4>
+<div class="footer-underline"></div>
+<div class="flex flex-col">
+<a class="footer-link"><i data-lucide="chevron-right"></i>Teaching Staff</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Job Openings</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>HR Policies</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Benefits</a>
+</div>
+</div>
+<div>
+<h4 class="footer-headline"><i data-lucide="headphones"></i>Support</h4>
+<div class="footer-underline"></div>
+<div class="flex flex-col">
+<a class="footer-link"><i data-lucide="chevron-right"></i>Contact Us</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Location Map</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Enquiry Form</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Feedback</a>
+<a class="footer-link"><i data-lucide="chevron-right"></i>Social Links</a>
+</div>
+</div>
+</div>
+<div class="bg-black/40 border-t border-white/5 py-8">
+<div class="w-full px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center space-x-4">
+<img data-src="logo" class="w-10 h-10">
+<div class="text-left"><span class="block font-outfit font-black text-sm uppercase leading-none">BIRDS High School</span><span class="block text-[9px] font-bold text-birds-gold mt-1 uppercase tracking-tighter">Muthyalapadu, AP, India</span></div>
+</div>
+<p class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-slate-500">© 2010 - 2026 BIRDS High School. ALL RIGHTS RESERVED.</p>
+<div class="flex items-center space-x-6">
+<i data-lucide="facebook" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
+<i data-lucide="instagram" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
+<i data-lucide="youtube" class="w-4 h-4 text-slate-400 hover:text-white cursor-pointer"></i>
+</div>
+</div>
+</div>
+</footer>
 
-            function startAutoPlay() {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(() => {
-                    showSlide(currentSlide + 1);
-                }, 3000);
-            }
+<!-- CM022 - Core JavaScript Initialization -->
+<script>
+lucide.createIcons();
 
-            if (nextBtn) nextBtn.addEventListener('click', () => { showSlide(currentSlide + 1); startAutoPlay(); });
-            if (prevBtn) prevBtn.addEventListener('click', () => { showSlide(currentSlide - 1); startAutoPlay(); });
+/* CM023 - Fixed Float Dropdown Logic */
+function toggleDropdown(e, menuId, element) { e.stopPropagation(); const allMenus = document.querySelectorAll('.dropdown-menu'); const allLinks = document.querySelectorAll('.nav-link, button'); const targetMenu = document.getElementById(menuId); const isShowing = targetMenu.classList.contains('show'); allMenus.forEach(menu => menu.classList.remove('show')); allLinks.forEach(link => link.classList.remove('active')); if (!isShowing) { if(targetMenu.parentNode !== document.body) { document.body.appendChild(targetMenu); } const rect = element.getBoundingClientRect(); targetMenu.style.top = (rect.bottom + 5) + 'px'; targetMenu.style.left = rect.left + 'px'; targetMenu.classList.add('show'); element.classList.add('active'); } }
 
-            startAutoPlay();
-        });
-		
-		
-		
-		
-		
-		
-		
-		
-    </script>
+/* CM024 - Outside Click Dropdown Close Logic */
+window.onclick = function(event) { document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show')); document.querySelectorAll('.nav-link, button').forEach(link => link.classList.remove('active')); }
+
+/* CM025 - Slideshow Logic */
+document.addEventListener('DOMContentLoaded', function() { const slides = document.querySelectorAll('.slide'); const prevBtn = document.getElementById('prevBtn'); const nextBtn = document.getElementById('nextBtn'); let currentSlide = 0; let slideInterval; function showSlide(index) { slides.forEach(s => s.classList.remove('active')); if (index >= slides.length) currentSlide = 0; else if (index < 0) currentSlide = slides.length - 1; else currentSlide = index; slides[currentSlide].classList.add('active'); } function startAutoPlay() { clearInterval(slideInterval); slideInterval = setInterval(() => { showSlide(currentSlide + 1); }, 3000); } if (nextBtn) nextBtn.addEventListener('click', () => { showSlide(currentSlide + 1); startAutoPlay(); }); if (prevBtn) prevBtn.addEventListener('click', () => { showSlide(currentSlide - 1); startAutoPlay(); }); startAutoPlay(); });
+
+/* CM026 - Dynamic Links Injection Logic */
+document.addEventListener('DOMContentLoaded', () => { document.querySelectorAll('[data-src]').forEach(el => el.src = G_LINKS[el.getAttribute('data-src')]); const fav = document.getElementById('favIconLink'); if(fav) fav.href = G_LINKS.logo; });
+</script>
 </body>
 </html>

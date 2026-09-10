@@ -89,8 +89,8 @@ html { -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth;
 .message-box { position: relative; }
 .message-box::before { content: '"'; position: absolute; top: -12px; left: -6px; font-size: 50px; color: #e2e8f0; font-family: serif; z-index: -1; }
 .banner-image { width: 100%; height: auto; min-height: 250px; max-height: 600px; object-fit: cover; display: block; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); }
+.smoke-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 65%, rgba(248,250,252,0.95) 100%); pointer-events: none; }
 .icon-3d { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); transition: transform 0.3s ease; }
-.icon-3d:hover { transform: translateY(-5px) scale(1.1); }
 .stylish-text { background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
 /* CM012 - Main Iframe Display */
@@ -139,7 +139,7 @@ html { -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth;
 <script>
 const G_LINKS = {
 logo: "https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png",
-banner: "https://birds-sch.github.io/BIRDSIMG/MAIN-SCHOOL-COMPLETE-BLOCK-2.jpeg",
+banner: "https://birds-sch.github.io/BIRDSIMG/MAIN-SCHOOL-COMPLETE-BLOCK-3.png",
 paul: "https://birds-sch.github.io/BIRDSIMG/BIRDS_PAUL_SIR.png",
 sindhura: "https://birds-sch.github.io/BIRDSIMG/BIRDS_HM_SINDHURA_MEDAM.png",
 gal1: "https://birds-sch.github.io/BIRDSIMG/3-BUSES.jpeg",
@@ -225,8 +225,9 @@ page_teachers: "https://birds-sch.github.io/BIRDS/teacherslogin.HTML"
 <div id="home-content">
 
 <!-- CM021 - Main Banner -->
-<div class="w-full overflow-hidden leading-[0]">
+<div class="w-full overflow-hidden leading-[0] relative">
 <img data-src="banner" alt="School Block" class="banner-image">
+<div class="smoke-overlay"></div>
 </div>
 
 <!-- CM022 - About & Leadership Section -->

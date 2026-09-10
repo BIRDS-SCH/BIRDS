@@ -6,7 +6,7 @@
 <title>BIRDS</title>
 <link rel="icon" type="image/png" id="favIconLink">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0046ad">
+<meta name="theme-color" content="#f8fafc">
 <link rel="apple-touch-icon" href="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;800&family=Outfit:wght@800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -14,18 +14,18 @@
 
 <!-- CM001 - Tailwind Setup -->
 <script>
-tailwind.config = { theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'], slab: ['Roboto Slab', 'serif'], outfit: ['Outfit', 'sans-serif'], merri: ['Merriweather', 'serif'] }, colors: { birds: { blue: '#0046ad', dark: '#002d70', gold: '#facc15', light: '#f8fafc', deep: '#000c24' } } } } }
+tailwind.config={theme:{extend:{fontFamily:{sans:['Plus Jakarta Sans','Inter','sans-serif'],slab:['Roboto Slab','serif'],outfit:['Outfit','sans-serif'],merri:['Merriweather','serif']},colors:{birds:{blue:'#0046ad',dark:'#002d70',gold:'#facc15',light:'#f8fafc',deep:'#000c24'}}}}}
 </script>
 
 <style>
 /* CM002 - Global Body Styles */
-body { font-family: 'Roboto Slab', serif; background-color: #f8fafc; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Roboto Slab', serif; background-color: #f8fafc; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
 /* CM003 - Scrollbar Hiding */
-html { -ms-overflow-style: none; scrollbar-width: none; }
+html { -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth; }
 ::-webkit-scrollbar { display: none; }
 
-/* CM004 - Rank Card & Toppers Image Fix */
+/* CM004 - Rank Card Styles */
 .rank-card { transition: all 0.2s ease; }
 .rank-card:hover { transform: translateY(-1px); box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.04); }
 .img-box { border: 1px solid #e2e8f0; aspect-ratio: 3 / 4; display: flex; align-items: center; justify-content: center; background-color: #ffffff; overflow: hidden; padding: 4px; }
@@ -41,45 +41,45 @@ html { -ms-overflow-style: none; scrollbar-width: none; }
 .bell-icon { color: #ef4444; margin-right: 8px; flex-shrink: 0; animation: ring 2s ease infinite; font-style: normal; width: 12px; height: 12px; }
 @keyframes ring { 0% { transform: rotate(0); } 10% { transform: rotate(15deg); } 20% { transform: rotate(-15deg); } 30% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 50% { transform: rotate(0); } 100% { transform: rotate(0); } }
 
-/* CM007 - Slideshow Gallery */
-.slideshow-container { position: relative; width: 100%; height: 100%; min-height: 0; overflow: hidden; border-radius: 6px; border: 1px solid #e2e8f0; }
-.slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; transform: scale(1.05); }
+/* CM007 - Slideshow Gallery 3:1 Ratio */
+.gallery-wrapper { width: 100%; aspect-ratio: 3 / 1; position: relative; overflow: hidden; border-radius: 6px; border: 1px solid #e2e8f0; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; transform: scale(1.02); object-fit: cover; }
 .slide.active { opacity: 1; transform: scale(1); }
-.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.8); color: #1e293b; padding: 6px; border-radius: 50%; cursor: pointer; z-index: 10; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.8); color: #1e293b; padding: 6px; border-radius: 50%; cursor: pointer; z-index: 10; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: none; }
 .nav-btn:hover { background: #ffffff; transform: translateY(-50%) scale(1.1); }
 .prev-btn { left: 8px; }
 .next-btn { right: 8px; }
 
-/* CM008 - Info Cards & Journey Features */
+/* CM008 - Info Cards & Features */
 .info-card { transition: all 0.3s ease; text-align: center; }
 .info-card:hover { background-color: #ffffff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); transform: translateY(-3px); }
 .icon-container { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 6px; margin: 0 auto 8px auto; }
 .feature-list li { position: relative; padding-left: 1.15rem; margin-bottom: 0.25rem; }
 .feature-list li::before { content: '»'; position: absolute; left: 0; font-weight: 900; font-size: 1rem; line-height: 1; margin-top: -1px; }
 
-/* CM009 - Navigation & Glass Effect */
-.glass-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); min-height: 95px; display: flex; align-items: center; position: relative; z-index: 1000; }
+/* CM009 - Navigation & Light Header */
+.glass-nav { background: rgba(248, 250, 252, 0.98); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); min-height: 95px; display: flex; align-items: center; position: relative; z-index: 1000; border-bottom: 2px solid #e2e8f0; margin-top: 0; }
 .logo-3d { filter: drop-shadow(0 8px 6px rgba(0, 70, 173, 0.2)); width: 65px; height: 65px; transition: transform 0.3s ease; }
 .logo-3d:hover { transform: scale(1.05); }
-.nav-link { display: flex; flex-direction: column; align-items: center; font-size: 8.2px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; transition: all 0.2s ease; white-space: nowrap; color: #475569; cursor: pointer; padding: 8px 10px; background: transparent; position: relative; }
+.nav-link { display: flex; flex-direction: column; align-items: center; font-size: 8.2px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; transition: all 0.2s ease; white-space: nowrap; color: #475569; cursor: pointer; padding: 8px 10px; background: transparent; position: relative; border: none; }
 @media (min-width: 1280px) { .nav-link { font-size: 9.2px; padding: 10px 12px; } }
 .nav-link:hover, .nav-link.active { color: #0046ad; transform: translateY(-2px); }
 .header-icon-img { width: 18px; height: 18px; margin-bottom: 3px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
 .scroll-wrapper { display: flex; justify-content: flex-end; flex-grow: 1; overflow-x: auto; scrollbar-width: none; }
 .scroll-wrapper::-webkit-scrollbar { display: none; }
 
-/* CM010 - Dropdown Menu Styles Fixed & Floating */
+/* CM010 - Dropdown Menu Fixed */
 .dropdown-menu { position: fixed; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 2px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); min-width: 180px; z-index: 999999; display: none; opacity: 0; transition: opacity 0.2s ease; max-height: 350px; overflow-y: auto; padding: 0; margin: 0; }
 .dropdown-menu.show { display: block; opacity: 1; }
 .dropdown-item { display: block; width: 100%; padding: 8px 14px; font-size: 9.5px; font-weight: 700; color: #1e293b; border-bottom: 1px solid #f1f5f9; text-align: left; margin: 0; cursor: pointer; transition: background 0.2s, color 0.2s; text-decoration: none; }
 .dropdown-item:last-child { border-bottom: none; }
 .dropdown-item:hover { background: #0046ad; color: #ffffff; }
 
-/* CM011 - Footer & Misc */
+/* CM011 - Footer Elements */
 .footer-headline { font-family: 'Roboto Slab', serif; font-weight: 800; font-size: 11.5px; text-transform: uppercase; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
 .footer-headline i { width: 14px; height: 14px; color: #facc15; }
 .footer-underline { height: 2.5px; width: 30px; background: #facc15; margin-bottom: 15px; border-radius: 2px; }
-.footer-link { display: flex; align-items: center; font-size: 9.5px; font-weight: 600; color: #94a3b8; margin-bottom: 6px; transition: all 0.2s ease; gap: 6px; cursor: pointer; }
+.footer-link { display: flex; align-items: center; font-size: 9.5px; font-weight: 600; color: #94a3b8; margin-bottom: 6px; transition: all 0.2s ease; gap: 6px; cursor: pointer; border: none; background: transparent; padding: 0; text-align: left; }
 .footer-link:hover { color: #facc15; transform: translateX(3px); }
 .footer-link i { width: 9px; height: 9px; stroke-width: 4px; }
 .leader-card { transition: transform 0.3s ease; }
@@ -88,19 +88,33 @@ html { -ms-overflow-style: none; scrollbar-width: none; }
 .madam-img { box-shadow: 0 0 0 2px #f3e8ff, 0 15px 30px -10px rgba(168, 85, 247, 0.3); }
 .message-box { position: relative; }
 .message-box::before { content: '"'; position: absolute; top: -12px; left: -6px; font-size: 50px; color: #e2e8f0; font-family: serif; z-index: -1; }
-.banner-image { width: 100%; height: 80px; object-fit: fill; display: block; }
+.banner-image { width: 100%; height: auto; min-height: 250px; max-height: 600px; object-fit: cover; display: block; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); }
 .icon-3d { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); transition: transform 0.3s ease; }
 .icon-3d:hover { transform: translateY(-5px) scale(1.1); }
 .stylish-text { background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-/* CM029 - PWA Install Banner Styles */
+/* CM012 - Main Iframe Display */
+#iframe-section { display: none; width: 100%; min-height: 80vh; background: #ffffff; position: relative; }
+.iframe-active #home-content { display: none; }
+.iframe-active #iframe-section { display: block; }
+#main-iframe { width: 100%; height: 85vh; border: none; display: block; }
+.iframe-header { background: #f8fafc; padding: 10px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+.back-btn { background: #ef4444; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
+.back-btn:hover { background: #dc2626; }
+
+/* CM013 - Toast Popup */
+#toast-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: rgba(0, 12, 36, 0.95); color: #ffffff; padding: 25px 35px; border-radius: 12px; z-index: 9999999; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transition: all 0.3s ease; max-width: 80%; border: 1px solid #3b82f6; }
+#toast-popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+.toast-icon { display: inline-block; width: 40px; height: 40px; background: #3b82f6; border-radius: 50%; line-height: 40px; margin-bottom: 15px; }
+
+/* CM014 - PWA Banner */
 #pwa-install-banner { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); z-index: 9999999; transition: top 0.4s ease-in-out; width: 90%; max-width: 400px; }
 #pwa-install-banner.show { top: 15px; }
 </style>
 </head>
 <body class="p-0 bg-slate-50">
 
-<!-- CM030 - PWA Install Banner HTML -->
+<!-- CM015 - PWA Install HTML -->
 <div id="pwa-install-banner" class="bg-white rounded-xl shadow-2xl border border-slate-200 p-3 flex items-center justify-between gap-3">
 <div class="flex items-center gap-3">
 <img data-src="logo" class="w-8 h-8 rounded-full shadow-sm">
@@ -115,23 +129,25 @@ html { -ms-overflow-style: none; scrollbar-width: none; }
 </div>
 </div>
 
-<!-- CM012 - Global Links Config -->
+<!-- CM016 - Toast HTML -->
+<div id="toast-popup">
+<div class="toast-icon"><i data-lucide="info" class="w-6 h-6 inline text-white"></i></div>
+<p id="toast-msg" class="text-sm font-bold leading-relaxed tracking-wide"></p>
+</div>
+
+<!-- CM017 - Global Links Config -->
 <script>
 const G_LINKS = {
-// Main Logos & Banners
 logo: "https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png",
-banner: "https://birds-sch.github.io/BIRDSIMG/HEADER_LINE_BG_IMAGE.png",
+banner: "https://birds-sch.github.io/BIRDSIMG/MAIN-SCHOOL-COMPLETE-BLOCK-2.jpeg",
 paul: "https://birds-sch.github.io/BIRDSIMG/BIRDS_PAUL_SIR.png",
 sindhura: "https://birds-sch.github.io/BIRDSIMG/BIRDS_HM_SINDHURA_MEDAM.png",
-
-// Gallery Images (5 separate links for gallery)
-gal1: "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png",
-gal2: "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png",
-gal3: "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png",
-gal4: "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png",
-gal5: "https://birds-sch.github.io/BIRDSIMG/EXMAPLE_SLID_SHOW_PHOTO.png",
-
-// Header Icons
+gal1: "https://birds-sch.github.io/BIRDSIMG/3-BUSES.jpeg",
+gal2: "https://birds-sch.github.io/BIRDSIMG/ADMIN-BLOCK-ENTRY.jpeg",
+gal3: "https://birds-sch.github.io/BIRDSIMG/ENTRANCE-GATE.jpeg",
+gal4: "https://birds-sch.github.io/BIRDSIMG/MAIN-BUS.jpeg",
+gal5: "https://birds-sch.github.io/BIRDSIMG/SCHOOL-LEFT-SIDE-BLOCK.jpeg",
+gal6: "https://birds-sch.github.io/BIRDSIMG/TECHERS-BLOCK.jpeg",
 home: "https://img.icons8.com/color/48/home.png",
 proj: "https://img.icons8.com/color/48/opened-folder.png",
 rank: "https://img.icons8.com/color/48/trophy.png",
@@ -140,8 +156,6 @@ admin: "https://img.icons8.com/color/48/edit-property.png",
 phone: "https://img.icons8.com/color/48/phone.png",
 lock: "https://img.icons8.com/color/48/lock-landscape.png",
 bell: "https://img.icons8.com/ios-filled/50/ef4444/appointment-reminders.png",
-
-// Stats Icons
 st1: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
 st2: "https://cdn-icons-png.flaticon.com/512/3429/3429433.png",
 st3: "https://cdn-icons-png.flaticon.com/512/3135/3135679.png",
@@ -150,47 +164,23 @@ st5: "https://cdn-icons-png.flaticon.com/512/3112/3112946.png",
 st6: "https://cdn-icons-png.flaticon.com/512/2602/2602414.png",
 st7: "https://cdn-icons-png.flaticon.com/512/190/190411.png",
 st8: "https://cdn-icons-png.flaticon.com/512/2950/2950137.png",
-
-// ================= HEADER MAIN BUTTON LINKS ================= //
-l_home: "#",
-l_contact: "#",
-
-// PROJECTS Sub Buttons Links
-l_p_preprimary: "#",
-l_p_primary: "#",
-l_p_secondary: "#",
-l_p_highschool: "#",
-l_p_sciencewear: "#",
-l_p_special: "#",
-
-// RANKERS Sub Buttons Links
-l_r_ssc: "#",
-l_r_9th: "#",
-l_r_8th: "#",
-l_r_achievers: "#",
-
-// CAREERS Sub Buttons Links
-l_c_teaching: "#",
-l_c_nonteaching: "#",
-l_c_admin: "#",
-
-// ADMISSION Sub Buttons Links
-l_a_new: "#",
-l_a_existing: "#",
-
-// LOGIN Sub Buttons Links
-l_l_student: "#",
-l_l_nonteaching: "#",
-l_l_teachers: "#",
-l_l_admin: "#"
+page_admission: "https://birds-sch.github.io/BIRDS/Admission.HTML",
+page_careers: "https://birds-sch.github.io/BIRDS/Careers.HTML",
+page_admin: "https://birds-sch.github.io/BIRDS/adminlogin.HTML",
+page_contact: "https://birds-sch.github.io/BIRDS/contactus.HTML",
+page_home: "https://birds-sch.github.io/BIRDS/index.html",
+page_nonteaching: "https://birds-sch.github.io/BIRDS/nonteachingstaffportal.HTML",
+page_projects: "https://birds-sch.github.io/BIRDS/projects.HTML",
+page_student: "https://birds-sch.github.io/BIRDS/studentportal.HTML",
+page_teachers: "https://birds-sch.github.io/BIRDS/teacherslogin.HTML"
 };
 </script>
 
-<!-- CM013 - Header Navigation -->
-<header class="glass-nav border-b border-slate-200">
+<!-- CM018 - Header Navigation -->
+<header class="glass-nav">
 <nav class="w-full flex items-center justify-between px-4">
 <div class="flex items-center space-x-3 flex-shrink-0">
-<div class="cursor-pointer" onclick="window.location.reload()">
+<div class="cursor-pointer" onclick="closeIframe()">
 <img data-src="logo" alt="BIRDS Logo" class="logo-3d">
 </div>
 <div class="hidden md:block text-left">
@@ -200,21 +190,21 @@ l_l_admin: "#"
 </div>
 <div class="scroll-wrapper">
 <div class="flex items-center space-x-1">
-<a class="nav-link cursor-pointer" data-href="l_home"><img data-src="home" class="header-icon-img">HOME</a>
-<div class="nav-link" onclick="toggleDropdown(event, 'p-drop', this)"><img data-src="proj" class="header-icon-img">PROJECTS<div id="p-drop" class="dropdown-menu"><a class="dropdown-item" data-href="l_p_preprimary">&gt; Pre Primary Projects</a><a class="dropdown-item" data-href="l_p_primary">&gt; Primary Projects</a><a class="dropdown-item" data-href="l_p_secondary">&gt; Secondary Projects</a><a class="dropdown-item" data-href="l_p_highschool">&gt; High School Projects</a><a class="dropdown-item" data-href="l_p_sciencewear">&gt; School Sciencewear</a><a class="dropdown-item" data-href="l_p_special">&gt; School Special Projects</a></div></div>
-<div class="nav-link" onclick="toggleDropdown(event, 'rk-drop', this)"><img data-src="rank" class="header-icon-img">RANKERS<div id="rk-drop" class="dropdown-menu"><a class="dropdown-item" data-href="l_r_ssc">&gt; Ssc Rankers</a><a class="dropdown-item" data-href="l_r_9th">&gt; 9th Rankers</a><a class="dropdown-item" data-href="l_r_8th">&gt; 8th Rankers</a><a class="dropdown-item" data-href="l_r_achievers">&gt; Achievers</a></div></div>
-<div class="nav-link" onclick="toggleDropdown(event, 'cr-drop', this)"><img data-src="career" class="header-icon-img">CAREERS<div id="cr-drop" class="dropdown-menu"><a class="dropdown-item" data-href="l_c_teaching">&gt; Teaching</a><a class="dropdown-item" data-href="l_c_nonteaching">&gt; Non Teaching</a><a class="dropdown-item" data-href="l_c_admin">&gt; Admin</a></div></div>
-<div class="nav-link" onclick="toggleDropdown(event, 'adm-drop', this)"><img data-src="admin" class="header-icon-img">ADMISSION<div id="adm-drop" class="dropdown-menu"><a class="dropdown-item" data-href="l_a_new">&gt; New Admission</a><a class="dropdown-item" data-href="l_a_existing">&gt; Existing Student</a></div></div>
-<a class="nav-link cursor-pointer" data-href="l_contact"><img data-src="phone" class="header-icon-img">CONTACT</a>
+<button class="nav-link" onclick="closeIframe()"><img data-src="home" class="header-icon-img">HOME</button>
+<div class="nav-link" onclick="toggleDropdown(event, 'p-drop', this)"><img data-src="proj" class="header-icon-img">PROJECTS<div id="p-drop" class="dropdown-menu"><a class="dropdown-item" onclick="openIframe(G_LINKS.page_projects)">&gt; Pre Primary Projects</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_projects)">&gt; Primary Projects</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_projects)">&gt; Secondary Projects</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_projects)">&gt; High School Projects</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_projects)">&gt; School Sciencewear</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_projects)">&gt; School Special Projects</a></div></div>
+<div class="nav-link" onclick="toggleDropdown(event, 'rk-drop', this)"><img data-src="rank" class="header-icon-img">RANKERS<div id="rk-drop" class="dropdown-menu"><a class="dropdown-item" onclick="scrollToId('rankers-section')">&gt; Ssc Rankers</a><a class="dropdown-item" onclick="scrollToId('rankers-section')">&gt; 9th Rankers</a><a class="dropdown-item" onclick="scrollToId('rankers-section')">&gt; 8th Rankers</a><a class="dropdown-item" onclick="scrollToId('rankers-section')">&gt; Achievers</a></div></div>
+<div class="nav-link" onclick="toggleDropdown(event, 'cr-drop', this)"><img data-src="career" class="header-icon-img">CAREERS<div id="cr-drop" class="dropdown-menu"><a class="dropdown-item" onclick="openIframe(G_LINKS.page_careers)">&gt; Teaching</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_careers)">&gt; Non Teaching</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_careers)">&gt; Admin</a></div></div>
+<div class="nav-link" onclick="toggleDropdown(event, 'adm-drop', this)"><img data-src="admin" class="header-icon-img">ADMISSION<div id="adm-drop" class="dropdown-menu"><a class="dropdown-item" onclick="openIframe(G_LINKS.page_admission)">&gt; New Admission</a><a class="dropdown-item" onclick="openIframe(G_LINKS.page_admission)">&gt; Existing Student</a></div></div>
+<button class="nav-link" onclick="openIframe(G_LINKS.page_contact)"><img data-src="phone" class="header-icon-img">CONTACT</button>
 <div class="flex-shrink-0 pl-2 relative">
 <button class="bg-birds-blue text-white px-5 py-2.5 rounded-lg text-[10px] font-extrabold uppercase shadow-lg flex items-center" onclick="toggleDropdown(event, 'log-drop', this)">
 <img data-src="lock" class="w-4 h-4 mr-1"> LOGIN
 </button>
 <div id="log-drop" class="dropdown-menu">
-<a class="dropdown-item" data-href="l_l_student">&gt; Student Login</a>
-<a class="dropdown-item" data-href="l_l_nonteaching">&gt; Non Teaching Staff</a>
-<a class="dropdown-item" data-href="l_l_teachers">&gt; Teachers Login</a>
-<a class="dropdown-item" data-href="l_l_admin">&gt; Admin Login</a>
+<a class="dropdown-item" onclick="window.location.href=G_LINKS.page_student">&gt; Student Login</a>
+<a class="dropdown-item" onclick="window.location.href=G_LINKS.page_nonteaching">&gt; Non Teaching Staff</a>
+<a class="dropdown-item" onclick="window.location.href=G_LINKS.page_teachers">&gt; Teachers Login</a>
+<a class="dropdown-item" onclick="window.location.href=G_LINKS.page_admin">&gt; Admin Login</a>
 </div>
 </div>
 </div>
@@ -222,13 +212,25 @@ l_l_admin: "#"
 </nav>
 </header>
 
-<!-- CM014 - Banner Section -->
-<div class="w-full overflow-hidden leading-[0]">
-<img data-src="banner" alt="Header Line" class="banner-image">
+<!-- CM019 - Iframe Section -->
+<div id="iframe-section">
+<div class="iframe-header">
+<span class="text-sm font-bold text-slate-700 uppercase tracking-wider">BIRDS Secure Portal</span>
+<button class="back-btn" onclick="closeIframe()"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home</button>
+</div>
+<iframe id="main-iframe" src=""></iframe>
 </div>
 
-<!-- CM015 - About & Leadership Section -->
-<main class="w-full px-6 py-8 bg-blue-50/20">
+<!-- CM020 - Home Content Wrapper -->
+<div id="home-content">
+
+<!-- CM021 - Main Banner -->
+<div class="w-full overflow-hidden leading-[0]">
+<img data-src="banner" alt="School Block" class="banner-image">
+</div>
+
+<!-- CM022 - About & Leadership Section -->
+<main id="about-section" class="w-full px-6 py-8 bg-blue-50/20">
 <div class="flex flex-col lg:flex-row lg:gap-0 border-b border-blue-100 pb-10 mb-8">
 <div class="lg:w-3/5 lg:pr-12">
 <div class="mb-4 border-l-4 border-blue-600 pl-4">
@@ -242,7 +244,7 @@ l_l_admin: "#"
 </div>
 </div>
 <div class="hidden lg:block w-px bg-blue-100 self-stretch my-6"></div>
-<div class="lg:w-2/5 flex flex-col gap-6 lg:pl-12 py-4">
+<div id="vision-section" class="lg:w-2/5 flex flex-col gap-6 lg:pl-12 py-4">
 <div>
 <div class="flex items-center mb-1.5">
 <div class="w-5 h-5 bg-blue-600 rounded-sm flex items-center justify-center mr-2 text-white flex-shrink-0">
@@ -315,7 +317,7 @@ l_l_admin: "#"
 <p class="text-[8px] text-gray-500 mt-1 leading-tight px-1">Building future leaders through sports, arts, and clubs.</p>
 </div>
 </div>
-<div class="space-y-4">
+<div id="chairman-section" class="space-y-4">
 <section class="leader-card flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-10">
 <div class="shrink-0 flex flex-col items-center text-center w-full lg:w-40">
 <img data-src="paul" alt="Paul" class="profile-img sir-img mb-2">
@@ -348,48 +350,46 @@ l_l_admin: "#"
 </div>
 </main>
 
-<!-- CM016 - Updates & Gallery Section -->
-<div class="w-full bg-indigo-50/30 border-y border-indigo-100">
+<!-- CM023 - Updates & Gallery Section (3:1 Ratio) -->
+<div id="gallery-section" class="w-full bg-indigo-50/30 border-y border-indigo-100">
 <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-10 items-stretch">
-<div id="updatesContainer" class="md:col-span-6 p-3 flex flex-col">
+<div id="updatesContainer" class="md:col-span-4 p-3 flex flex-col">
 <div class="mb-2">
-<h2 class="inline-block bg-indigo-900 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">School News & New Updates</h2>
+<h2 class="inline-block bg-indigo-900 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">School News & Updates</h2>
 </div>
 <ul class="updates-list">
-<li><img data-src="bell" class="bell-icon" alt="icon"> Teachers' Day celebrations were held grandly on September 5th with special events.</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Independence Day was celebrated with great patriotic fervor on August 15th.</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Telugu Day and Sports Day events were successfully conducted on August 29th.</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Recent Formative Assessment examinations were completed very successfully.</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Ganesh Chaturthi and traditional festivals were celebrated joyously by students.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Teachers' Day celebrations were held grandly on September 5th.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Independence Day was celebrated with great patriotic fervor.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Telugu Day and Sports Day events were successfully conducted.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Recent Formative Assessment examinations were completed successfully.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Ganesh Chaturthi and festivals were celebrated joyously by students.</li>
 <li><img data-src="bell" class="bell-icon" alt="icon"> Admissions Open for the Academic Year 2026-27 (Nursery to Class 10).</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Special focus classes and study hours commenced for 10th Class students.</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Monthly activities and Spoken English events are actively running for Primary.</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Parent-Teacher Meeting (PTM) for recent exam results scheduled for this Friday.</li>
-<li><img data-src="bell" class="bell-icon" alt="icon"> Digital Library access is now available for all students via the school portal.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Special focus classes and study hours commenced for 10th Class.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Monthly activities and Spoken English events are actively running.</li>
+<li><img data-src="bell" class="bell-icon" alt="icon"> Digital Library access is now available via the school portal.</li>
 </ul>
 </div>
-<div class="md:col-span-4 p-3 border-l border-indigo-100 flex flex-col overflow-hidden">
+<div class="md:col-span-6 p-3 border-l border-indigo-100 flex flex-col justify-center">
 <div class="mb-2">
 <h2 class="inline-block bg-slate-800 text-white px-3 py-1 rounded shadow-sm text-xs md:text-sm font-black uppercase tracking-wider">Recent Programs Gallery</h2>
 </div>
-<div class="flex-1 relative min-h-[200px]">
-<div id="slideshow" class="slideshow-container bg-slate-100">
-<img data-src="gal1" class="slide active object-cover" alt="Gallery 1">
-<img data-src="gal2" class="slide object-cover" alt="Gallery 2">
-<img data-src="gal3" class="slide object-cover" alt="Gallery 3">
-<img data-src="gal4" class="slide object-cover" alt="Gallery 4">
-<img data-src="gal5" class="slide object-cover" alt="Gallery 5">
+<div class="gallery-wrapper">
+<img data-src="gal1" class="slide active" alt="Gallery 1">
+<img data-src="gal2" class="slide" alt="Gallery 2">
+<img data-src="gal3" class="slide" alt="Gallery 3">
+<img data-src="gal4" class="slide" alt="Gallery 4">
+<img data-src="gal5" class="slide" alt="Gallery 5">
+<img data-src="gal6" class="slide" alt="Gallery 6">
 <button id="prevBtn" class="nav-btn prev-btn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
 <button id="nextBtn" class="nav-btn next-btn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
 </div>
-</div>
-<p class="text-[9px] text-center text-slate-500 font-bold uppercase mt-2 tracking-widest">3s Interval • Manual Controls</p>
+<p class="text-[9px] text-center text-slate-500 font-bold uppercase mt-2 tracking-widest">3s Interval • Automatic Slider</p>
 </div>
 </div>
 </div>
 
-<!-- CM017 - Toppers Section -->
-<div class="w-full px-2 md:px-8 py-8 space-y-6 bg-sky-50/30">
+<!-- CM024 - Toppers Section -->
+<div id="rankers-section" class="w-full px-2 md:px-8 py-8 space-y-6 bg-sky-50/30">
 <section class="bg-blue-50/50 p-3 sm:p-6 rounded-xl border border-blue-200 shadow-sm" id="class10-container">
 <div class="mb-4 sm:mb-6">
 <h2 class="header-divider text-sm sm:text-lg md:text-2xl font-black uppercase tracking-[0.15em] text-blue-900"><span id="year-10">2026</span> YEAR - 10TH CLASS SCHOOL TOPPERS</h2>
@@ -418,7 +418,7 @@ l_l_admin: "#"
 </div>
 </div>
 
-<!-- CM018 - Why We Are Special -->
+<!-- CM025 - Why We Are Special -->
 <section class="w-full bg-emerald-50/30 py-8 px-4 md:px-8 border-y border-emerald-100">
 <div class="w-full">
 <div class="mb-6">
@@ -471,7 +471,7 @@ l_l_admin: "#"
 </div>
 </section>
 
-<!-- CM019 - Academic Journey -->
+<!-- CM026 - Academic Journey -->
 <section class="w-full bg-amber-50/30 py-8 px-4 md:px-8 border-b border-amber-100">
 <div class="w-full">
 <div class="mb-6">
@@ -536,7 +536,7 @@ l_l_admin: "#"
 </div>
 </section>
 
-<!-- CM020 - Special Programs -->
+<!-- CM027 - Special Programs -->
 <section class="w-full bg-purple-50/20 py-8 px-4 md:px-8 border-b border-purple-100">
 <div class="w-full">
 <div class="mb-6">
@@ -575,73 +575,75 @@ l_l_admin: "#"
 </div>
 </section>
 
-<!-- CM021 - Footer Section -->
+</div> <!-- End of home-content -->
+
+<!-- CM028 - Footer Section -->
 <footer class="bg-birds-deep text-white pt-16">
 <div class="w-full px-6 lg:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12 text-left">
 <div>
 <h4 class="footer-headline"><i data-lucide="school"></i>About School</h4>
 <div class="footer-underline"></div>
 <div class="flex flex-col">
-<a class="footer-link"><i data-lucide="chevron-right"></i>About Us</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Vision & Mission</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Chairman Message</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Our History</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Infrastructure</a>
+<button class="footer-link" onclick="scrollToId('about-section')"><i data-lucide="chevron-right"></i>About Us</button>
+<button class="footer-link" onclick="scrollToId('vision-section')"><i data-lucide="chevron-right"></i>Vision & Mission</button>
+<button class="footer-link" onclick="scrollToId('chairman-section')"><i data-lucide="chevron-right"></i>Chairman Message</button>
+<button class="footer-link" onclick="scrollToId('about-section')"><i data-lucide="chevron-right"></i>Our History</button>
+<button class="footer-link" onclick="scrollToId('gallery-section')"><i data-lucide="chevron-right"></i>Infrastructure</button>
 </div>
 </div>
 <div>
 <h4 class="footer-headline"><i data-lucide="book-open"></i>Academic Core</h4>
 <div class="footer-underline"></div>
 <div class="flex flex-col">
-<a class="footer-link"><i data-lucide="chevron-right"></i>Programs</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Coaching Classes</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Online Learning</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Career Guidance</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Library Services</a>
+<button class="footer-link" onclick="scrollToId('gallery-section')"><i data-lucide="chevron-right"></i>Programs</button>
+<button class="footer-link" onclick="showPopup('coaching')"><i data-lucide="chevron-right"></i>Coaching Classes</button>
+<button class="footer-link" onclick="showPopup('online')"><i data-lucide="chevron-right"></i>Online Learning</button>
+<button class="footer-link" onclick="showPopup('career')"><i data-lucide="chevron-right"></i>Career Guidance</button>
+<button class="footer-link" onclick="showPopup('library')"><i data-lucide="chevron-right"></i>Library Services</button>
 </div>
 </div>
 <div>
 <h4 class="footer-headline"><i data-lucide="users"></i>Student Zone</h4>
 <div class="footer-underline"></div>
 <div class="flex flex-col">
-<a class="footer-link"><i data-lucide="chevron-right"></i>Student Portal</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Academic Calendar</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Syllabus & Notes</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Exam Schedule</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Attendance</a>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_student"><i data-lucide="chevron-right"></i>Student Portal</button>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_student"><i data-lucide="chevron-right"></i>Academic Calendar</button>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_student"><i data-lucide="chevron-right"></i>Syllabus & Notes</button>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_student"><i data-lucide="chevron-right"></i>Exam Schedule</button>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_student"><i data-lucide="chevron-right"></i>Attendance</button>
 </div>
 </div>
 <div>
 <h4 class="footer-headline"><i data-lucide="file-text"></i>Admissions</h4>
 <div class="footer-underline"></div>
 <div class="flex flex-col">
-<a class="footer-link"><i data-lucide="chevron-right"></i>Process</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Fee Structure</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Apply Online</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Prospectus</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Eligibility</a>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_admission)"><i data-lucide="chevron-right"></i>Process</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_admission)"><i data-lucide="chevron-right"></i>Fee Structure</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_admission)"><i data-lucide="chevron-right"></i>Apply Online</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_admission)"><i data-lucide="chevron-right"></i>Prospectus</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_admission)"><i data-lucide="chevron-right"></i>Eligibility</button>
 </div>
 </div>
 <div>
 <h4 class="footer-headline"><i data-lucide="briefcase"></i>Staff & Jobs</h4>
 <div class="footer-underline"></div>
 <div class="flex flex-col">
-<a class="footer-link"><i data-lucide="chevron-right"></i>Teaching Staff</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Job Openings</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Faculty Profiles</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>HR Policies</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Benefits</a>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_teachers"><i data-lucide="chevron-right"></i>Teaching Staff</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_careers)"><i data-lucide="chevron-right"></i>Job Openings</button>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_teachers"><i data-lucide="chevron-right"></i>Faculty Profiles</button>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_teachers"><i data-lucide="chevron-right"></i>HR Policies</button>
+<button class="footer-link" onclick="window.location.href=G_LINKS.page_teachers"><i data-lucide="chevron-right"></i>Benefits</button>
 </div>
 </div>
 <div>
 <h4 class="footer-headline"><i data-lucide="headphones"></i>Support</h4>
 <div class="footer-underline"></div>
 <div class="flex flex-col">
-<a class="footer-link"><i data-lucide="chevron-right"></i>Contact Us</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Location Map</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Enquiry Form</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Feedback</a>
-<a class="footer-link"><i data-lucide="chevron-right"></i>Social Links</a>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_contact)"><i data-lucide="chevron-right"></i>Contact Us</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_contact)"><i data-lucide="chevron-right"></i>Location Map</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_contact)"><i data-lucide="chevron-right"></i>Enquiry Form</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_contact)"><i data-lucide="chevron-right"></i>Feedback</button>
+<button class="footer-link" onclick="openIframe(G_LINKS.page_contact)"><i data-lucide="chevron-right"></i>Social Links</button>
 </div>
 </div>
 </div>
@@ -661,26 +663,27 @@ l_l_admin: "#"
 </div>
 </footer>
 
-<!-- CM022 - Core JavaScript Initialization -->
+<!-- CM029 - Core JavaScript Logic -->
 <script>
 lucide.createIcons();
 
-/* CM023 - Fixed Float Dropdown Logic */
+/* CM030 - UI Navigation Logic (Iframe & Scroll & Dropdown) */
 function toggleDropdown(e, menuId, element) { e.stopPropagation(); const allMenus = document.querySelectorAll('.dropdown-menu'); const allLinks = document.querySelectorAll('.nav-link, button'); const targetMenu = document.getElementById(menuId); const isShowing = targetMenu.classList.contains('show'); allMenus.forEach(menu => menu.classList.remove('show')); allLinks.forEach(link => link.classList.remove('active')); if (!isShowing) { if(targetMenu.parentNode !== document.body) { document.body.appendChild(targetMenu); } const rect = element.getBoundingClientRect(); targetMenu.style.top = (rect.bottom + 5) + 'px'; targetMenu.style.left = rect.left + 'px'; targetMenu.classList.add('show'); element.classList.add('active'); } }
-
-/* CM024 - Outside Click Dropdown Close Logic */
 window.onclick = function(event) { document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show')); document.querySelectorAll('.nav-link, button').forEach(link => link.classList.remove('active')); }
+function scrollToId(id) { closeIframe(); const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }
+function openIframe(url) { document.body.classList.add('iframe-active'); document.getElementById('main-iframe').src = url; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function closeIframe() { document.body.classList.remove('iframe-active'); document.getElementById('main-iframe').src = ""; }
 
-/* CM025 - Slideshow Logic */
+/* CM031 - Toast Popup Logic */
+let toastTimeout; function showPopup(type) { const msgEl = document.getElementById('toast-msg'); const popup = document.getElementById('toast-popup'); clearTimeout(toastTimeout); if(type === 'coaching') msgEl.innerText = 'Currently, special private tuition-style classes are being conducted for 10th and 9th class students.'; else if(type === 'online') msgEl.innerText = 'We have created a digital website for the school. Students can login and check data. We will introduce separate courses soon.'; else if(type === 'career') msgEl.innerText = 'We conduct special classes providing complete career guidance for students after 10th class on what to choose next.'; else if(type === 'library') msgEl.innerText = 'Currently, this library service is under maintenance. We will bring this soon.'; popup.classList.add('show'); toastTimeout = setTimeout(() => { popup.classList.remove('show'); }, 3500); }
+
+/* CM032 - Slideshow Logic */
 document.addEventListener('DOMContentLoaded', function() { const slides = document.querySelectorAll('.slide'); const prevBtn = document.getElementById('prevBtn'); const nextBtn = document.getElementById('nextBtn'); let currentSlide = 0; let slideInterval; function showSlide(index) { slides.forEach(s => s.classList.remove('active')); if (index >= slides.length) currentSlide = 0; else if (index < 0) currentSlide = slides.length - 1; else currentSlide = index; slides[currentSlide].classList.add('active'); } function startAutoPlay() { clearInterval(slideInterval); slideInterval = setInterval(() => { showSlide(currentSlide + 1); }, 3000); } if (nextBtn) nextBtn.addEventListener('click', () => { showSlide(currentSlide + 1); startAutoPlay(); }); if (prevBtn) prevBtn.addEventListener('click', () => { showSlide(currentSlide - 1); startAutoPlay(); }); startAutoPlay(); });
 
-/* CM026 - Dynamic Links Injection Logic */
-document.addEventListener('DOMContentLoaded', () => { document.querySelectorAll('[data-src]').forEach(el => el.src = G_LINKS[el.getAttribute('data-src')]); const fav = document.getElementById('favIconLink'); if(fav) fav.href = G_LINKS.logo; document.querySelectorAll('[data-href]').forEach(el => { el.href = G_LINKS[el.getAttribute('data-href')]; }); });
+/* CM033 - Dynamic Links & Data Initialization */
+document.addEventListener('DOMContentLoaded', () => { document.querySelectorAll('[data-src]').forEach(el => el.src = G_LINKS[el.getAttribute('data-src')]); const fav = document.getElementById('favIconLink'); if(fav) fav.href = G_LINKS.logo; const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwausLzms_1KETY175BTlg2nm5jlsuJh4CEl9gVwers_kdyjCpFI_5716ASPm8N8VLR/exec"; fetch(SCRIPT_URL).then(res=>res.json()).then(data=>{ let c10=[],c9=[],c8=[],y10="",y9="",y8=""; data.forEach(s=>{ if(s.cls.includes('10')){ c10.push(s); y10=s.yr; }else if(s.cls.includes('9')){ c9.push(s); y9=s.yr; }else if(s.cls.includes('8')){ c8.push(s); y8=s.yr; } }); if(y10) document.getElementById('year-10').innerText=y10; if(y9) document.getElementById('year-9').innerText=y9; if(y8) document.getElementById('year-8').innerText=y8; const buildCard=(s,isMain)=>`<div class="bg-white p-1 ${isMain?'sm:p-3 border-blue-100':'sm:p-2 border-indigo-100'} rounded-lg rank-card shadow-md flex flex-col justify-between text-center"><div class="img-box w-full mb-1 ${isMain?'sm:mb-3':'sm:mb-2'} rounded-md overflow-hidden p-1 ${isMain?'':'max-w-[70px] mx-auto'}"><img src="${s.pic}" class="w-full h-full object-cover" onerror="this.src=G_LINKS.logo"></div><div><p class="${isMain?'text-[6px] sm:text-[10px] text-blue-600':'text-[5px] sm:text-[9px] text-indigo-600'} font-black uppercase leading-none">Rank #${s.rnk}</p><h4 class="font-bold ${isMain?'text-[7px] sm:text-xs':'text-[6px] sm:text-[10px]'} truncate text-slate-800 mt-0.5 sm:mt-1">${s.nm}</h4><p class="text-[5px] ${isMain?'sm:text-[8px]':'sm:text-[7px]'} text-slate-400 font-mono mb-0.5 leading-none mt-0.5">${s.cls}</p><p class="${isMain?'text-[9px] sm:text-sm md:text-base':'text-[7px] sm:text-xs'} font-black text-slate-900 leading-tight">${s.pct}</p></div></div>`; document.getElementById('class10-grid').innerHTML=c10.sort((a,b)=>parseInt(a.rnk)-parseInt(b.rnk)).map(s=>buildCard(s,true)).join(''); document.getElementById('class9-grid').innerHTML=c9.sort((a,b)=>parseInt(a.rnk)-parseInt(b.rnk)).map(s=>buildCard(s,false)).join(''); document.getElementById('class8-grid').innerHTML=c8.sort((a,b)=>parseInt(a.rnk)-parseInt(b.rnk)).map(s=>buildCard(s,false).replace('border-indigo-100','border-emerald-100').replace('text-indigo-600','text-emerald-600')).join(''); }).catch(e=>console.log("Error loading data",e)); });
 
-/* CM027 - Dynamic Toppers Data Fetch & Render */
-document.addEventListener('DOMContentLoaded', () => { const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwausLzms_1KETY175BTlg2nm5jlsuJh4CEl9gVwers_kdyjCpFI_5716ASPm8N8VLR/exec"; fetch(SCRIPT_URL).then(res=>res.json()).then(data=>{ let c10=[],c9=[],c8=[],y10="",y9="",y8=""; data.forEach(s=>{ if(s.cls.includes('10')){ c10.push(s); y10=s.yr; }else if(s.cls.includes('9')){ c9.push(s); y9=s.yr; }else if(s.cls.includes('8')){ c8.push(s); y8=s.yr; } }); if(y10) document.getElementById('year-10').innerText=y10; if(y9) document.getElementById('year-9').innerText=y9; if(y8) document.getElementById('year-8').innerText=y8; const buildCard=(s,isMain)=>`<div class="bg-white p-1 ${isMain?'sm:p-3 border-blue-100':'sm:p-2 border-indigo-100'} rounded-lg rank-card shadow-md flex flex-col justify-between text-center"><div class="img-box w-full mb-1 ${isMain?'sm:mb-3':'sm:mb-2'} rounded-md overflow-hidden p-1 ${isMain?'':'max-w-[70px] mx-auto'}"><img src="${s.pic}" class="w-full h-full object-cover" onerror="this.src=G_LINKS.logo"></div><div><p class="${isMain?'text-[6px] sm:text-[10px] text-blue-600':'text-[5px] sm:text-[9px] text-indigo-600'} font-black uppercase leading-none">Rank #${s.rnk}</p><h4 class="font-bold ${isMain?'text-[7px] sm:text-xs':'text-[6px] sm:text-[10px]'} truncate text-slate-800 mt-0.5 sm:mt-1">${s.nm}</h4><p class="text-[5px] ${isMain?'sm:text-[8px]':'sm:text-[7px]'} text-slate-400 font-mono mb-0.5 leading-none mt-0.5">${s.cls}</p><p class="${isMain?'text-[9px] sm:text-sm md:text-base':'text-[7px] sm:text-xs'} font-black text-slate-900 leading-tight">${s.pct}</p></div></div>`; document.getElementById('class10-grid').innerHTML=c10.sort((a,b)=>parseInt(a.rnk)-parseInt(b.rnk)).map(s=>buildCard(s,true)).join(''); document.getElementById('class9-grid').innerHTML=c9.sort((a,b)=>parseInt(a.rnk)-parseInt(b.rnk)).map(s=>buildCard(s,false)).join(''); document.getElementById('class8-grid').innerHTML=c8.sort((a,b)=>parseInt(a.rnk)-parseInt(b.rnk)).map(s=>buildCard(s,false).replace('border-indigo-100','border-emerald-100').replace('text-indigo-600','text-emerald-600')).join(''); }).catch(e=>console.log("Error loading data",e)); });
-
-/* CM028 - PWA Install Banner Logic */
+/* CM034 - PWA Banner Logic */
 let deferredPrompt; const installBanner=document.getElementById('pwa-install-banner'); const installBtn=document.getElementById('pwa-install-btn'); const closeBtn=document.getElementById('pwa-close-btn'); window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferredPrompt=e; installBanner.classList.add('show'); }); if(installBtn){ installBtn.addEventListener('click',async()=>{ installBanner.classList.remove('show'); if(deferredPrompt){ deferredPrompt.prompt(); const {outcome}=await deferredPrompt.userChoice; deferredPrompt=null; } }); } if(closeBtn){ closeBtn.addEventListener('click',()=>{ installBanner.classList.remove('show'); }); }
 </script>
 </body>

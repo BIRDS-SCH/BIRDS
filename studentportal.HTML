@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIRDS Student Portal</title>
+<link rel="icon" type="image/png" id="favIconLink">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+<link rel="apple-touch-icon" href="https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- CM001 - Configuration and Link Variables -->
+<script>
+const CONFIG = { logoUrl: "https://birds-sch.github.io/BIRDSIMG/HD_LOGO_CIRCLE_BIRDS.png", fbLink: "#", ytLink: "#", waLink: "#", igLink: "#", apiUrl: "https://script.google.com/macros/s/AKfycbxkQFrx8goYlK-m43go6tFsaXQtoJV39fYFHSwJJego3MzxNIQxmedqnV31GQJ20fyr/exec" };
+</script>
+
+<!-- CM002 - Tailwind Config -->
+<script>
+tailwind.config = { theme: { extend: { fontFamily: { sans: ['Roboto Slab', 'serif'] }, colors: { birds: { blue: '#1d4ed8', dark: '#0f172a', light: '#f8fafc', accent: '#f59e0b' } } } } }
+</script>
+
+<!-- CM003 - Global CSS Body -->
+<style>
+body { font-family: 'Roboto Slab', serif; background-color: #f8fafc; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; font-size: 14px; color: #334155; }
+
+<!-- CM004 - Global CSS Utilities -->
+.glass { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8); }
+.custom-scrollbar::-webkit-scrollbar { height: 4px; width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+.hd-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025); }
+.table-border { border: 1px solid #e2e8f0; }
+.table-cell-border { border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
+.circular-progress { position: relative; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: conic-gradient(#1d4ed8 0%, #e2e8f0 0deg); }
+.circular-progress::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background-color: white; }
+.circular-value { position: relative; font-weight: 800; font-size: 0.8rem; color: #1d4ed8; }
+#app-container { display: flex; flex-direction: column; flex-grow: 1; width: 100%; }
+.loader-spinner { border: 2px solid #f3f3f3; border-top: 2px solid #ffffff; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.section-hidden { display: none !important; }
+</style>
+</head>
+<body onload="initApp()">
+
+<!-- CM005 - App Container -->
+<div id="app-container">
+
+<!-- CM006 - Login HTML -->
+<div id="login-page" class="flex-grow items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 w-full min-h-screen flex">
+<div class="glass max-w-[280px] w-full rounded-2xl hd-shadow overflow-hidden p-5">
+<div class="text-center mb-4">
+<img id="login-logo" src="" alt="Logo" class="w-16 h-16 mx-auto rounded-full border-[3px] border-white hd-shadow object-cover mb-3">
+<h2 class="text-lg font-extrabold text-slate-800 tracking-tight">Student Login</h2>
+<p class="text-[10px] text-slate-500 font-medium mt-1">Please login to view your dashboard</p>
+</div>
+<form id="login-form" class="space-y-4" onsubmit="handleLogin(event)">
+<div>
+<label class="block text-[10px] font-extrabold text-slate-700 mb-1 tracking-wide uppercase">Student Username</label>
+<input type="text" id="username" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()" class="block w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-sm" placeholder="ENTER USERNAME">
+</div>
+<div>
+<label class="block text-[10px] font-extrabold text-slate-700 mb-1 tracking-wide uppercase">4-Digit Password</label>
+<input type="password" id="password" required maxlength="4" pattern="\d{4}" class="block w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-sm" placeholder="****">
+</div>
+<div class="flex justify-end">
+<a href="#" onclick="toggleSection('forgot-password-page')" class="text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline transition">Forgot Password?</a>
+</div>
+<div id="login-error" class="hidden text-[10px] font-bold text-red-600 text-center bg-red-50 p-2 rounded-lg border border-red-200 shadow-sm"></div>
+<button type="submit" id="btn-login" class="w-full py-2.5 px-4 rounded-lg hd-shadow text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 transition transform hover:-translate-y-0.5"><span id="login-btn-text">Sign In</span></button>
+</form>
+</div>
+</div>
+
+<!-- CM007 - Forgot Password HTML -->
+<div id="forgot-password-page" class="section-hidden flex-grow items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 w-full min-h-screen">
+<div class="glass max-w-[280px] w-full rounded-2xl hd-shadow p-5">
+<div class="text-center mb-4">
+<img id="forgot-logo" src="" alt="Logo" class="w-14 h-14 mx-auto rounded-full border-[3px] border-white hd-shadow object-cover mb-3">
+<h2 class="text-base font-extrabold text-slate-800 tracking-tight">Reset Password</h2>
+<p class="text-[10px] text-slate-500 font-medium mt-1">Create a new 4-digit PIN</p>
+</div>
+<form id="forgot-form" class="space-y-3" onsubmit="handlePasswordReset(event)">
+<div>
+<label class="block text-[10px] font-extrabold text-slate-700 mb-1 tracking-wide uppercase">Username</label>
+<input type="text" id="reset-username" required oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()" class="block w-full px-3 py-1.5 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" placeholder="USERNAME">
+</div>
+<div>
+<label class="block text-[10px] font-extrabold text-slate-700 mb-1 tracking-wide uppercase">Old 4-Digit Password</label>
+<input type="password" id="reset-old-pass" required maxlength="4" pattern="\d{4}" class="block w-full px-3 py-1.5 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" placeholder="****">
+</div>
+<div>
+<label class="block text-[10px] font-extrabold text-slate-700 mb-1 tracking-wide uppercase">New Password</label>
+<input type="password" id="reset-new-pass" required maxlength="4" pattern="\d{4}" class="block w-full px-3 py-1.5 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" placeholder="****">
+</div>
+<div>
+<label class="block text-[10px] font-extrabold text-slate-700 mb-1 tracking-wide uppercase">Confirm Password</label>
+<input type="password" id="reset-conf-pass" required maxlength="4" pattern="\d{4}" class="block w-full px-3 py-1.5 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" placeholder="****">
+</div>
+<div id="reset-msg" class="hidden text-center text-[10px] font-bold p-2 rounded-lg border shadow-sm"></div>
+<div class="flex flex-col space-y-2 pt-2">
+<button type="submit" id="btn-reset" class="w-full py-2 px-4 rounded-lg text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition shadow-md"><span id="reset-btn-text">Reset Password</span></button>
+<button type="button" onclick="toggleSection('login-page')" class="w-full py-2 px-4 rounded-lg border-2 border-slate-200 text-xs font-bold text-slate-600 bg-white hover:bg-slate-50 transition">Back to Login</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- CM008 - Dashboard Container HTML -->
+<div id="dashboard-page" class="section-hidden flex-grow flex flex-col bg-slate-50 w-full min-h-screen">
+
+<!-- CM009 - Dashboard Nav HTML -->
+<header class="bg-white hd-shadow border-b border-slate-200 sticky top-0 z-50">
+<div class="max-w-6xl mx-auto px-4 py-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center space-x-3">
+<img id="nav-logo" src="" alt="Logo" class="w-10 h-10 rounded-full border-2 border-slate-100 object-cover hd-shadow">
+<div>
+<h1 id="dash-student-name" class="text-sm font-extrabold text-slate-800 leading-tight">...</h1>
+<p class="text-[10px] font-bold text-blue-600 mt-0.5">Class: <span id="dash-student-class">...</span> - Sec <span id="dash-student-sec">...</span></p>
+</div>
+</div>
+<div>
+<button onclick="handleLogout()" class="px-3 py-1.5 rounded-lg text-[10px] font-bold text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 shadow-sm transition flex items-center"><i class="fa-solid fa-power-off mr-1.5"></i> Logout</button>
+</div>
+</div>
+</div>
+</header>
+
+<!-- CM010 - Dashboard Content Area -->
+<main class="max-w-6xl mx-auto px-3 py-4 w-full flex-grow space-y-4">
+
+<!-- CM011 - Dashboard Teacher Info -->
+<div class="bg-white rounded-xl hd-shadow p-3 border border-slate-200 flex items-center space-x-3">
+<div class="bg-blue-50 p-2 rounded-lg text-blue-600 border border-blue-100"><i class="fa-solid fa-chalkboard-user text-sm"></i></div>
+<div>
+<p class="text-[9px] text-slate-500 font-extrabold uppercase tracking-widest m-0 leading-none mb-1">Class Teacher</p>
+<h3 id="dash-teacher-name" class="text-xs font-extrabold text-slate-800 m-0 leading-tight">...</h3>
+</div>
+</div>
+
+<!-- CM012 - Dashboard Progress Circles -->
+<div class="bg-white rounded-xl hd-shadow p-4 border border-slate-200">
+<div class="flex justify-around items-center">
+<div class="flex flex-col items-center">
+<div id="circle-fa1" class="circular-progress shadow-sm"><span id="circle-val-fa1" class="circular-value">0%</span></div>
+<p class="mt-2 font-bold text-[10px] text-slate-600">FA-1 Result</p>
+</div>
+<div class="flex flex-col items-center">
+<div id="circle-fa2" class="circular-progress shadow-sm"><span id="circle-val-fa2" class="circular-value">0%</span></div>
+<p class="mt-2 font-bold text-[10px] text-slate-600">FA-2 Result</p>
+</div>
+<div class="flex flex-col items-center">
+<div id="circle-atd" class="circular-progress shadow-sm" style="background: conic-gradient(#10b981 0%, #e2e8f0 0deg);"><span id="circle-val-atd" class="circular-value !text-emerald-600">0%</span></div>
+<p class="mt-2 font-bold text-[10px] text-slate-600">Attendance</p>
+</div>
+</div>
+</div>
+
+<!-- CM013 - Dashboard Achievements HTML -->
+<div class="space-y-2">
+<div class="flex items-center border-l-4 border-blue-600 pl-2 rounded-sm">
+<h2 class="text-sm font-extrabold text-slate-800 tracking-tight">Student Achievements</h2>
+</div>
+<div id="achievements-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+<div class="bg-white rounded-xl hd-shadow p-4 border border-slate-200 text-center col-span-full">
+<p class="text-xs font-bold text-slate-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Loading achievements...</p>
+</div>
+</div>
+</div>
+
+<!-- CM014 - Dashboard Attendance HTML -->
+<div class="space-y-2 mt-4">
+<div class="flex items-center justify-between border-l-4 border-blue-600 pl-2 rounded-sm">
+<h2 class="text-sm font-extrabold text-slate-800 tracking-tight">Attendance Overview</h2>
+<div class="bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200 flex items-center shadow-sm">
+<span id="atd-badge-percent" class="text-[10px] font-extrabold text-emerald-700"><i class="fa-solid fa-calendar-check mr-1"></i> 0% Present</span>
+</div>
+</div>
+<div class="grid grid-cols-4 lg:grid-cols-7 gap-2">
+<div class="bg-white p-2 rounded-xl hd-shadow border border-slate-200 text-center flex flex-col justify-center">
+<p class="text-[9px] text-slate-500 font-extrabold uppercase mb-1">Total Days</p>
+<p id="atd-total" class="text-base font-extrabold text-slate-800">0</p>
+</div>
+<div class="bg-white p-2 rounded-xl hd-shadow border border-slate-200 text-center flex flex-col justify-center">
+<p class="text-[9px] text-slate-500 font-extrabold uppercase mb-1">Working</p>
+<p id="atd-working" class="text-base font-extrabold text-slate-800">0</p>
+</div>
+<div class="bg-emerald-50 p-2 rounded-xl hd-shadow border border-emerald-100 text-center flex flex-col justify-center">
+<p class="text-[9px] text-emerald-600 font-extrabold uppercase mb-1">Present</p>
+<p id="atd-present" class="text-base font-extrabold text-emerald-600">0</p>
+</div>
+<div class="bg-rose-50 p-2 rounded-xl hd-shadow border border-rose-100 text-center flex flex-col justify-center">
+<p class="text-[9px] text-rose-600 font-extrabold uppercase mb-1">Absent</p>
+<p id="atd-absent" class="text-base font-extrabold text-rose-600">0</p>
+</div>
+<div class="bg-amber-50 p-2 rounded-xl hd-shadow border border-amber-100 text-center flex flex-col justify-center">
+<p class="text-[9px] text-amber-600 font-extrabold uppercase mb-1">Leaves</p>
+<p id="atd-leaves" class="text-base font-extrabold text-amber-600">0</p>
+</div>
+<div class="bg-slate-50 p-2 rounded-xl hd-shadow border border-slate-200 text-center flex flex-col justify-center">
+<p class="text-[9px] text-slate-500 font-extrabold uppercase mb-1">Sundays</p>
+<p id="atd-sundays" class="text-base font-extrabold text-slate-600">0</p>
+</div>
+<div class="bg-blue-50 p-2 rounded-xl hd-shadow border border-blue-100 text-center flex flex-col justify-center">
+<p class="text-[9px] text-blue-600 font-extrabold uppercase mb-1">Holidays</p>
+<p id="atd-holidays" class="text-base font-extrabold text-blue-600">0</p>
+</div>
+</div>
+</div>
+
+<!-- CM015 - Dashboard Marks HTML -->
+<div class="space-y-2 mt-4">
+<div class="flex items-center justify-between border-l-4 border-blue-600 pl-2 rounded-sm">
+<h2 class="text-sm font-extrabold text-slate-800 tracking-tight">Academic Marks</h2>
+</div>
+<div class="bg-white rounded-xl hd-shadow table-border overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-center border-collapse whitespace-nowrap text-[10px] min-w-max">
+<thead>
+<tr class="bg-slate-100 text-slate-700 uppercase text-[9px] tracking-wide">
+<th class="p-2 font-extrabold table-cell-border sticky left-0 bg-slate-100 z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">Exam</th>
+<th class="p-2 font-extrabold table-cell-border">TEL</th>
+<th class="p-2 font-extrabold table-cell-border">HIN</th>
+<th class="p-2 font-extrabold table-cell-border">ENG</th>
+<th class="p-2 font-extrabold table-cell-border">MAT</th>
+<th class="p-2 font-extrabold table-cell-border">SCI</th>
+<th class="p-2 font-extrabold table-cell-border">SOC</th>
+<th class="p-2 font-extrabold table-cell-border">NS</th>
+<th class="p-2 font-extrabold table-cell-border">PS</th>
+<th class="p-2 font-extrabold table-cell-border">OTH1</th>
+<th class="p-2 font-extrabold table-cell-border">OTH2</th>
+<th class="p-2 font-extrabold table-cell-border">OTH3</th>
+<th class="p-2 font-extrabold table-cell-border bg-blue-50 text-blue-700">Total %</th>
+</tr>
+</thead>
+<tbody id="marks-table-body" class="text-slate-800 divide-y divide-slate-100">
+<tr><td colspan="13" class="p-4 text-center text-slate-500 font-bold"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Loading marks data...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- CM016 - Dashboard Take Care Points HTML -->
+<div class="bg-white p-4 rounded-xl hd-shadow border-l-4 border-rose-500 mt-4 mb-2">
+<div class="flex items-center mb-2">
+<i class="fa-solid fa-triangle-exclamation text-rose-500 text-sm mr-2"></i>
+<h3 class="font-extrabold text-[11px] text-rose-700 uppercase tracking-wide">Action Required & Improvements</h3>
+</div>
+<ul id="take-care-list" class="list-disc pl-5 space-y-1 text-[10px] text-slate-700 font-bold">
+<li>Loading recommendations...</li>
+</ul>
+</div>
+</main>
+
+<!-- CM017 - Dashboard Footer HTML -->
+<footer id="dashboard-footer" class="section-hidden bg-slate-900 text-white mt-auto py-5 border-t-4 border-blue-600">
+<div class="max-w-6xl mx-auto px-4 flex flex-col items-center justify-center space-y-4">
+<div class="text-center">
+<h4 class="text-xs font-extrabold mb-3 text-slate-200 uppercase tracking-widest">Follow Us</h4>
+<div class="flex space-x-4">
+<a id="btn-fb" href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-blue-500 hover:bg-blue-600 hover:text-white transition shadow-lg border border-slate-700"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+<a id="btn-ig" href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-pink-500 hover:bg-pink-600 hover:text-white transition shadow-lg border border-slate-700"><i class="fa-brands fa-instagram text-sm"></i></a>
+<a id="btn-yt" href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-red-500 hover:bg-red-600 hover:text-white transition shadow-lg border border-slate-700"><i class="fa-brands fa-youtube text-sm"></i></a>
+<a id="btn-wa" href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 hover:bg-emerald-600 hover:text-white transition shadow-lg border border-slate-700"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+</div>
+</div>
+<div class="border-t border-slate-800 w-full max-w-sm"></div>
+<p class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">&copy; 2026 BIRDS School. All rights reserved.</p>
+</div>
+</footer>
+</div>
+
+<!-- CM018 - JS Initialization & Section Logic -->
+<script>
+let currentUser = null;
+function initApp() { applyLinks(); toggleSection('login-page'); }
+function applyLinks() { document.getElementById('favIconLink').href = CONFIG.logoUrl; document.getElementById('login-logo').src = CONFIG.logoUrl; document.getElementById('forgot-logo').src = CONFIG.logoUrl; document.getElementById('nav-logo').src = CONFIG.logoUrl; document.getElementById('btn-yt').href = CONFIG.ytLink; document.getElementById('btn-wa').href = CONFIG.waLink; document.getElementById('btn-ig').href = CONFIG.igLink; document.getElementById('btn-fb').href = CONFIG.fbLink; }
+function toggleSection(showId) { ['login-page', 'forgot-password-page', 'dashboard-page', 'dashboard-footer'].forEach(id => document.getElementById(id).classList.add('section-hidden')); document.getElementById(showId).classList.remove('section-hidden'); document.getElementById(showId).style.display = 'flex'; if(showId === 'dashboard-page') { document.getElementById('dashboard-footer').classList.remove('section-hidden'); document.getElementById('dashboard-footer').style.display = 'block'; } }
+function formatMark(m, o) { if(m===undefined || m==='' || o===undefined || o==='') return {text: '-', val: 0, out: 0}; return {text: `${m}/${o}`, val: Number(m)||0, out: Number(o)||0}; }
+function calcPercentage(val, out) { return out > 0 ? ((val/out)*100).toFixed(1) : 0; }
+
+<!-- CM019 - JS API Fetch Logic (Robust CORS/Network Handling) -->
+async function callGAS(action, paramsObj) {
+  let url = new URL(CONFIG.apiUrl); url.searchParams.append('action', action);
+  for (let key in paramsObj) { url.searchParams.append(key, paramsObj[key]); }
+  try {
+    let res = await fetch(url.toString(), { method: 'GET', redirect: 'follow' });
+    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+    return await res.json();
+  } catch (e) {
+    console.error('Fetch Error:', e); return { success: false, message: 'Connection failed. Please check your internet or try again later.' };
+  }
+}
+
+<!-- CM020 - JS Auth Logic -->
+async function handleLogin(e) {
+  e.preventDefault(); let u = document.getElementById('username').value; let p = document.getElementById('password').value;
+  let btn = document.getElementById('btn-login'); let err = document.getElementById('login-error');
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Verifying...'; btn.disabled = true; err.classList.add('hidden');
+  let res = await callGAS('login', { username: u, password: p });
+  btn.innerHTML = 'Sign In'; btn.disabled = false;
+  if(res.success) { currentUser = res.studentId; document.getElementById('dash-student-name').innerText = res.name; document.getElementById('dash-student-class').innerText = res.className; document.getElementById('dash-student-sec').innerText = res.section; document.getElementById('dash-teacher-name').innerText = res.teacherName; toggleSection('dashboard-page'); loadDashboard(); } 
+  else { err.innerText = res.message || 'Invalid Credentials'; err.classList.remove('hidden'); }
+}
+
+async function handlePasswordReset(e) {
+  e.preventDefault(); let u = document.getElementById('reset-username').value; let o = document.getElementById('reset-old-pass').value; let n = document.getElementById('reset-new-pass').value; let c = document.getElementById('reset-conf-pass').value;
+  let msg = document.getElementById('reset-msg'); let btn = document.getElementById('btn-reset');
+  if(n !== c) { msg.innerText = "New passwords don't match!"; msg.className = "text-center text-[10px] font-bold p-2 rounded-lg border text-rose-600 bg-rose-50 border-rose-200 shadow-sm"; msg.classList.remove('hidden'); return; }
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Processing...'; btn.disabled = true; msg.classList.add('hidden');
+  let res = await callGAS('reset', { username: u, oldPass: o, newPass: n });
+  btn.innerHTML = 'Reset Password'; btn.disabled = false;
+  msg.innerText = res.message; msg.className = res.success ? "text-center text-[10px] font-bold p-2 rounded-lg border text-emerald-600 bg-emerald-50 border-emerald-200 shadow-sm" : "text-center text-[10px] font-bold p-2 rounded-lg border text-rose-600 bg-rose-50 border-rose-200 shadow-sm"; msg.classList.remove('hidden');
+  if(res.success) { setTimeout(()=>toggleSection('login-page'), 2000); }
+}
+
+function handleLogout() { currentUser = null; toggleSection('login-page'); document.getElementById('username').value=''; document.getElementById('password').value=''; }
+
+<!-- CM021 - JS Dashboard Data Rendering -->
+async function loadDashboard() {
+  let res = await callGAS('dashboard', { studentId: currentUser });
+  if(!res.success) { document.getElementById('achievements-container').innerHTML = `<div class="bg-rose-50 p-3 rounded-xl border border-rose-200 text-center col-span-full"><p class="text-[10px] font-bold text-rose-600">${res.message}</p></div>`; return; }
+  
+  let atd = res.attendance || {}; let atdPer = atd.percentage || 0;
+  document.getElementById('atd-total').innerText = atd.totalDays || 0; document.getElementById('atd-working').innerText = atd.workingDays || 0; document.getElementById('atd-present').innerText = atd.present || 0; document.getElementById('atd-absent').innerText = atd.absent || 0; document.getElementById('atd-leaves').innerText = atd.leaves || 0; document.getElementById('atd-sundays').innerText = atd.sunday || 0; document.getElementById('atd-holidays').innerText = atd.holiday || 0;
+  document.getElementById('atd-badge-percent').innerHTML = `<i class="fa-solid fa-calendar-check mr-1"></i> ${atdPer}% Present`;
+  document.getElementById('circle-atd').style.background = `conic-gradient(#10b981 ${atdPer}%, #e2e8f0 0deg)`; document.getElementById('circle-val-atd').innerText = `${atdPer}%`;
+  
+  let m = res.marks || {}; let mHtml = ''; let carePoints = [];
+  
+  if(atdPer < 100) carePoints.push(`<li><span class="text-blue-600">Attendance:</span> Current presence is ${atdPer}%. Must attend school daily to reach 100%.</li>`);
+  
+  let renderRow = (name, examData) => {
+    if(!examData || !examData.tel) return `<tr class="hover:bg-slate-50 transition"><td class="p-2 font-extrabold table-cell-border sticky left-0 bg-white shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] z-10">${name}</td><td colspan="12" class="p-2 table-cell-border font-bold text-slate-400">-</td></tr>`;
+    let subKeys = ['tel', 'hin', 'eng', 'mat', 'sci1', 'soc', 'sci2', 'oth1', 'oth2', 'oth3'];
+    let rowHtml = `<tr class="hover:bg-slate-50 transition"><td class="p-2 font-extrabold table-cell-border sticky left-0 bg-white shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] z-10 text-blue-700">${name}</td>`;
+    let curTotV = 0, curTotO = 0;
+    subKeys.forEach(k => {
+      let fm = formatMark(examData[k]?.mark, examData[k]?.outOf); curTotV += fm.val; curTotO += fm.out;
+      let cl = ''; let p = calcPercentage(fm.val, fm.out);
+      if(p > 0 && p < 60) { cl = 'text-rose-600 bg-rose-50'; carePoints.push(`<li><span class="text-blue-600">${k.toUpperCase()} (${name}):</span> Scored low (${fm.text}). Needs daily practice and revision.</li>`); }
+      else if(p >= 90) { cl = 'text-emerald-600 bg-emerald-50'; }
+      rowHtml += `<td class="p-2 table-cell-border font-extrabold ${cl}">${fm.text}</td>`;
+    });
+    let totPer = calcPercentage(curTotV, curTotO);
+    rowHtml += `<td class="p-2 table-cell-border font-extrabold bg-blue-50 text-blue-700">${totPer}%</td></tr>`;
+    return { html: rowHtml, per: totPer };
+  };
+  
+  let r1 = renderRow('FA-1', m.fa1); mHtml += r1.html; document.getElementById('circle-fa1').style.background = `conic-gradient(#1d4ed8 ${r1.per}%, #e2e8f0 0deg)`; document.getElementById('circle-val-fa1').innerText = `${r1.per||0}%`;
+  let r2 = renderRow('FA-2', m.fa2); mHtml += r2.html; document.getElementById('circle-fa2').style.background = `conic-gradient(#1d4ed8 ${r2.per}%, #e2e8f0 0deg)`; document.getElementById('circle-val-fa2').innerText = `${r2.per||0}%`;
+  mHtml += renderRow('SA-1', null).html + renderRow('FA-3', null).html + renderRow('FA-4', null).html + renderRow('SA-2', null).html;
+  document.getElementById('marks-table-body').innerHTML = mHtml;
+  
+  if(carePoints.length === 0) carePoints.push(`<li><span class="text-emerald-600">Excellent Work:</span> No immediate action required. Keep it up!</li>`);
+  document.getElementById('take-care-list').innerHTML = carePoints.join('');
+  
+  let achHtml = '';
+  if(atdPer == 100) { achHtml += `<div class="bg-white rounded-xl hd-shadow p-4 border border-emerald-100 relative overflow-hidden"><div class="absolute top-0 right-0 bg-emerald-500 text-white text-[9px] font-extrabold px-2 py-1 rounded-bl-lg shadow-sm">Earned</div><div class="flex items-center space-x-3 mb-2"><div class="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-100"><i class="fa-solid fa-calendar-check text-xs"></i></div><div><h3 class="font-extrabold text-slate-800 text-xs leading-tight">Perfect Month</h3></div></div><span class="inline-flex items-center px-2 py-1 rounded-md text-[9px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fa-solid fa-medal mr-1"></i> 100% Attendance</span></div>`; }
+  if(Number(r2.per) >= 90) { achHtml += `<div class="bg-white rounded-xl hd-shadow p-4 border border-amber-100 relative overflow-hidden"><div class="absolute top-0 right-0 bg-amber-500 text-white text-[9px] font-extrabold px-2 py-1 rounded-bl-lg shadow-sm">Earned</div><div class="flex items-center space-x-3 mb-2"><div class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 border border-amber-100"><i class="fa-solid fa-star text-xs"></i></div><div><h3 class="font-extrabold text-slate-800 text-xs leading-tight">Top Performer</h3></div></div><span class="inline-flex items-center px-2 py-1 rounded-md text-[9px] font-extrabold bg-amber-50 text-amber-700 border border-amber-200"><i class="fa-solid fa-award mr-1"></i> 90%+ in FA-2</span></div>`; }
+  
+  let achList = res.achievements || [];
+  achList.forEach(a => {
+    achHtml += `<div class="bg-white rounded-xl hd-shadow p-4 border border-slate-200 hover:border-blue-300 transition"><div class="flex items-center space-x-3 mb-2"><div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 border border-blue-100"><i class="fa-solid fa-trophy text-xs"></i></div><div><h3 class="font-extrabold text-slate-800 text-xs leading-tight">${a.tagline}</h3><p class="text-[9px] font-extrabold text-slate-500 uppercase tracking-wider mt-0.5">${a.date}</p></div></div><p class="text-[10px] text-slate-600 font-bold leading-snug">${a.description}</p></div>`;
+  });
+  if(achHtml === '') achHtml = `<div class="bg-slate-50 rounded-xl hd-shadow p-5 border border-slate-200 text-center col-span-full"><p class="text-[11px] font-extrabold text-slate-500 tracking-wide">No achievements found yet. All the best, keep it up!</p></div>`;
+  document.getElementById('achievements-container').innerHTML = achHtml;
+}
+</script>
+</body>
+</html>

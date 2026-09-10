@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects - Birds High School</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* CM074 - Body Styles */
+body { font-family: 'Roboto Slab', serif; background-color: #f3f4f6; background-image: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+/* CM075 - Icons and Hover Effects */
+.icon-box { transition: all 0.3s ease; }
+.icon-box:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+/* CM076 - Header Section CSS Comment */
+/* Tailwind classes applied directly in HTML */
+
+/* CM077 - Status Section CSS Comment */
+/* Tailwind classes applied directly in HTML */
+
+/* CM078 - Bottom Social Info CSS Comment */
+/* Tailwind classes applied directly in HTML */
+</style>
+</head>
+<body class="min-h-screen py-4 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col justify-between">
+
+<!-- CM079 - Header Section -->
+<div class="text-center sm:text-left mb-6 pb-3 border-b border-gray-200 mt-2">
+<h2 class="text-xl font-bold text-gray-900 uppercase tracking-wide">Our Projects</h2>
+<p class="text-gray-700 mt-0.5 text-sm font-medium">Discover what our students are building</p>
+</div>
+
+<!-- CM080 - Projects Status Card Middle Section -->
+<div class="flex-grow flex items-center justify-center mb-8 mt-4">
+<div class="bg-white p-8 md:p-12 rounded-xl shadow-sm border border-gray-200 text-center max-w-lg w-full">
+<div class="bg-indigo-50 text-indigo-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 text-4xl shadow-sm border border-indigo-100"><i class="fas fa-project-diagram"></i></div>
+<h3 class="text-2xl font-bold text-gray-900 mb-2">Updates Coming Soon!</h3>
+<p class="text-gray-600 text-sm font-medium leading-relaxed">We will be updating all our school projects here. Thanks for visiting! Please be patient and check back later as we update everything.</p>
+</div>
+</div>
+
+<!-- CM081 - Bottom Social Links -->
+<div class="flex justify-center mb-2 mt-auto">
+<div class="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-sm border border-gray-100 icon-box w-full max-w-xs">
+<h3 class="text-sm font-bold text-gray-900 mb-3">Follow Us</h3>
+<div class="flex space-x-3">
+<a id="linkFacebook" href="#" class="h-10 w-10 bg-blue-600 text-white rounded-full flex items-center justify-center text-base hover:bg-blue-700 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-facebook-f"></i></a>
+<a id="linkInstagram" href="#" class="h-10 w-10 bg-pink-600 text-white rounded-full flex items-center justify-center text-base hover:bg-pink-700 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
+<a id="linkTwitter" href="#" class="h-10 w-10 bg-blue-400 text-white rounded-full flex items-center justify-center text-base hover:bg-blue-500 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-twitter"></i></a>
+<a id="linkYoutube" href="#" class="h-10 w-10 bg-red-600 text-white rounded-full flex items-center justify-center text-base hover:bg-red-700 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+</div>
+
+<script>
+/* CM082 - Links and Configuration Constants */
+const CONFIG_FACEBOOK = "#"; const CONFIG_INSTAGRAM = "#"; const CONFIG_TWITTER = "#"; const CONFIG_YOUTUBE = "#";
+
+/* CM083 - Element Assignments and Logic Setups */
+document.getElementById('linkFacebook').href = CONFIG_FACEBOOK; document.getElementById('linkInstagram').href = CONFIG_INSTAGRAM; document.getElementById('linkTwitter').href = CONFIG_TWITTER; document.getElementById('linkYoutube').href = CONFIG_YOUTUBE;
+</script>
+</body>
+</html>

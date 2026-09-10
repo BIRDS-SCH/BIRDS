@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admissions - Birds High School</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* CM049 - Body Styles */
+body { font-family: 'Roboto Slab', serif; background-color: #f3f4f6; background-image: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+/* CM050 - Icons and Hover Effects */
+.icon-box { transition: all 0.3s ease; }
+.icon-box:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+/* CM051 - Buttons HD Style */
+.btn-hd { transition: all 0.3s ease; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); border: 2px solid transparent; }
+.btn-hd:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+
+/* CM052 - Header Section CSS Comment */
+/* Tailwind classes applied directly in HTML */
+
+/* CM053 - Admissions Grid CSS Comment */
+/* Tailwind classes applied directly in HTML */
+
+/* CM054 - Registration Form Left Side CSS Comment */
+/* Tailwind classes applied directly in HTML */
+
+/* CM055 - Facilities Section Right Side CSS Comment */
+/* Tailwind classes applied directly in HTML */
+
+/* CM056 - Bottom Contact Info CSS Comment */
+/* Tailwind classes applied directly in HTML */
+</style>
+</head>
+<body class="min-h-screen py-4 px-4 sm:px-6 max-w-4xl mx-auto">
+
+<!-- CM057 - Header Section with Existing Student Button -->
+<div class="flex flex-col sm:flex-row justify-between items-center mb-4 pb-3 border-b border-gray-200">
+<div class="text-center sm:text-left mb-3 sm:mb-0">
+<h2 class="text-xl font-bold text-gray-900 uppercase tracking-wide">New Admission</h2>
+<p class="text-gray-700 mt-0.5 text-sm font-medium">Register for the upcoming academic year</p>
+</div>
+<a id="linkExistingStudent" href="#" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold py-1.5 px-4 rounded-md transition shadow-sm text-sm flex items-center gap-2 border border-indigo-200"><i class="fas fa-user-graduate"></i> Existing Student</a>
+</div>
+
+<!-- CM058 - Main Content Grid Container (Form Left, Features Right) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+<!-- CM059 - Registration Form Left Side (Updated Fields) -->
+<div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex flex-col justify-center">
+<h2 class="text-lg font-bold text-gray-900 mb-3">Registration Form</h2>
+<form id="admissionForm" class="space-y-3">
+<div><label class="block text-xs font-bold text-gray-800 mb-0.5">Student Name</label><input type="text" id="inputStudentName" required placeholder="Enter student's full name" class="w-full px-2.5 py-1.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-gray-50 focus:bg-white text-xs font-medium text-gray-900"></div>
+<div><label class="block text-xs font-bold text-gray-800 mb-0.5">Parent / Guardian Name</label><input type="text" id="inputParentName" required placeholder="Enter parent's name" class="w-full px-2.5 py-1.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-gray-50 focus:bg-white text-xs font-medium text-gray-900"></div>
+<div class="grid grid-cols-2 gap-3">
+<div><label class="block text-xs font-bold text-gray-800 mb-0.5">Mobile Number 1</label><input type="tel" id="inputMobile1" required placeholder="10-digit mobile" class="w-full px-2.5 py-1.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-gray-50 focus:bg-white text-xs font-medium text-gray-900"></div>
+<div><label class="block text-xs font-bold text-gray-800 mb-0.5">Mobile Number 2</label><input type="tel" id="inputMobile2" required placeholder="10-digit mobile" class="w-full px-2.5 py-1.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-gray-50 focus:bg-white text-xs font-medium text-gray-900"></div>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div><label class="block text-xs font-bold text-gray-800 mb-0.5">Village</label><input type="text" id="inputVillage" required placeholder="Village" class="w-full px-2.5 py-1.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-gray-50 focus:bg-white text-xs font-medium text-gray-900"></div>
+<div><label class="block text-xs font-bold text-gray-800 mb-0.5">Mandal</label><input type="text" id="inputMandal" required placeholder="Mandal" class="w-full px-2.5 py-1.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-gray-50 focus:bg-white text-xs font-medium text-gray-900"></div>
+<div><label class="block text-xs font-bold text-gray-800 mb-0.5">District</label><input type="text" id="inputDistrict" required placeholder="District" class="w-full px-2.5 py-1.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-gray-50 focus:bg-white text-xs font-medium text-gray-900"></div>
+</div>
+<button type="submit" id="btnSubmit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3 rounded-md transition shadow-sm flex justify-center items-center gap-1.5 text-sm mt-1"><i class="fas fa-file-signature"></i> Submit Registration</button>
+</form>
+</div>
+
+<!-- CM060 - School Features Right Side -->
+<div class="bg-indigo-50 p-5 rounded-lg shadow-sm border border-indigo-100 flex flex-col justify-center">
+<h2 class="text-lg font-bold text-indigo-900 mb-4"><i class="fas fa-star text-yellow-500 mr-2"></i>Why Choose Birds School?</h2>
+<div class="space-y-4">
+<div class="flex items-start"><div class="flex-shrink-0 bg-white text-indigo-600 p-2 rounded-full h-9 w-9 flex items-center justify-center shadow-sm text-sm"><i class="fas fa-bus"></i></div><div class="ml-3"><h4 class="text-sm font-bold text-gray-900">Safe Transportation</h4><p class="text-xs text-gray-600 mt-0.5">School buses available covering all surrounding villages and major routes.</p></div></div>
+<div class="flex items-start"><div class="flex-shrink-0 bg-white text-indigo-600 p-2 rounded-full h-9 w-9 flex items-center justify-center shadow-sm text-sm"><i class="fas fa-bed"></i></div><div class="ml-3"><h4 class="text-sm font-bold text-gray-900">Secure Hostels</h4><p class="text-xs text-gray-600 mt-0.5">Excellent residential facilities with proper care, food, and safety.</p></div></div>
+<div class="flex items-start"><div class="flex-shrink-0 bg-white text-indigo-600 p-2 rounded-full h-9 w-9 flex items-center justify-center shadow-sm text-sm"><i class="fas fa-chalkboard-teacher"></i></div><div class="ml-3"><h4 class="text-sm font-bold text-gray-900">Expert Faculty</h4><p class="text-xs text-gray-600 mt-0.5">Highly qualified teachers focused on all-round student development.</p></div></div>
+<div class="flex items-start"><div class="flex-shrink-0 bg-white text-indigo-600 p-2 rounded-full h-9 w-9 flex items-center justify-center shadow-sm text-sm"><i class="fas fa-shield-alt"></i></div><div class="ml-3"><h4 class="text-sm font-bold text-gray-900">Campus Security</h4><p class="text-xs text-gray-600 mt-0.5">Strict monitoring and secure learning environment for everyone.</p></div></div>
+</div>
+</div>
+
+</div>
+
+<!-- CM061 - Bottom Contact Info & Social Links -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-2">
+<div class="flex flex-col items-center text-center bg-white p-4 rounded-lg shadow-sm border border-gray-100 icon-box">
+<div class="bg-blue-100 text-blue-700 p-2 rounded-full h-10 w-10 flex items-center justify-center text-base mb-2"><i class="fas fa-phone-alt"></i></div>
+<h3 class="text-sm font-bold text-gray-900">Admission Enquiry</h3>
+<p class="text-gray-700 font-medium text-xs mt-1">09182135594</p>
+</div>
+<div class="flex flex-col items-center text-center bg-white p-4 rounded-lg shadow-sm border border-gray-100 icon-box">
+<div class="bg-red-100 text-red-600 p-2 rounded-full h-10 w-10 flex items-center justify-center text-base mb-2"><i class="fas fa-envelope"></i></div>
+<h3 class="text-sm font-bold text-gray-900">Email Address</h3>
+<p class="text-gray-700 font-medium text-xs mt-1 break-all">contact.birdsschool@gmail.com</p>
+</div>
+<div class="flex flex-col items-center text-center bg-white p-4 rounded-lg shadow-sm border border-gray-100 icon-box">
+<div class="bg-green-100 text-green-700 p-2 rounded-full h-10 w-10 flex items-center justify-center text-base mb-2"><i class="fas fa-home"></i></div>
+<h3 class="text-sm font-bold text-gray-900">School Campus</h3>
+<p class="text-gray-700 font-medium text-xs mt-1 leading-tight">BIRDS SCHOOL, 3H4W+P8J,<br>Mutyala Padu, AP 518553</p>
+</div>
+<div class="flex flex-col items-center text-center bg-white p-4 rounded-lg shadow-sm border border-gray-100 icon-box">
+<h3 class="text-sm font-bold text-gray-900 mb-2 mt-1">Follow Us</h3>
+<div class="flex space-x-2">
+<a id="linkFacebook" href="#" class="h-8 w-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm hover:bg-blue-700 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-facebook-f"></i></a>
+<a id="linkInstagram" href="#" class="h-8 w-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-sm hover:bg-pink-700 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
+<a id="linkTwitter" href="#" class="h-8 w-8 bg-blue-400 text-white rounded-full flex items-center justify-center text-sm hover:bg-blue-500 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-twitter"></i></a>
+<a id="linkYoutube" href="#" class="h-8 w-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm hover:bg-red-700 transition shadow-sm transform hover:-translate-y-1"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+</div>
+
+<script>
+/* CM062 - Links and Configuration Constants */
+const CONFIG_FACEBOOK = "#"; const CONFIG_INSTAGRAM = "#"; const CONFIG_TWITTER = "#"; const CONFIG_YOUTUBE = "#"; const CONFIG_EXISTING_STUDENT = "#"; const CONFIG_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPYJI8oSavhHXXXP2k5nXAI4k2SDByv9yrEUqEyQEk0zLalfnIcQRzzblx2aaOzUMY/exec";
+
+/* CM063 - Element Assignments and Logic Setups */
+document.getElementById('linkFacebook').href = CONFIG_FACEBOOK; document.getElementById('linkInstagram').href = CONFIG_INSTAGRAM; document.getElementById('linkTwitter').href = CONFIG_TWITTER; document.getElementById('linkYoutube').href = CONFIG_YOUTUBE; document.getElementById('linkExistingStudent').href = CONFIG_EXISTING_STUDENT;
+
+const formatTitleCase = (str) => str.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+
+document.getElementById('inputStudentName').addEventListener('input', function(e) { e.target.value = formatTitleCase(e.target.value); }); document.getElementById('inputParentName').addEventListener('input', function(e) { e.target.value = formatTitleCase(e.target.value); }); document.getElementById('inputVillage').addEventListener('input', function(e) { e.target.value = formatTitleCase(e.target.value); }); document.getElementById('inputMandal').addEventListener('input', function(e) { e.target.value = formatTitleCase(e.target.value); }); document.getElementById('inputDistrict').addEventListener('input', function(e) { e.target.value = formatTitleCase(e.target.value); });
+document.getElementById('inputMobile1').addEventListener('input', function(e) { e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10); }); document.getElementById('inputMobile2').addEventListener('input', function(e) { e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10); });
+
+document.getElementById('admissionForm').addEventListener('submit', function(e) { e.preventDefault(); const btn = document.getElementById('btnSubmit'); const ogText = btn.innerHTML; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...'; btn.disabled = true; fetch(CONFIG_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ studentName: document.getElementById('inputStudentName').value, parentName: document.getElementById('inputParentName').value, mobileNumber1: document.getElementById('inputMobile1').value, mobileNumber2: document.getElementById('inputMobile2').value, village: document.getElementById('inputVillage').value, mandal: document.getElementById('inputMandal').value, district: document.getElementById('inputDistrict').value }) }).then(() => { alert('Admission data submitted successfully!'); document.getElementById('admissionForm').reset(); btn.innerHTML = ogText; btn.disabled = false; }).catch(err => { alert('Error: ' + err); btn.innerHTML = ogText; btn.disabled = false; }); });
+</script>
+</body>
+</html>
